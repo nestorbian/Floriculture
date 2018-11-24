@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nestor.Constants;
+import com.nestor.common.LogHttpInfo;
 import com.nestor.entity.Category;
 import com.nestor.entity.Result;
 import com.nestor.service.CategoryService;
@@ -30,6 +31,7 @@ public class CategoryController {
 	 * @return
 	 */
 	@PostMapping(path = "/categories")
+	@LogHttpInfo
 	public Result<Map<String, String>> add(@RequestBody Category category) {
 		Map<String, String> map = new HashMap<>();
 		map.put(Constants.ID, service.add(category));
@@ -42,6 +44,7 @@ public class CategoryController {
 	 * @return
 	 */
 	@PutMapping(path = "/categories")
+	@LogHttpInfo
 	public Result<Boolean> update(@RequestBody Category category) {
 		service.update(category);
 		return new Result<>(true);
@@ -53,6 +56,7 @@ public class CategoryController {
 	 * @return
 	 */
 	@DeleteMapping(path = "/categories")
+	@LogHttpInfo
 	public Result<Boolean> delete(@RequestParam(value = "id") String id) {
 		service.delete(id);
 		return new Result<>(true);
@@ -63,6 +67,7 @@ public class CategoryController {
 	 * @return
 	 */
 	@GetMapping(path = "/categories")
+	@LogHttpInfo
 	public Result<List<Category>> findAll() {
 		return new Result<>(service.findAll());
 	}

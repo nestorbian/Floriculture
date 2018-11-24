@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nestor.Constants;
+import com.nestor.common.LogHttpInfo;
 import com.nestor.entity.Product;
 import com.nestor.entity.Result;
 import com.nestor.service.ProductService;
@@ -31,6 +32,7 @@ public class ProductController {
 	 * @return
 	 */
 	@PostMapping(path = "/products")
+	@LogHttpInfo
 	public Result<Map<String, String>> add(@RequestBody Product product) {
 		Map<String, String> map = new HashMap<>();
 		map.put(Constants.ID, service.add(product));
@@ -43,6 +45,7 @@ public class ProductController {
 	 * @return
 	 */
 	@PutMapping(path = "/products")
+	@LogHttpInfo
 	public Result<Boolean> update(@RequestBody Product product) {
 		service.update(product);
 		return new Result<>(true);
@@ -54,6 +57,7 @@ public class ProductController {
 	 * @return
 	 */
 	@DeleteMapping(path = "/products")
+	@LogHttpInfo
 	public Result<Boolean> delete(@RequestParam(value = "id") String id) {
 		service.deleteById(id);
 		return new Result<>(true);
@@ -64,6 +68,7 @@ public class ProductController {
 	 * @return
 	 */
 	@GetMapping(path = "/products")
+	@LogHttpInfo
 	public Result<List<Product>> findAll() {
 		return new Result<>(service.findAll());
 	}
@@ -74,6 +79,7 @@ public class ProductController {
 	 * @return
 	 */
 	@GetMapping(path = "/products/{categoryId}")
+	@LogHttpInfo
 	public Result<List<Product>> findByCategoryId(@PathVariable String categoryId) {
 		return new Result<>(service.findByCategoryId(categoryId));
 	}
