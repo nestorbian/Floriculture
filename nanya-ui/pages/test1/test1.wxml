@@ -1,0 +1,20 @@
+<include src="../template/t1" />
+<text>test1....</text>
+{{text}}
+<button type="default" bindtap="getProducts">获取商品列表</button>
+<button type="primary" bindtap='changeValue'>{{text}}</button>
+<text>{{dynamic}}</text>
+
+<view wx:for="{{list}}" wx:for-index="i" wx:for-item="Item" wx:key="key">
+  <text>{{key}}- {{i + 1}} - {{Item}}</text>
+</view>
+
+<view wx:if="{{true}}">
+  <text>{{'hello world'}}</text>
+</view>
+<view wx:else>
+  <text>{{'view code'}}</text>
+</view>
+
+<import src="../template/t2" />
+<template is="bottom"></template>

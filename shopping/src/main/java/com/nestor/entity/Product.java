@@ -15,6 +15,9 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.DynamicUpdate;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.nestor.common.LocalDateTimeDeserializer;
+
 import lombok.Data;
 
 @Entity

@@ -29,7 +29,7 @@ public class ProductServiceImpl implements ProductService {
 		if (repository.findById(product.getProductId()).get() == null) {
 			throw new BizException("该商品已被删除");
 		}
-		
+
 		repository.save(product);
 	}
 
