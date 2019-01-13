@@ -5,21 +5,16 @@ package com.nestor.common;
  * @author bianzeyang
  *
  */
-public class BizException extends RuntimeException {
+public class BizException extends BaseException {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = -240448397871159762L;
-	private int code;
+	private static final long serialVersionUID = 4648866296534704666L;
+	private static final int BIZException_CODE = 48; // 业务异常code
 	
 	public BizException(String msg) {
-		super(msg);
-	}
-	
-	public BizException(int code, String msg) {
-		super(msg);
-		this.code = code;
+		super(BIZException_CODE, msg);
 	}
 
 }

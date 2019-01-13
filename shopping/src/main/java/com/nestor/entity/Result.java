@@ -14,9 +14,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Result<T> {
-	private static final int SUCCESS = 0;
-	private static final int BIZEXCEPTION = 48; // 业务异常code
-	private static final int UNKNOWN_EXCEPTION = 49; // 未知异常code
+	public static final int SUCCESS = 0; // 成功code
+	public static final int UNKNOWN_EXCEPTION = 49; // 未知异常code
 	
 	private int status = SUCCESS;
 	private String message;
@@ -27,8 +26,8 @@ public class Result<T> {
 		this.message = e.toString();
 	}
 	
-	public Result(String msg) {
-		this.status = BIZEXCEPTION;
+	public Result(int status, String msg) {
+		this.status = status;
 		this.message = msg;
 	}
 	

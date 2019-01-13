@@ -20,16 +20,16 @@ import lombok.extern.slf4j.Slf4j;
 public class GlobalExceptionHandler {
 	
 	/**
-	 * 处理业务异常
+	 * <p>处理运行时异常</p>
 	 * @param e
 	 * @return
 	 */
-	@ExceptionHandler(value = BizException.class)
+	@ExceptionHandler(value = {BizException.class, ParameterException.class, LoginExpiredException.class})
 	@ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
 	@ResponseBody
-	public Result<?> handleBizExcption(BizException e) {
-		log.error("业务异常： {}", e.toString());
-		return new Result<>(e.getMessage());
+	public Result<?> handleBizExcption(BaseException e) {
+		log.error("运行时异常： {}", e.toString());
+		return new Result<>(e.getCode(), e.getMessage());
 	}
 	
 	/**

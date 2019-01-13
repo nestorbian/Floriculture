@@ -44,10 +44,4 @@ public class ProductServiceImpl implements ProductService {
 		return repository.findAll();
 	}
 
-	@Override
-	public List<Product> findByCategoryId(String categoryId) {
-		CheckUtil.isEmpty(categoryId, "categoryId不能为空");
-		return repository.findByCategoryId(categoryId);
-	}
-
 }

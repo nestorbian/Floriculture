@@ -29,7 +29,7 @@ public class Category {
 	private LocalDateTime createTime;
 	private LocalDateTime updateTime;
 	
-	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinColumn(name="category_id", insertable = false, updatable = false)
-	private List<Product> productList;
+//	@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//	@JoinColumn(name="category_id", insertable = false, updatable = false)
+//	private List<Product> productList;
 }

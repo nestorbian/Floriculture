@@ -13,6 +13,4 @@ public interface ProductService {
 	public void deleteById(String id);
 	
 	public List<Product> findAll();
-	
-	public List<Product> findByCategoryId(String categoryId);
 }

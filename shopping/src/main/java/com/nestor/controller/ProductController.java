@@ -7,12 +7,13 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.nestor.Constants;
 import com.nestor.common.LogHttpInfo;
@@ -33,7 +34,7 @@ public class ProductController {
 	 */
 	@PostMapping(path = "/products")
 	@LogHttpInfo
-	public Result<Map<String, String>> add(@RequestBody Product product) {
+	public Result<Map<String, String>> add(@ModelAttribute Product product, List<MultipartFile> productImages) {
 		Map<String, String> map = new HashMap<>();
 		map.put(Constants.ID, service.add(product));
 		return new Result<>(map);
@@ -71,16 +72,5 @@ public class ProductController {
 	@LogHttpInfo
 	public Result<List<Product>> findAll() {
 		return new Result<>(service.findAll());
-	}
-	
-	/**
-	 * 根据categoryId获取商品列表
-	 * @param categoryId
-	 * @return
-	 */
-	@GetMapping(path = "/products/{categoryId}")
-	@LogHttpInfo
-	public Result<List<Product>> findByCategoryId(@PathVariable String categoryId) {
-		return new Result<>(service.findByCategoryId(categoryId));
 	}
 }

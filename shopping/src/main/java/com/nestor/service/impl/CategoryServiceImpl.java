@@ -24,12 +24,12 @@ public class CategoryServiceImpl implements CategoryService {
 		String categoryId = IdUtil.generateId();
 		category.setCategoryId(categoryId);
 		// 测试级联插入
-		if (category.getProductList() != null && category.getProductList().size() != 0) {
-			category.getProductList().stream().forEach((item) -> {
-				item.setProductId(IdUtil.generateId());
-				item.setCategoryId(categoryId);
-			});
-		}
+//		if (category.getProductList() != null && category.getProductList().size() != 0) {
+//			category.getProductList().stream().forEach((item) -> {
+//				item.setProductId(IdUtil.generateId());
+//				item.setCategoryId(categoryId);
+//			});
+//		}
 		return repository.save(category).getCategoryId();
 	}
 
