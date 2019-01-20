@@ -2,12 +2,10 @@ package com.nestor.service.impl;
 
 import java.time.LocalDateTime;
 
-import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
-import com.nestor.common.BizException;
 import com.nestor.common.ParameterException;
 import com.nestor.entity.Admin;
 import com.nestor.repository.AdminRepository;
@@ -41,11 +39,13 @@ public class AdminServiceImpl implements AdminService {
 		String adminId = IdUtil.generateId();
 		admin.setAdminId(IdUtil.generateId());
 		
-		try {
-			adminRepository.save(admin);
-		} catch (DataIntegrityViolationException e) {
+		Admin match = new Admin();
+		match.setAdminName(admin.getAdminName());
+		if (adminRepository.exists(Example.of(match))) {
 			throw new ParameterException("该用户名已存在");
 		}
+		
+		adminRepository.save(admin);
 		
 		return adminId;
 	}

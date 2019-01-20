@@ -3,7 +3,11 @@ server:
   servlet:
     context-path: /nanyahuayi
     
-spring: 
+spring:  
+  servlet:
+    multipart:
+      max-file-size: 10Mb
+      max-request-size: 100Mb
   datasource: 
     url: jdbc:mysql://129.204.173.36:3306/nanya?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
@@ -19,5 +23,9 @@ spring:
 
 logging: 
   config: classpath:logback-spring.xml
-  
-student.name: nestor
+
+#定义图片基础目录、基础访问路径
+image: 
+  product: 
+    base-directory: D:/nginx/html/dist
+    base-url: http://localhost:8000

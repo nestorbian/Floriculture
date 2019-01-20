@@ -32,7 +32,6 @@ public class AdminController {
 	/**
 	 * <p>管理员登录接口</p>
 	 * @param admin
-	 * @param session
 	 * @return
 	 */
 	@PostMapping(path = "/admins/login")

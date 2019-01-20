@@ -1,6 +1,9 @@
 package com.nestor.common;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,7 +18,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.mysql.fabric.xmlrpc.base.Array;
 import com.nestor.util.JacksonUtil;
 
 import lombok.SneakyThrows;
@@ -30,6 +35,8 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class LogHttpInfoHandler {
+	
+	private final List<String> needFilterClassList = Arrays.asList("MultipartFile[]");
 
     @Pointcut("@annotation(com.nestor.common.LogHttpInfo)")
 	public void httpInfoPoint() {
@@ -50,7 +57,12 @@ public class LogHttpInfoHandler {
 		log.info("前端请求url为：{}", request.getRequestURL());
 		log.info("前端请求方法为：{}", request.getMethod());
 		log.info("前端请求头为：{}", header.substring(0, header.length() - 1));
-	    log.info("前端请求参数为：{}", JacksonUtil.object2JsonStr(jp.getArgs()));
+		// 过滤不能序列化的object
+		List<?> args = Arrays.asList(jp.getArgs());
+		Object[] objects = args.stream().filter((item) -> {
+			return !needFilterClassList.contains(item.getClass().getSimpleName());
+		}).toArray();
+	    log.info("前端请求参数为：{}", JacksonUtil.object2JsonStr(objects));
 	}
 	
 	@Around(value = "httpInfoPoint()")
