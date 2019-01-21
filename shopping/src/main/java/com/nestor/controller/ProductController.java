@@ -93,18 +93,18 @@ public class ProductController {
 		CheckUtil.isEmpty(product.getProductDescription(), "商品描述不能为空");
 		CheckUtil.isNull(product.getProductOriginalPrice(), "商品原价不能为空");
 		CheckUtil.isNull(product.getProductDiscountPrice(), "商品折扣价不能为空");
+		CheckUtil.isNull(product.getProductStock(), "商品库存不能为空");
 		CheckUtil.isEmpty(product.getFlowerMaterial(), "花材描述不能为空");
 		CheckUtil.isEmpty(product.getProductPackage(), "包装描述不能为空");
 		CheckUtil.isEmpty(product.getProductScene(), "场景描述不能为空");
-		CheckUtil.isEmpty(product.getProductDetail(), "图文详情不能为空");
 		
 		CheckUtil.isExceedMaxLength(product.getProductName(), 50, "商品名称最大长度不能超过50");
 		CheckUtil.isExceedMaxLength(product.getProductDescription(), 200, "商品描述最大长度不能超过200");
-		CheckUtil.isGeaterThanZero(product.getProductOriginalPrice(), "商品原价不能小于0");
-		CheckUtil.isGeaterThanZero(product.getProductDiscountPrice(), "商品折扣价不能小于0");
+		CheckUtil.isLessThanZero(product.getProductOriginalPrice(), "商品原价不能小于0");
+		CheckUtil.isLessThanZero(product.getProductDiscountPrice(), "商品折扣价不能小于0");
+		CheckUtil.isLessThanEqualZero(product.getProductStock(), "商品库存不能小于等于0");
 		CheckUtil.isExceedMaxLength(product.getFlowerMaterial(), 100, "花材描述最大长度不能超过100");
 		CheckUtil.isExceedMaxLength(product.getProductPackage(), 100, "包装描述最大长度不能超过100");
 		CheckUtil.isExceedMaxLength(product.getProductScene(), 100, "场景描述最大长度不能超过100");
-		CheckUtil.isExceedMaxLength(product.getProductDetail(), 100, "图文描述最大长度不能超过100");
 	}
 }

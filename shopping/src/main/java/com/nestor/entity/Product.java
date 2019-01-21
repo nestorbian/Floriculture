@@ -28,10 +28,10 @@ public class Product {
 	private String productDescription;
 	private BigDecimal productOriginalPrice; // 原价
 	private BigDecimal productDiscountPrice; // 折扣价
+	private Long productStock; // 库存
 	private String flowerMaterial; // 花材
 	private String productPackage; // 包装
 	private String productScene; // 场景
-	private String productDetail; // 图文详情
 	@CreationTimestamp
 	private LocalDateTime createTime;
 	@UpdateTimestamp

@@ -31,8 +31,14 @@ public class CheckUtil {
 		}
 	}
 	
-	public static void isGeaterThanZero(BigDecimal value, String msg) {
+	public static void isLessThanZero(BigDecimal value, String msg) {
 		if (BigDecimal.ZERO.compareTo(value) > 0) {
+			throw new ParameterException(msg);
+		}
+	}
+	
+	public static void isLessThanEqualZero(long value, String msg) {
+		if (value <= 0) {
 			throw new ParameterException(msg);
 		}
 	}
