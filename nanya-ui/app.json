@@ -1,6 +1,6 @@
 {
   "pages": [
-    "pages/test1/test1",
+    "pages/test2/test2",
     "pages/index/index",
     "pages/logs/logs",
     "pages/test1/ny_personal",
@@ -22,7 +22,7 @@
         "iconPath": "images/5c0ce1d1f23da.png",
         "selectedIconPath": "images/5c0ce1d1f2427.png",
         "text": "首页",
-        "pagePath": "pages/test1/test1"
+        "pagePath": "pages/test2/test2"
       },
       {
         "iconPath": "images/5c0ce1d22d05d.png",

@@ -1,0 +1,95 @@
+<view>
+  <swiper
+    indicator-dots="true"
+    autoplay="true"
+    interval="3000"
+    duration="1000"
+    circular="true"
+    indicator-active-color="#ff8547"
+  >
+    <block wx:for="{{imgUrls}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image"/>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class='navigation'>
+    <view class='right-border'>
+      <image src='../../images/nav_1.png'></image>
+      <text>品牌故事</text>
+    </view>
+    <view class='right-border'>
+      <image src='../../images/nav_1.png'></image>
+      <text>私人订制</text>
+    </view>
+    <view>
+      <image src='../../images/nav_1.png'></image>
+      <text>媒体报道</text>
+    </view>
+  </view>
+  <view class='body'>
+    <view class='item'>
+      <view class='theme'>
+        <view style='text-align: center;'>
+          <text style='color: #bfbfbf;font-weight: 550;'>———</text>
+          <text style='padding: 0 20rpx 0 20rpx;font-size: 40rpx;'>红玫瑰臻选</text>
+          <text style='color: #bfbfbf;font-weight: 550;'>———</text>
+        </view>
+        <view style='text-align: center;'>
+          <text style='color: #a3a3a3;font-size: 34rpx;'>臻选全网 热销红玫瑰 恋人专属</text>
+        </view>
+      </view>
+      <view class='content'>
+
+        <view class='category-view' style='background-image: url({{categoryUrl}});'>
+          <!-- <image src='../../images/demo1.jpg'></image> -->
+          <!-- <view class='category-text-view'>
+            <text>红玫瑰臻选</text>
+            <text>————</text>
+            <text>查看更多</text>
+          </view> -->
+        </view>
+
+        <view class='products-view'>
+
+          <view class='product-view'>
+            <view class='product-image' style='background-image: url({{productUrl}});'></view>
+            <view class='product-text-view'>
+              <text class='product-name'>偏偏爱上你</text>
+              <text class='product-desc'>19枝极品红玫瑰；整场青春陪你</text>
+              <text class='product-price'>￥ 239.00</text>
+            </view>
+          </view>
+
+          <view class='product-view'>
+            <view class='product-image' style='background-image: url({{productUrl}});'></view>
+              <view class='product-text-view'>
+                <text class='product-name'>偏偏爱上你</text>
+                <text class='product-desc'>19枝极品红玫瑰；整场青春陪你</text>
+                <text class='product-price'>￥ 239.00</text>
+              </view>
+          </view>
+
+          <view class='product-view'>
+            <view class='product-image' style='background-image: url({{productUrl}});'></view>
+              <view class='product-text-view'>
+                <text class='product-name'>偏偏爱上你</text>
+                <text class='product-desc'>19枝极品红玫瑰；整场青春陪你</text>
+                <text class='product-price'>￥ 239.00</text>
+              </view>
+          </view>
+
+          <view class='product-view'>
+            <view class='product-image' style='background-image: url({{productUrl}});'></view>
+              <view class='product-text-view'>
+                <text class='product-name'>偏偏爱上你</text>
+                <text class='product-desc'>19枝极品红玫瑰；整场青春陪你</text>
+                <text class='product-price'>￥ 239.00</text>
+              </view>
+          </view>
+        </view>
+
+      </view>
+    </view>
+  </view>
+</view>

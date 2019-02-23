@@ -15,7 +15,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    console.log(JSON.stringify(this.data));
   },
 
   /**
@@ -67,7 +67,6 @@ Page({
     
   }, 
   changeValue: function() {
-    console.log('....')
     this.setData({dynamic: ++this.data.dynamic})
     wx.chooseAddress({
       success(res) {
