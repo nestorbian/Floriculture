@@ -2,7 +2,9 @@
   "pages": [
     "pages/test1/test1",
     "pages/index/index",
-    "pages/logs/logs"
+    "pages/logs/logs",
+    "pages/test1/ny_personal",
+    "pages/test1/ny_index"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -38,8 +40,18 @@
         "iconPath": "images/5c0ce1d289642.png",
         "selectedIconPath": "images/5c0ce1d28968a.png",
         "text": "我的",
-        "pagePath": "pages/logs/logs"
+        "pagePath": "pages/test1/ny_index"
       }
     ]
-  }
+  },
+    "usingComponents": {
+      "van-nav-bar": "/miniprogram_npm/vant-weapp/nav-bar/index",
+      "van-panel": "/miniprogram_npm/vant-weapp/panel/index",
+      "van-cell": "/miniprogram_npm/vant-weapp/cell/index",
+      "van-cell-group": "/miniprogram_npm/vant-weapp/cell-group/index",
+      "van-button": "/miniprogram_npm/vant-weapp/button/index",
+      "van-popup": "/miniprogram_npm/vant-weapp/popup/index",
+      "van-datetime-picker": "/miniprogram_npm/vant-weapp/datetime-picker/index",
+      "van-area": "/miniprogram_npm/vant-weapp/area/index"
+    }
 }

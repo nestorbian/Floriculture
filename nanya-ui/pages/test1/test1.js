@@ -69,8 +69,49 @@ Page({
   changeValue: function() {
     console.log('....')
     this.setData({dynamic: ++this.data.dynamic})
+    wx.chooseAddress({
+      success(res) {
+        console.log(res.userName)
+        console.log(res.postalCode)
+        console.log(res.provinceName)
+        console.log(res.cityName)
+        console.log(res.countyName)
+        console.log(res.detailInfo)
+        console.log(res.nationalCode)
+        console.log(res.telNumber)
+      }
+    })
+    
   },
   getProducts: function() {
     app.getProductList()
+  },
+  //login
+  login_nanya : function(){
+    wx.checkSession({
+      success() {
+        console.log();// session_key 未过期，并且在本生命周期一直有效
+      },
+      fail() {
+        // session_key 已经失效，需要重新执行登录流程
+        // 重新登录
+        wx.login({
+          success(res) {
+            if (res.code) {
+              // 发起网络请求
+              wx.request({
+                url: '129.204.173.36/loginUser',
+                data: {
+                  code: res.code
+                }
+              })
+            } else {
+              console.log('登录失败！' + res.errMsg)
+            }
+          }
+        })
+      }
+    })
   }
+  
 })

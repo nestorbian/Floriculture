@@ -2,7 +2,7 @@
 <text>test1....</text>
 {{text}}
 <button type="default" bindtap="getProducts">获取商品列表</button>
-<button type="primary" bindtap='changeValue'>{{text}}</button>
+<button type="primary" bindtap='login_nanya'>{{text}}</button>
 <text>{{dynamic}}</text>
 
 <view wx:for="{{list}}" wx:for-index="i" wx:for-item="Item" wx:key="key">

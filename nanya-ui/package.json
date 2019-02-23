@@ -1,0 +1,15 @@
+{
+  "name": "test2",
+  "version": "1.0.0",
+  "description": "nanyahuayi",
+  "main": "app.js",
+  "dependencies": {
+    "vant-weapp": "^0.4.9"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "wuyh",
+  "license": "ISC"
+}
