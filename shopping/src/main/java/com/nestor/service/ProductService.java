@@ -2,9 +2,11 @@ package com.nestor.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nestor.entity.Product;
+import com.nestor.entity.ProductView;
 
 public interface ProductService {
 	
@@ -14,5 +16,7 @@ public interface ProductService {
 	
 	public void deleteById(String id);
 	
-	public List<Product> findAll();
+	public Page<Product> findAll(int pageNumber, int pageSize);
+	
+	public Object[] findProductView();
 }

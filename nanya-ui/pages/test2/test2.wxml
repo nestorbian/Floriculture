@@ -52,7 +52,7 @@
 
         <view class='products-view'>
 
-          <view class='product-view'>
+          <view class='product-view' bindtap='viewProductDetail'>
             <view class='product-image' style='background-image: url({{productUrl}});'></view>
             <view class='product-text-view'>
               <text class='product-name'>偏偏爱上你</text>
@@ -61,7 +61,7 @@
             </view>
           </view>
 
-          <view class='product-view'>
+          <view class='product-view' bindtap='viewProductDetail'>
             <view class='product-image' style='background-image: url({{productUrl}});'></view>
               <view class='product-text-view'>
                 <text class='product-name'>偏偏爱上你</text>
@@ -70,7 +70,7 @@
               </view>
           </view>
 
-          <view class='product-view'>
+          <view class='product-view' bindtap='viewProductDetail'>
             <view class='product-image' style='background-image: url({{productUrl}});'></view>
               <view class='product-text-view'>
                 <text class='product-name'>偏偏爱上你</text>
@@ -79,7 +79,7 @@
               </view>
           </view>
 
-          <view class='product-view'>
+          <view class='product-view' bindtap='viewProductDetail'>
             <view class='product-image' style='background-image: url({{productUrl}});'></view>
               <view class='product-text-view'>
                 <text class='product-name'>偏偏爱上你</text>

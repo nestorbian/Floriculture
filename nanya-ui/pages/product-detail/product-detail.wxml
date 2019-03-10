@@ -1,0 +1,122 @@
+<view class='product-images'>
+  <swiper
+    autoplay="true"
+    interval="5000"
+    duration="1000"
+    bindchange="changeSwiperItem"
+  >
+    <block wx:for="{{imgUrls}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image"/>
+      </swiper-item>
+    </block>
+  </swiper>                    
+  <view class='index-number'>{{indexNumber}}/{{imgUrls.length}}</view>
+</view>
+
+<view style='background-color:#ffffff'>
+  <view class='product-name'>
+  偏偏爱上你
+  </view>
+
+  <view class='product-desc'>
+  19枝极品玫瑰；整场青春等你
+  </view>
+
+  <view class='product-price'>
+    <text class='price'>￥299.00</text>  
+    <text class='sparator'>|</text>
+    <text class='sales-volume'>已售5000份</text>                                  
+  </view>
+</view>
+
+<view style='background-color:#ffffff;margin:25rpx 0rpx;'>
+  <view class='flower-material'>
+    <view class='one'>花 材</view>
+    <view class='two'>红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀</view>
+  </view>
+
+  <view class='product-package'>
+    <view class='one'>包 装</view>
+    <view class='two'>红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀</view>
+    <van-icon name="arrow" class='three' bindtap='popupActionSheet'/>
+  </view>
+
+  <view class='product-scene'>
+    <view class='one'>场 景</view>
+    <view class='two'>适合送爱人/女友</view>                               
+  </view>
+</view>
+
+<view class="comments">
+  <view class='header'>
+    <view>用户评价</view>
+    <van-icon name="arrow" class='three'/>
+  </view>
+
+  <view class='content'>
+    <view class='left'>
+      <image src='https://b.yzcdn.cn/vant/icon-demo-1126.png'></image>
+    </view>
+
+    <view class='right'>
+      <view class='userinfo'>
+        <view class='phone-address'>
+          <view class='phone'>189****6000</view>
+          <view class='address'>广东 东莞市 南城区</view>
+        </view>
+
+        <view class='date'>2016-06-19</view>
+      </view>
+
+      <view class='comment-item'>
+        <view class='comment-text'>
+          <text>物流很快。服务态度很好。送货很快，商家很用心。</text>
+        </view>
+
+        <view class='comment-images'>
+          <image src='http://img01.hua.com/uploadpic/images/by_2018121815035427.jpg' wx:for="list" wx:key="key"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
+
+<van-goods-action>
+  <van-goods-action-icon
+    icon="chat-o"
+    text="客服"
+    bind:click="onClickIcon"
+  />
+  <van-goods-action-icon
+    icon="home-o"
+    text="首页"
+    bind:click="onClickIcon"
+  />
+  <van-goods-action-icon 
+    icon="shop-o" 
+    text="店铺" 
+  />
+  <van-goods-action-button
+    text="立即购买"
+    bind:click="onClickButton"
+  />
+</van-goods-action>
+
+<van-action-sheet show="{{ actionSheet.show }}" title="产品参数"  bind:close="onClose">
+  <view class='flower-material'>
+    <view class='one'>花 材</view>
+    <view class='_two'>红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀</view>
+  </view>
+
+  <view class='product-package'>
+    <view class='one'>包 装</view>
+    <view class='_two'>韩国进口银色和透明雾面纸及黑色螺纹丝带</view>
+  </view>
+
+  <view class='product-scene'>
+    <view class='one'>场 景</view>
+    <view class='_two'>适合送爱人/女友</view>                               
+  </view>
+</van-action-sheet>

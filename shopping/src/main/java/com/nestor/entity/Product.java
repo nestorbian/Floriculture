@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
@@ -23,6 +24,7 @@ import lombok.Data;
 public class Product {
 	
 	@Id
+	@Column(name = "product_id")
 	private String productId;
 	private String productName;
 	private String productDescription;
@@ -32,6 +34,7 @@ public class Product {
 	private String flowerMaterial; // 花材
 	private String productPackage; // 包装
 	private String productScene; // 场景
+	private Long saleVolume; // 销量
 	@CreationTimestamp
 	private LocalDateTime createTime;
 	@UpdateTimestamp

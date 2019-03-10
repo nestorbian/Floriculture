@@ -1,0 +1,50 @@
+<!-- <view> -->
+  <view class='comment' wx:for="{{list}}" wx:key="key">
+    <view class='product'>
+      <image class='product-image' src='http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg'>
+
+      </image>
+      <view class='product-name'>
+      偏偏爱上你,一生挚爱
+      </view>
+    </view>
+
+    <view class='content'>
+      <view class='user-item'>
+        <view class='user'>
+          <image src='https://b.yzcdn.cn/vant/icon-demo-1126.png'></image>
+          <text>189****6000</text>
+        </view>
+
+        <view class='time'>
+        7小时前
+        </view>
+      </view>
+
+      <view class='score-item'>
+        <view class='score'>
+          <van-icon name="star" class='star' />
+          <van-icon name="star" class='star' />
+          <van-icon name="star" class='star' />
+          <van-icon name="star" class='star' />
+          <van-icon name="star" class='star' />
+
+          <text>5.0分</text>
+        </view>
+
+        <view class='location'>
+        广东 东莞市 南城区
+        </view>
+      </view>
+
+      <view class='comment-item'>
+        <view class='comment-text'>
+        <text>物流很快。服务态度很好。送货很快，商家很用心。</text>
+        </view>
+        <view class='comment-images'>
+          <image src='http://img01.hua.com/uploadpic/images/by_2018121815035427.jpg' wx:for="list" wx:key="key"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+<!-- </view> -->

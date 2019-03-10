@@ -5,6 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,6 +17,7 @@ import com.nestor.common.BizException;
 import com.nestor.common.DuplicateKeyException;
 import com.nestor.entity.Product;
 import com.nestor.entity.ProductImage;
+import com.nestor.entity.ProductView;
 import com.nestor.repository.ProductRepository;
 import com.nestor.service.ProductImageService;
 import com.nestor.service.ProductService;
@@ -87,8 +91,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> findAll() {
-		return repository.findAll();
+	public Page<Product> findAll(int pageNumber, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNumber, pageSize);
+		return repository.findAll(pageable);
+	}
+
+	@Override
+	public Object[] findProductView() {
+		return repository.findProductView();
 	}
 
 }

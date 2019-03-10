@@ -63,7 +63,7 @@ public class CategoryController {
 	}
 	
 	/**
-	 * 获取所有商品分类
+	 * <p>获取所有商品分类</p>
 	 * @return
 	 */
 	@GetMapping(path = "/categories")

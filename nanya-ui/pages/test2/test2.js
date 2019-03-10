@@ -13,6 +13,12 @@ Page({
     productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg'
   },
 
+  viewProductDetail: function(event) {
+    wx.navigateTo({
+      url: '/pages/product-detail/product-detail',
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */

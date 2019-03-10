@@ -1,5 +1,5 @@
 // pages/mine/mine.js
-import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
+import Dialog from '../../dist/dialog/dialog';
 var app = getApp()
 Page({
   data: {

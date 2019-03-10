@@ -40,8 +40,8 @@ public class AdminController {
 		HttpSession session = request.getSession();
 		
 		// 基础验证
-		CheckUtil.isEmpty(admin.getAdminName(), "用户名不能为空");
-		CheckUtil.isEmpty(admin.getPassword(), "密码不能为空");
+		CheckUtil.notEmpty(admin.getAdminName(), "用户名不能为空");
+		CheckUtil.notEmpty(admin.getPassword(), "密码不能为空");
 		
 		Admin adminInDB = adminService.findByAdminNameAndPassword(admin.getAdminName(), admin.getPassword());
 		if (adminInDB != null) {
@@ -61,8 +61,8 @@ public class AdminController {
 	@LogHttpInfo
 	public Result<?> add(@RequestBody Admin admin) {
 		// 基础验证
-		CheckUtil.isEmpty(admin.getAdminName(), "用户名不能为空");
-		CheckUtil.isEmpty(admin.getPassword(), "密码不能为空");
+		CheckUtil.notEmpty(admin.getAdminName(), "用户名不能为空");
+		CheckUtil.notEmpty(admin.getPassword(), "密码不能为空");
 		
 		Map<String, String> map = new HashMap<>();
 		map.put(Constants.ID, adminService.add(admin));

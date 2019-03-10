@@ -1,4 +1,45 @@
-<!--index.wxml-->
-<view class="container">
-  <view></view>
+<view class='main'>
+  <view class='left-view'>
+    <view wx:for="{{categories}}" class="category {{mainCategoryActive == index ? 'category-active' : ''}}" bindtap='selectCategory' data-index="{{ index }}">
+      {{item.categoryName}}
+    </view>
+  </view>
+
+  <scroll-view class='right-view' scroll-y scroll-with-animation="{{true}}" bindscroll="scroll"
+  scroll-into-view="{{'category' + mainCategoryActiveForSkip}}">
+    <view wx:for="{{categories}}" id="{{'category' + index}}" wx:key="key1">
+      <view class='category-name'>
+      {{item.categoryName}}
+      </view>
+
+      <!-- <view class='product'>
+        <view class='product-image' style='background-image:url(http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg)'>
+        </view>
+
+        <view class='product-content'>
+          <view class='product-name'>
+            浓情蜜意
+          </view>
+
+          <view class='product-description'>
+            99枝戴安娜
+          </view>
+
+          <view class='product-price'>
+            <view class='price'>￥ 899</view>
+            <van-button size="mini" type='buy'>购买</van-button>
+          </view>
+        </view>
+      </view> -->
+      <view wx:for="{{item.products}}" wx:for-item="product" wx:key="key2">
+        <van-card num="2" tag="" price="{{product.price}}" desc="{{product.description}}" title="{{product.productName}}" origin-price="" centered="true"
+          thumb="{{product.productImages[0].productUrl}}">
+          <view slot="footer">
+            <van-button size="mini">查看</van-button>
+            <van-button size="mini">购买</van-button>
+          </view>
+        </van-card>
+      </view>
+    </view>
+  </scroll-view>
 </view>

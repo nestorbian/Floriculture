@@ -45,7 +45,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Override
 	@Transactional
 	public void delete(String id) {
-		CheckUtil.isEmpty(id, "id不能为空");
+		CheckUtil.notEmpty(id, "id不能为空");
 		repository.deleteById(id);
 		// 删除对应的商品 通过级联删除已完成
 	}
