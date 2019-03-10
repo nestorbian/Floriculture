@@ -1,10 +1,12 @@
 {
   "pages": [
+    "pages/mine/mine",
     "pages/test2/test2",
     "pages/index/index",
     "pages/logs/logs",
     "pages/test1/ny_personal",
-    "pages/test1/ny_index"
+    "pages/test1/ny_index",
+    "pages/mine/order"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -40,18 +42,20 @@
         "iconPath": "images/5c0ce1d289642.png",
         "selectedIconPath": "images/5c0ce1d28968a.png",
         "text": "我的",
-        "pagePath": "pages/test1/ny_index"
+        "pagePath": "pages/mine/mine"
       }
     ]
   },
-    "usingComponents": {
-      "van-nav-bar": "/miniprogram_npm/vant-weapp/nav-bar/index",
-      "van-panel": "/miniprogram_npm/vant-weapp/panel/index",
-      "van-cell": "/miniprogram_npm/vant-weapp/cell/index",
-      "van-cell-group": "/miniprogram_npm/vant-weapp/cell-group/index",
-      "van-button": "/miniprogram_npm/vant-weapp/button/index",
-      "van-popup": "/miniprogram_npm/vant-weapp/popup/index",
-      "van-datetime-picker": "/miniprogram_npm/vant-weapp/datetime-picker/index",
-      "van-area": "/miniprogram_npm/vant-weapp/area/index"
-    }
+  "usingComponents": {
+    "van-nav-bar": "/miniprogram_npm/vant-weapp/nav-bar/index",
+    "van-panel": "/miniprogram_npm/vant-weapp/panel/index",
+    "van-cell": "/miniprogram_npm/vant-weapp/cell/index",
+    "van-cell-group": "/miniprogram_npm/vant-weapp/cell-group/index",
+    "van-button": "/miniprogram_npm/vant-weapp/button/index",
+    "van-popup": "/miniprogram_npm/vant-weapp/popup/index",
+    "van-datetime-picker": "/miniprogram_npm/vant-weapp/datetime-picker/index",
+    "van-area": "/miniprogram_npm/vant-weapp/area/index",
+    "van-icon": "/miniprogram_npm/vant-weapp/icon/index",
+    "van-dialog": "/miniprogram_npm/vant-weapp/dialog/index"
+  }
 }
