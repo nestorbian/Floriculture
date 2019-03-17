@@ -1,6 +1,9 @@
+<view style='height: 6%'>
+<include src="../wxSearchView/wxSearchView.wxml" />
+</view>
 <view class='main'>
   <view class='left-view'>
-    <view wx:for="{{categories}}" class="category {{mainCategoryActive == index ? 'category-active' : ''}}" bindtap='selectCategory' data-index="{{ index }}">
+    <view wx:for="{{categories}}" wx:key="item" class="category {{mainCategoryActive == index ? 'category-active' : ''}}" bindtap='selectCategory' data-index="{{ index }}">
       {{item.categoryName}}
     </view>
   </view>

@@ -2,18 +2,28 @@
 <view >
    <view class='avatar-wrapper'>
       <view class="avatar">
-        <block wx:if="{{userinfo.avatarUrl}}" class="flex-wrp-row">
-          <image style="border-radius:50%;" src="{{userinfo.avatarUrl}}"bindtap="toLogin"></image>
+        <block wx:if="{{userInfo.avatarUrl}}" class="flex-wrp-row">
+          <image style="border-radius:50%;" src="{{userInfo.avatarUrl}}" bindtap="toPerson"></image>
         </block>      
         <block wx:else >
           <image  bindtap="toLogin"style="border-radius:50%;" src="/images/5c0ce1d28968a.png"></image>
         </block>
       </view>
       <view class="text">
-        <text wx:if="{{userinfo.nickName}}">{{userinfo.nickName}}</text>
+        <text wx:if="{{userInfo.nickName}}">{{userInfo.nickName}}</text>
         <text wx:else bindtap="toLogin">寻花觅柳无名氏</text>
       </view>
-  </view>    
+    </view>    
+  
+     <!--<view class='avatar-wrapper'>
+      <view class="avatar">
+          <image style="border-radius:50%;" src="{{userinfo.avatarUrl}}" bindtap="toMine"></image>
+      </view>
+      <view class="text">
+        <text wx:if="{{userinfo.nickName}}" bindtap="toMine">{{userinfo.nickName}}</text>
+        <text wx:else bindtap="toLogin" bindtap="toMine">寻花觅柳无名氏</text>
+      </view>
+  </view>     -->
 
   <view class="separate"></view>
 
@@ -36,7 +46,8 @@
   <view >
     <van-cell-group  >
       <van-cell title="我的收藏" icon='star-o' is-link /> 
-      <van-cell title="收货地址" icon='location' is-link /> 
+      <van-cell title="收货地址" icon='location-o' is-link /> 
+      <van-cell title="联系客服" icon='phone-o' is-link bind:click='callPhone' /> 
     </van-cell-group>
   </view>
   <view>

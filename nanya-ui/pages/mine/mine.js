@@ -1,4 +1,5 @@
 // pages/mine/mine.js
+//import 授权弹出框
 import Dialog from '../../dist/dialog/dialog';
 var app = getApp()
 Page({
@@ -36,7 +37,7 @@ Page({
         typeId: 4,
         name: '售后服务',
         url: 'bill',
-        imageurl: 'chat'
+        imageurl: 'chat-o'
       }
     ],
   },
@@ -47,13 +48,14 @@ Page({
     })
   },
   login :function(){
+    var that =this;
       wx.getUserInfo({
         success: res => {
           // 可以将 res 发送给后台解码出 unionId
           app.globalData.userInfo = res.userInfo
-          this.data.userInfo = app.globalData.userInfo;
-          this.setData({
-            "userinfo": app.globalData.userInfo
+          that.data.userInfo = app.globalData.userInfo;
+          that.setData({
+            "userInfo": app.globalData.userInfo
           })
           // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
           // 所以此处加入 callback 以防止这种情况
@@ -61,7 +63,7 @@ Page({
             app.userInfoReadyCallback(res)
           }
         }
-      })    
+      }) 
   },
   //初始化时获取用户信息
   onLoad : function () {
@@ -77,29 +79,44 @@ Page({
   },
   //授权窗口信息
   toLogin:function(){
-    this.setData({
+    var that = this;
+    that.setData({
       show: true
     });    
   },
   //关闭授权窗口
   onClose: function (event) {
+    var that = this;
     if (event.detail === 'confirm') {
       // 异步关闭弹窗
       setTimeout(() => {
-        this.setData({
+        that.setData({
           show: false
         });
       }, 200);
     } else {
-      this.setData({
+      that.setData({
         show: false
       });
     }
   },
   //确认授权之后，官方提供用户信息
-  onConfirmed(e){
+  onConfirmed(e) {
+    var that = this ;
     app.globalData.userInfo = e.detail.userInfo;
-    userInfo = e.detail.userInfo;
+    that.setData({
+      "userInfo" : e.detail.userInfo
+    })
+  },
+  callPhone: function(){
+    app.callPhone()
+  },
+  //跳转到个人中心
+  toPerson:function(){
+    var model = JSON.stringify(this.data.userInfo);
+    wx.navigateTo({
+      url: '../test1/ny_personal?userInfo=' + model
+    })
   }
   
 })

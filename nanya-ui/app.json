@@ -1,15 +1,16 @@
 {
   "pages": [
-    "pages/test2/test2",
     "pages/mine/mine",
+    "pages/test2/test2",
     "pages/product-detail/product-detail",
     "pages/userinfo/userinfo",
     "pages/find/find",
-    "pages/index/index",
     "pages/logs/logs",
     "pages/test1/ny_personal",
     "pages/test1/ny_index",
-    "pages/mine/order"
+    "pages/mine/order",
+    "pages/index/index",
+    "pages/search/search"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -49,22 +50,27 @@
       }
     ]
   },
-    "usingComponents": {
-      "van-nav-bar": "/dist/nav-bar/index",
-      "van-panel": "/dist/panel/index",
-      "van-cell": "/dist/cell/index",
-      "van-cell-group": "/dist/cell-group/index",
-      "van-button": "/dist/button/index",
-      "van-popup": "/dist/popup/index",
-      "van-datetime-picker": "/dist/datetime-picker/index",
-      "van-area": "/dist/area/index",
-      "van-tree-select": "/dist/tree-select/index",
-      "van-card": "/dist/card/index",
-      "van-icon": "/dist/icon/index",
-      "van-goods-action": "/dist/goods-action/index",
-      "van-goods-action-icon": "/dist/goods-action-icon/index",
-      "van-goods-action-button": "/dist/goods-action-button/index",
-      "van-action-sheet": "/dist/action-sheet/index",
-      "van-dialog": "/dist/dialog/index"
-    }
+  "usingComponents": {
+    "van-nav-bar": "/dist/nav-bar/index",
+    "van-panel": "/dist/panel/index",
+    "van-cell": "/dist/cell/index",
+    "van-cell-group": "/dist/cell-group/index",
+    "van-button": "/dist/button/index",
+    "van-popup": "/dist/popup/index",
+    "van-datetime-picker": "/dist/datetime-picker/index",
+    "van-area": "/dist/area/index",
+    "van-tree-select": "/dist/tree-select/index",
+    "van-card": "/dist/card/index",
+    "van-icon": "/dist/icon/index",
+    "van-goods-action": "/dist/goods-action/index",
+    "van-goods-action-icon": "/dist/goods-action-icon/index",
+    "van-goods-action-button": "/dist/goods-action-button/index",
+    "van-action-sheet": "/dist/action-sheet/index",
+    "van-dialog": "/dist/dialog/index",
+    "van-field": "/dist/field/index",
+    "van-search": "/dist/search/index",
+    "van-row": "/dist/row/index",
+    "van-col": "/dist/col/index",
+    "van-tag": "dist/tag/index"
+  }
 }

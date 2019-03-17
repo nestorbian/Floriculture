@@ -1,0 +1,6 @@
+<!--pages/search/search.wxml-->
+<view>
+  <view>
+    <van-search   placeholder="请输入搜索关键词"  disabled bindtap= 'onClick'/>
+  </view>
+</view>

@@ -8,10 +8,15 @@
   <view>
     <van-panel  use-footer-slot>
         <van-cell-group>  
-          <van-cell    title="昵称"    value="{{nickname}}" size='large' ></van-cell>
-          <van-cell    title="性别"    value="{{gender}}"  size='large' ></van-cell>
+          <van-cell    title="头像"     size='large' ><van-icon name="{{avatarUrl}}" size='40px' /></van-cell>
+          <van-cell    title="昵称"    value="{{nickName}}" size='large' ></van-cell>
+          <van-cell    title="性别"   wx:if="{{gender==1}}"  value="男"  size='large' ></van-cell>
+          <van-cell    title="性别"   wx:elif="{{gender==0}}"  value="女"  size='large' ></van-cell>
+          <van-cell    title="性别"   wx:else="{{gender==2}}"  value="保密"  size='large' ></van-cell>
           <van-cell    title="出生日期"    value="{{birthday}}" size='large' is-link bindtap='onClose' ></van-cell>
-          <van-cell    title="手机号"    value="{{telnum}}" size='large' ></van-cell>
+          <van-cell    title="手机号"     size='large' >
+            <input type='tel'></input>
+          </van-cell>
           <van-cell    title="地址"    value="{{location}}"  size='large' is-link bindtap='onLocateClose' ></van-cell>
         </van-cell-group>
       <view slot="footer">

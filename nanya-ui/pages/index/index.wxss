@@ -1,9 +1,10 @@
+@import "../wxSearchView/wxSearchView.wxss";
 page {
   height: 100%;
 }
 
 view.main {
-  height: 100%;
+  height: 94%;
   display: flex;
 }
 
@@ -104,4 +105,15 @@ scroll-view ::-webkit-scrollbar-thumb
 {
 border-radius: 10px;
 background-color: #bebebe;
+}
+.navs {
+  display: flex;
+  width: 100%;
+  flex-wrap:wrap;
+}
+.deleteButton{
+  display: flex;
+  justify-content:center ;
+  width: 100%;
+  flex-wrap:wrap;
 }

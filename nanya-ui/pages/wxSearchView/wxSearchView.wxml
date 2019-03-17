@@ -1,0 +1,37 @@
+ <view style='height:100%;position:relative;'>
+   <view>
+        <van-search   placeholder="请输入搜索关键词"  show-action="{{showCancle}}" bindcancel= 'onCancle' bindfocus= 'onClick' bindchange="wxSearchInput" bindsearch="wxSearchConfirm" />
+  </view>
+
+  <!-- <view class="wxSearch" style="'block';height:{{wxSearchData.view.seachHeight}}px;top:{{wxSearchData.view.barHeight}}px;" > -->
+  <view class="wxSearch" style="'block';top:{{wxSearchData.view.barHeight}}px;" >
+
+    <view class="wxSearchInner">
+      <!-- 搜索提示部分 -->
+      <view class="wxSearchMindKey">
+        <view class="wxSearchMindKeyList">
+          <block wx:for="{{wxSearchData.tipKeys}}">
+            <view class="wxSearchMindKeyItem" bindtap="wxSearchKeyTap" data-key="{{item}}">{{item}}</view>
+          </block>
+        </view>
+      </view>
+
+      <view  wx:if="{{showCancle&&wxSearchData.his[0]}}" class="wxSearchHistory" style="display:{{wxSearchData.value.length>0 ? 'none':'block'}}；">
+        <view class="wxSearchHistoryItem">
+          <van-cell  title="历史记录" border="false"  icon="clock-o"/>
+        </view>
+        <view class="wxSearchKeyList">
+          <view class='navs' wx:for="{{wxSearchData.his}}" wx:key="item"   >
+            <van-tag  type="primary" color= '#CCCCFF'  size='large'bindtap="wxSearchKeyTap"data-key="{{item}}" >{{item}}</van-tag>
+          </view> 
+          <text>\n\n</text>
+        </view>     
+        <view class ="deleteButton">
+          <van-button round  size="normal"bindtap="wxSearchDeleteAll"><van-cell  title="清空历史记录"  icon="close"  /></van-button>
+        </view>
+      </view>      
+    </view>
+  </view>
+  <view>
+  </view>
+</view>

@@ -5,8 +5,10 @@ Page({
    * 页面的初始数据
    */
   data: {
+    userInfo :{}    ,
+    avatarUrl : null,
     "nickname": "WUYH",
-    "telnum": "18221456048",
+    "telnum": null,
     "gender": "男",
     "location": "江苏省常州市",
     "birthday": "20190113",
@@ -3803,14 +3805,19 @@ Page({
       }
     }
 
-  }, 
-  
-
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    //options天生是对象,但是不是字符串类型
+    var ops = JSON.parse(options.userInfo);
+    console.log(ops)
+    this.setData({
+      "nickName": ops.nickName,
+      "gender": ops.gender,
+      avatarUrl: ops.avatarUrl
+    })
   },
 
   /**
@@ -3881,21 +3888,23 @@ Page({
     this.onClose();
   }, 
   onConfirmLocate(e) {
+    var that = this ;
     //选择地址信息
-    this.setData({
-      "location": e.detail.detail.province + e.detail.detail.city + e.detail.detail.county,
-      "province": e.detail.detail.province,
-      "city": e.detail.detail.city,
-      "country": e.detail.detail.county,
+    that.setData({
+      "location": e.detail.values[0].name + e.detail.values[1].name + e.detail.values[2].name,
+      "province": e.detail.values[0].name,
+      "city": e.detail.values[1].name,
+      "country": e.detail.values[2].name,
     })
-    this.onLocateClose();
+    that.onLocateClose();
   },
   onCommit(){
     console.log(this.data)
     wx.request({
       url: 'http://127.0.0.1:80/nanyahuayi/WxLoginController/getUInfo', // 仅为示例，并非真实的接口地址
       data: {
-        "nickname": this.data.nickname,
+        avatarUrl: this.data.avatarUrl,
+        "nickName": this.data.nickName,
         "telnum": this.data.telnum,
         "gender": this.data.gender,
         "location": this.data.location,

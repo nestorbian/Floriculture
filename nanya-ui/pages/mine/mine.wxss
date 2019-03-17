@@ -49,7 +49,8 @@
 }
 .navs {
   display: flex;
-  width: 90%; 
+  justify-content: space-around;
+  width: 100%;
 }
 .nav-item {
   width: 25%;
