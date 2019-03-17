@@ -1,6 +1,7 @@
 package com.nestor.service.impl;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,15 +16,18 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nestor.Constants;
 import com.nestor.common.BizException;
 import com.nestor.common.DuplicateKeyException;
+import com.nestor.entity.CategoryProduct;
 import com.nestor.entity.Product;
 import com.nestor.entity.ProductImage;
 import com.nestor.entity.ProductView;
 import com.nestor.repository.ProductRepository;
+import com.nestor.service.CategoryProductService;
 import com.nestor.service.ProductImageService;
 import com.nestor.service.ProductService;
 import com.nestor.util.IdUtil;
 import com.nestor.util.ImageUtil;
 import com.nestor.util.PathUtil;
+import com.nestor.vo.ExtProductView;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -36,10 +40,13 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	private ProductImageService productImageService;
+	
+	@Autowired
+	private CategoryProductService categoryProductService;
 
 	@Override
 	@Transactional
-	public String add(Product product, List<MultipartFile> productImages) {
+	public String add(Product product) {
 		String productId = IdUtil.generateId();
 		product.setProductId(productId);
 		
@@ -50,17 +57,25 @@ public class ProductServiceImpl implements ProductService {
 			throw new DuplicateKeyException("该商品名称已存在");
 		}
 		
+		product.setSaleVolume(Long.valueOf(Constants.ZERO));
 		String result = repository.save(product).getProductId();
 		
-		List<String> imagePaths = ImageUtil.saveMany(baseProductDirectory, Constants.PRODUCT, productImages);
-		imagePaths.stream().forEach((item) -> {
-			ProductImage productImage = new ProductImage();
-			productImage.setProductImageId(IdUtil.generateId());
-			productImage.setProductId(productId);
-			productImage.setProductImagePath(item);
-			productImage.setProductImageUrl(item);
-			productImageService.add(productImage);
+		// 添加商品图片
+		product.getProductImages().forEach((item) -> {
+			item.setProductImageId(IdUtil.generateId());
+			item.setProductId(result);
+			item.setImageUrl(item.getImagePath());
+			productImageService.saveOne(item);
 		});
+		
+		// 添加商品与分类的关系
+		List<CategoryProduct> categoryProducts = product.getCategories().stream().map((item) -> {
+			CategoryProduct categoryProduct = new CategoryProduct();
+			categoryProduct.setProductId(productId);
+			categoryProduct.setCategoryId(item.getCategoryId());
+			return categoryProduct;
+		}).collect(Collectors.toList());
+		categoryProductService.saveAll(categoryProducts);
 		
 		return result;
 	}
@@ -75,14 +90,14 @@ public class ProductServiceImpl implements ProductService {
 		List<ProductImage> productImages = product.getProductImages();
 		repository.save(product);
 		
-		productImageService.deleteByProductId(product.getProductId());
-		productImages.stream().forEach((item) -> {
-			item.setProductId(product.getProductId());
-			item.setProductImageId(IdUtil.generateId());
-			String productImageUrl = item.getProductImageUrl().substring(PathUtil.build(baseProductDirectory, Constants.PRODUCT).length());
-			item.setProductImageUrl(productImageUrl);
-		});
-		productImageService.saveAll(productImages);
+//		productImageService.deleteByProductId(product.getProductId());
+//		productImages.stream().forEach((item) -> {
+//			item.setProductId(product.getProductId());
+//			item.setProductImageId(IdUtil.generateId());
+//			String productImageUrl = item.getImageUrl().substring(PathUtil.build(baseProductDirectory, Constants.PRODUCT).length());
+//			item.setImageUrl(productImageUrl);
+//		});
+//		productImageService.saveAll(productImages);
 	}
 
 	@Override
@@ -91,9 +106,9 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Page<Product> findAll(int pageNumber, int pageSize) {
-		Pageable pageable = PageRequest.of(pageNumber, pageSize);
-		return repository.findAll(pageable);
+	public Page<ExtProductView> findAll(int pageNumber, int pageSize) {
+		Pageable pageable = PageRequest.of(pageNumber - 1, pageSize);
+		return repository.findByOrderByCreateTimeDesc(pageable);
 	}
 
 	@Override

@@ -2,7 +2,11 @@ package com.nestor.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+
 import com.nestor.entity.Category;
+import com.nestor.vo.CategoryItemView;
+import com.nestor.vo.CategoryView;
 
 public interface CategoryService {
 	
@@ -12,5 +16,7 @@ public interface CategoryService {
 	
 	public void delete(String id);
 	
-	public List<Category> findAll();
+	public List<CategoryItemView> findCategories();
+	
+	public Page<CategoryView> findAll(int pageNumber, int pageSize);
 }

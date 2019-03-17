@@ -1,6 +1,5 @@
 package com.nestor.common;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.List;
@@ -18,9 +17,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.mysql.fabric.xmlrpc.base.Array;
 import com.nestor.util.JacksonUtil;
 
 import lombok.SneakyThrows;
@@ -36,7 +33,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LogHttpInfoHandler {
 	
-	private final List<String> needFilterClassList = Arrays.asList("MultipartFile[]");
+	private final List<String> needFilterClassList = Arrays.asList("MultipartFile[]", "StandardMultipartFile");
 
     @Pointcut("@annotation(com.nestor.common.LogHttpInfo)")
 	public void httpInfoPoint() {

@@ -10,8 +10,10 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -34,18 +36,18 @@ public class Product {
 	private String flowerMaterial; // 花材
 	private String productPackage; // 包装
 	private String productScene; // 场景
+	private String distribution; // 配送
 	private Long saleVolume; // 销量
 	@CreationTimestamp
 	private LocalDateTime createTime;
 	@UpdateTimestamp
 	private LocalDateTime updateTime;
 	
-//	@ManyToOne(cascade={CascadeType.MERGE, CascadeType.REFRESH}, optional = false)
-//	@JoinColumn(name="category_id", insertable = false, updatable = false)
-//	private Category category;
-	
-	@OneToMany(cascade = {CascadeType.PERSIST}, fetch = FetchType.LAZY)
+	@OneToMany(cascade = {}, fetch = FetchType.LAZY)
 	@JoinColumn(name = "product_id", insertable = false, updatable = false)
 	private List<ProductImage> productImages;
+	
+	@ManyToMany(mappedBy = "productList")
+	private List<Category> categories;
 	
 }

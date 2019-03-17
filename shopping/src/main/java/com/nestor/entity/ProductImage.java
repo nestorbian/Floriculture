@@ -21,8 +21,8 @@ public class ProductImage {
 	private String productImageId;
 	@Column(name = "product_id")
 	private String productId;
-	private String productImagePath;
-	private String productImageUrl;
+	private String imagePath;
+	private String imageUrl;
 	@CreationTimestamp
 	private LocalDateTime createTime;
 	@UpdateTimestamp

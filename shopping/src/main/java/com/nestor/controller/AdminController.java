@@ -82,4 +82,16 @@ public class AdminController {
 		
 		return new Result<>(admin);
 	}
+	
+	/**
+	 * <p>退出登录</p>
+	 * @return
+	 */
+	@GetMapping(path = "/admins/logout")
+	@LogHttpInfo
+	public Result<Boolean> logout() {
+		HttpSession session = request.getSession();
+		session.removeAttribute("admin");
+		return new Result<>(true);
+	}
 }

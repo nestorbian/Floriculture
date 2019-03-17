@@ -58,6 +58,11 @@ public class GlobalExceptionHandler {
 	@ResponseBody
 	public Result<?> handleRuntimeException(RuntimeException e) {
 		log.error("未知异常： {}", e.toString());
+		StringBuilder stackInfo = new StringBuilder(e.getCause().getMessage());
+        for (StackTraceElement traceElement : e.getCause().getStackTrace()) {
+        	stackInfo.append("\n\tat ".concat(traceElement.toString()));
+        }
+		log.error("exception stack: {}", stackInfo.toString());
 		return new Result<>(e);
 	}
 }

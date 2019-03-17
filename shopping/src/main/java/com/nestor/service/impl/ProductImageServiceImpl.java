@@ -38,8 +38,8 @@ public class ProductImageServiceImpl implements ProductImageService {
 			StringBuilder stringBuilder = new StringBuilder(baseProductUrl);
 			stringBuilder.append(item);
 			ProductImage productImage = new ProductImage();
-			productImage.setProductImagePath(item);
-			productImage.setProductImageUrl(stringBuilder.toString());
+			productImage.setImagePath(item);
+			productImage.setImageUrl(stringBuilder.toString());
 			return productImage;
 		}).collect(Collectors.toList());
 		
@@ -59,6 +59,11 @@ public class ProductImageServiceImpl implements ProductImageService {
 	@Override
 	public void saveAll(List<ProductImage> productImages) {
 		repository.saveAll(productImages);
+	}
+
+	@Override
+	public void saveOne(ProductImage productImage) {
+		repository.save(productImage);
 	}
 
 }

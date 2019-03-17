@@ -13,4 +13,5 @@ public interface ProductImageService {
 	public List<ProductImage> findByProductId(String productId);
 	public void deleteByProductId(String productId);
 	public void saveAll(List<ProductImage> productImages);
+	public void saveOne(ProductImage productImage);
 }
