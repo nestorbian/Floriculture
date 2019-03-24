@@ -1,20 +1,24 @@
 // pages/test1/ny_personal.js
-Page({
+import Toast from '../../dist/toast/toast';
 
+var app = getApp()
+Page({
   /**
    * 页面的初始数据
    */
   data: {
     userInfo :{}    ,
     avatarUrl : null,
-    "nickname": "WUYH",
-    "telnum": null,
-    "gender": "男",
-    "location": "江苏省常州市",
-    "birthday": "20190113",
-    "province": "上海市",
-    "city": "上海市",
-    "country": "静安区",
+    nickName: "WUYH",
+    telnum: null,
+    gender: "男",
+    location: "江苏省常州市",
+    birthday: "20190113",
+    province: "上海市",
+    city: "上海市",
+    country: "静安区",
+    thirdSession:null,
+    error: null, //用于手机号码校验 ，error为空时 不展示
     "birthPop" : false,   //弹出日期选择器    
     "currentDate": new Date().setFullYear("1985","01","18"),
     "minDate": new Date("1901","1","1").getTime(),
@@ -3810,13 +3814,33 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this;
     //options天生是对象,但是不是字符串类型
     var ops = JSON.parse(options.userInfo);
-    console.log(ops)
-    this.setData({
-      "nickName": ops.nickName,
-      "gender": ops.gender,
-      avatarUrl: ops.avatarUrl
+    //获取3rd_session
+    var thirdSession = wx.getStorageSync('thirdSession');
+    wx.request({
+      url: 'http://127.0.0.1:80/nanyahuayi/WxLoginController/getUInfo', // 仅为示例，并非真实的接口地址
+      data: {
+        thirdSession : wx.getStorageSync('thirdSession')
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        that.setData({
+          avatarUrl: ops.avatarUrl,
+          nickName: ops.nickName,
+          telnum: res.data.telnum,
+          gender: ops.gender,
+          location: res.data.location,
+          birthday: res.data.birthday,
+          province: res.data.province,
+          city: res.data.city,
+          country: res.data.country,
+          thirdSession: res.data.thirdSession
+        })
+      }
     })
   },
 
@@ -3869,7 +3893,9 @@ Page({
 
   },
   onClickLeft() {
-    wx.showToast({ title: '点击返回', icon: 'none' });
+    wx.switchTab({
+      url: '../mine/mine'
+    })
   },
   onClose: function () {
     this.setData({
@@ -3883,43 +3909,60 @@ Page({
   },
   onConfirm(event){
     this.setData({
-      "birthday": new Date(event.detail).toLocaleDateString()
+      birthday: new Date(event.detail).toLocaleDateString()
     })
-    this.onClose();
+    this.onClose();app
   }, 
   onConfirmLocate(e) {
     var that = this ;
     //选择地址信息
     that.setData({
-      "location": e.detail.values[0].name + e.detail.values[1].name + e.detail.values[2].name,
-      "province": e.detail.values[0].name,
-      "city": e.detail.values[1].name,
-      "country": e.detail.values[2].name,
+      location: e.detail.values[0].name + e.detail.values[1].name + e.detail.values[2].name,
+      province: e.detail.values[0].name,
+      city: e.detail.values[1].name,
+      country: e.detail.values[2].name,
     })
     that.onLocateClose();
   },
+  //提交个人信息
   onCommit(){
-    console.log(this.data)
     wx.request({
-      url: 'http://127.0.0.1:80/nanyahuayi/WxLoginController/getUInfo', // 仅为示例，并非真实的接口地址
+      url: 'http://127.0.0.1:80/nanyahuayi/WxLoginController/setUInfo', // 仅为示例，并非真实的接口地址
       data: {
-        avatarUrl: this.data.avatarUrl,
-        "nickName": this.data.nickName,
-        "telnum": this.data.telnum,
-        "gender": this.data.gender,
-        "location": this.data.location,
-        "birthday": this.data.birthday,
-        "province": this.data.province,
-        "city": this.data.city,
-        "country": this.data.country,
-        "thirdSession": wx.getStorageSync("thirdSession")
+        avatarurl: this.data.avatarUrl,
+        nickname: this.data.nickName,
+        telnum: this.data.telnum,
+        gender: this.data.gender,
+        location: this.data.location,
+        birthday: this.data.birthday,
+        province: this.data.province,
+        city: this.data.city,
+        country: this.data.country,
+        thirdSession : wx.getStorageSync("thirdSession")
       },
+      method : 'POST',
       header: {
-        'content-type': 'application/json' // 默认值
+        "Content-Type": "application/x-www-form-urlencoded" // 默认值
       },
       success(res) {
-        console.log(res.data)
+        Toast.success('修改成功！      ( ´´ิ∀´ิ` )');
+      }, fail(res) {
+        Toast.fail('修改失败！    (ಠ .̫.̫ ಠ)');
       }
     })
+  },
+  bindTel:function(event){
+    var myreg = /^1\d{10}$/;
+    if (myreg.test(event.detail)){
+      this.setData({
+        telnum : event.detail,
+        error : null
+      })
+    } else {
+      this.setData({
+        error: "请输入正确的手机号码哦(๑¯ิε ¯ิ๑)"
+      })
+
+    }
   }
 })

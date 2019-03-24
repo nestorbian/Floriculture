@@ -1,0 +1,35 @@
+<!--pages/mine/address.wxml-->
+<view>
+  <van-notice-bar
+    mode="link"
+    text="南亚花艺目前只支持江浙沪配送，其余地区暂未开发。"
+  />
+
+
+<view wx:for="{{address}}" wx:key ="{{index}}" style='position: relative;'>
+  <!-- 列表层 -->
+  <view class='list' style="" bindtouchstart="touchS" bindtouchmove="touchM" bindtouchend="touchE" data-index='{{index}}'>
+    <!-- 收货信息 -->
+    <view class='info' bindtap='select_addr' data-id="{{item.id}}">
+      <view>
+        {{item.username}} 
+        <span class="phone">{{item.telnum}}</span>
+        <!-- <span wx:if="{{item.default == 1}}" class='def'>默认</span> -->
+      </view>
+      <view>
+        {{item.location}} {{item.detail_add}}
+      </view>
+    </view>
+    <!-- 编辑图标 -->
+    <view class='edit' bindtap='edit' data-id='{{item.id}}' >
+      <van-icon name="edit" />
+    </view>
+  </view>
+  <!-- 删除按钮 -->
+  <view class="delete" data-id="{{item.id}}" data-index='{{index}}' bindtap="delItem" >删除</view>
+</view>
+
+
+
+  <van-button type="danger" size ="large" class='footer' bind:click ="onAdd">新增收货地址   </van-button>
+</view>

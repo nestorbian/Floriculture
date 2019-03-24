@@ -1,0 +1,3 @@
+/* pages/mine/edit_address.wxss */
+.button
+{color:#fff;background-color:#f44;border:1px solid #f44;width:100%;height:50px;line-height:48px;}

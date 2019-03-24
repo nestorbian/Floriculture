@@ -1,0 +1,53 @@
+<!--pages/mine/edit_address.wxml-->
+<van-toast id="van-toast" />
+<van-cell-group>
+<form bindsubmit="onAdd" >
+  <van-field
+    value="{{ username }}"
+    label="用户名"
+    placeholder="请输入用户名"
+    error ="{{error_name}}"
+    name ="username"
+    id ="error_name"
+    bindinput="onInput"
+  />
+  <van-field
+    value="{{telnum   }}"
+    label="电话"
+    type="number"
+    placeholder="收货人联系电话"
+    error ="{{error_phone}}"
+    name ="telnum"
+    id ="error_phone"
+    maxlength="11"
+    bindinput="onInput"
+  />
+    <van-field
+    value="{{ location }}"
+    label="地址"
+    placeholder="选择省/市/区地址"
+    error ="{{error_locate}}"
+    bindtap='onLocateClose' 
+    name ="location"
+    id ="error_locate"
+    bindinput="onInput"
+    readonly
+  />
+  <van-field
+    value="{{ detail_add }}"
+    label="详细地址"
+    placeholder="如道路、门牌号、小区、楼栋号等信息"
+    error ="{{error_detail_add}}"
+    name ="detail_add"
+    id ="error_detail_add"
+    bindinput="onInput"
+  />
+<text>\n\n\n\n</text>
+<button form-type="submit"  class="button"  >保存并使用</button>
+</form>
+</van-cell-group>
+<view>
+    <van-popup  show="{{ locatPop }}"  position="bottom"  overlay="{{true}}"  bind:close="onLocateClose" > 
+      <van-area area-list="{{ areaList }}" value="310101" bind:confirm="onConfirmLocate" bind:cancel="onLocateClose" />
+    </van-popup>
+</view>

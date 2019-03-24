@@ -1,5 +1,7 @@
 package com.nestor.controller;
 
+import java.io.Console;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -77,12 +79,29 @@ public class WxLoginController {
         return null;
 	}
 		
-	/*用来更新或者新增用户个人信息
-	 * */
+	/*
+	 * 用来获取用户个人信息	 *
+	 */
 	@GetMapping(path = "/getUInfo")
 	@LogHttpInfo
-	public String getUInfo(WxUser wxUser) {
-		System.out.println(wxUser.toString());
-        return "hello";
+	public WxUser getUInfo(String thirdSession) {
+		ArrayList<WxUser> wxUsers =wxService.findByThirdSession(thirdSession);
+		if(wxUsers ==null || wxUsers.size()==0) {
+			return null;
+		}
+        return wxUsers.get(0);
+	}
+	/*
+	 * 新增或更新用户个人信息	 *
+	 */
+	@PostMapping(path = "/setUInfo")
+	@LogHttpInfo
+	public String setUInfo( WxUser wxUser) {
+		if(wxUser == null) {
+			return null;
+		}
+		
+		wxService.updateBy3rd(wxUser.getAvatarurl(),wxUser.getNickname(),wxUser.getTelnum(),wxUser.getGender(),wxUser.getLocation(),wxUser.getBirthday(),wxUser.getProvince(),wxUser.getCity(),wxUser.getCountry(),wxUser.getThirdSession());
+		return "ok";
 	}
 }

@@ -1,6 +1,8 @@
 // pages/mine/mine.js
 //import 授权弹出框
-import Dialog from '../../dist/dialog/dialog';
+import Dialog from '../../dist/dialog/dialog'; 
+import Toast from '../../dist/toast/toast';
+
 var app = getApp()
 Page({
   data: {
@@ -82,7 +84,7 @@ Page({
     var that = this;
     that.setData({
       show: true
-    });    
+    });
   },
   //关闭授权窗口
   onClose: function (event) {
@@ -107,6 +109,7 @@ Page({
     that.setData({
       "userInfo" : e.detail.userInfo
     })
+    loginNy();
   },
   callPhone: function(){
     app.callPhone()
@@ -114,8 +117,40 @@ Page({
   //跳转到个人中心
   toPerson:function(){
     var model = JSON.stringify(this.data.userInfo);
+    if (wx.getStorageSync('thirdSession')==null){
+      Toast("请先点击头像登录");
+    }else{
+      wx.navigateTo({
+        url: '../test1/ny_personal?userInfo=' + model
+      })
+    }
+  },
+  //跳转到收货地址
+  toAddress: function () {
     wx.navigateTo({
-      url: '../test1/ny_personal?userInfo=' + model
+      url: '/pages/mine/address'
+    })
+  },
+  //登录获取3rdsession
+  loginNy: function () {
+    wx.login({
+      success(res) {
+        if (res.code) {
+          // 发起网络请求
+          wx.request({
+            url: 'http://127.0.0.1:80/nanyahuayi/WxLoginController/loginUser',
+            data: {
+              code: res.code
+            },
+            success(res) {
+              //return 3rd_session = res.data
+              wx.setStorageSync('thirdSession', res.data)            
+          }
+          })
+        } else {
+          console.log('登录失败！' + res.errMsg)
+        }
+      }
     })
   }
   

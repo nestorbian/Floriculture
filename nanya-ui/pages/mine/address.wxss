@@ -1,0 +1,71 @@
+.footer{
+
+width: 100%;
+
+background-color: #ddd;
+
+position: fixed;
+
+bottom: 0;
+}
+
+.list{
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  background-color: white;
+  margin-top: 2rpx;
+  padding: 25rpx;
+  display: flex;
+  align-items: center;
+  justify-content:space-between;
+  min-height: 150rpx;
+}
+.delete{
+  position: absolute;
+  top:0rpx;
+  background-color: #e64340;
+  width: 180rpx;
+  text-align: center;
+  z-index: 1;
+  right: 0;
+  color: #fff;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.info{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.info view:first-child{
+  text-align: center;
+  font-size: 35rpx;
+  margin-bottom: 10rpx;
+}
+.info view:nth-child(2){
+  font-size: 30rpx;
+  margin-bottom: 10rpx;
+}
+.def{
+  font-size: 30rpx;
+  border:1rpx solid red;
+  border-radius: 5rpx;
+  padding:0 10rpx;
+  color: red;
+  margin-right: 10rpx;
+}
+.phone{
+  color:gray;font-size:30rpx;margin: 0 20rpx;
+}
+.edit{
+  padding:40rpx;
+}
+.edit image{
+  width: 40rpx;
+  height: 40rpx;
+  margin-left:10rpx;
+}
+

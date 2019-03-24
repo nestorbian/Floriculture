@@ -1,8 +1,6 @@
 package com.nestor.entity;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import java.util.List;
 
 import javax.persistence.*;
 
@@ -42,6 +40,10 @@ public class WxUser implements Serializable {
 	private String nickname;
 
 	private String province;
+	
+	private String birthday;
+	
+	private String location;
 
 	@Column(name="session_key")
 	private String session_key;

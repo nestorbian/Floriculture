@@ -1,8 +1,9 @@
 <!--pages/test1/ny_personal.wxml-->
 <view>
-  <view>
+<van-toast id="van-toast" />
+  <!-- <view>
     <van-nav-bar  title="编辑我的资料"  left-text="返回"    left-arrow  bind:click-left="onClickLeft"  />
-  </view>
+  </view> -->
   <view>
   </view>
   <view>
@@ -13,10 +14,8 @@
           <van-cell    title="性别"   wx:if="{{gender==1}}"  value="男"  size='large' ></van-cell>
           <van-cell    title="性别"   wx:elif="{{gender==0}}"  value="女"  size='large' ></van-cell>
           <van-cell    title="性别"   wx:else="{{gender==2}}"  value="保密"  size='large' ></van-cell>
+      <van-field value="{{telnum}}" input-align="right" type="number"  label="手机号"  placeholder="请输入手机号" error-message="{{error}}" bindchange= "bindTel"></van-field>
           <van-cell    title="出生日期"    value="{{birthday}}" size='large' is-link bindtap='onClose' ></van-cell>
-          <van-cell    title="手机号"     size='large' >
-            <input type='tel'></input>
-          </van-cell>
           <van-cell    title="地址"    value="{{location}}"  size='large' is-link bindtap='onLocateClose' ></van-cell>
         </van-cell-group>
       <view slot="footer">
