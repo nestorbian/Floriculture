@@ -8,7 +8,11 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+@WebFilter(filterName = "adminLoginFilter", urlPatterns = {"/admin/*"})
 public class AdminLoginFilter implements Filter {
 
 	@Override
@@ -20,8 +24,10 @@ public class AdminLoginFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		
+		HttpServletRequest httpServletRequest = (HttpServletRequest) request;
+		HttpServletResponse httpServletResponse = (HttpServletResponse) response;
+		System.out.println("filter work...");
+		chain.doFilter(httpServletRequest, httpServletResponse);
 	}
 
 	@Override

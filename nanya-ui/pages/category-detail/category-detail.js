@@ -4,26 +4,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    categories: [
-      { products: ['', '', '', '', '', ''] },
-      { products: ['', '', '', '', '', ''] },
-      { products: ['', '', '', '', '', ''] },
-      { products: ['', '', '', '', '', ''] },
-      { products: ['', '', '', '', '', ''] }
-    ],
-    imgUrls: [
-      '../../images/demo1.jpg',
-      '../../images/demo1.jpg',
-      '../../images/demo1.jpg'
-    ],
-    categoryUrl: 'http://img02.hua.com/slider/18_birthday_pc.jpg',
+    selectedSortItem: 'comprehensive',
     productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg'
-  },
-
-  viewProductDetail: function(event) {
-    wx.navigateTo({
-      url: '/pages/product-detail/product-detail',
-    })
   },
 
   /**
@@ -81,9 +63,8 @@ Page({
   onShareAppMessage: function () {
     
   },
-  navigateToCategoryDetail: function() {
-    wx.navigateTo({
-      url: '../category-detail/category-detail',
-    })
+
+  changeSortItem: function (event) {
+    this.setData({ selectedSortItem: event.currentTarget.dataset.value});
   }
 })

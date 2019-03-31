@@ -10,5 +10,6 @@ public interface ProductImageRepository extends JpaRepository<ProductImage, Stri
 	
 	public List<ProductImage> findByProductId(String productId);
 	public void deleteByProductId(String productId);
+	public void deleteByProductIdIsAndProductImageIdNotIn(String productId, List<String> productImageIds);
 	
 }

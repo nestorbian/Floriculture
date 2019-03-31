@@ -66,4 +66,9 @@ public class ProductImageServiceImpl implements ProductImageService {
 		repository.save(productImage);
 	}
 
+	@Override
+	public void deleteByProductIdAndProductImageIdNotIn(String productId, List<String> productImageIds) {
+		repository.deleteByProductIdIsAndProductImageIdNotIn(productId, productImageIds);
+	}
+
 }

@@ -14,4 +14,5 @@ public interface ProductImageService {
 	public void deleteByProductId(String productId);
 	public void saveAll(List<ProductImage> productImages);
 	public void saveOne(ProductImage productImage);
+	public void deleteByProductIdAndProductImageIdNotIn(String productId, List<String> productImageIds);
 }

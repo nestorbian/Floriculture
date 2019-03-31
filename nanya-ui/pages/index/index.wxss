@@ -4,7 +4,6 @@ page {
 }
 
 view.main {
-  height: 94%;
   display: flex;
 }
 

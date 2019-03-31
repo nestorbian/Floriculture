@@ -10,7 +10,7 @@ public interface CategoryView {
 	String getCategoryName();
 	String getCategoryDescription();
 	String getImagePath();
-	@Value("#{@viewConvertion.convertCategoryImageUrl(target)}")
+	@Value("#{@viewConvertion.getCategoryImageFullUrl(target)}")
 	String getImageUrl();
 	Boolean getNeedShowInHome();
 	LocalDateTime getCreateTime();

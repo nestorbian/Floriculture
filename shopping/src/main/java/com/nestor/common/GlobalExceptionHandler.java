@@ -21,6 +21,7 @@ import lombok.extern.slf4j.Slf4j;
 public class GlobalExceptionHandler {
 	private final int uploadSizeExceededExceptionCode = 44;
 	private final String uploadSizeExceededExceptionMsg = "上传文件过大";
+	private final int UNKNOWN_EXCEPTION = 49; // 未知异常code
 	
 	/**
 	 * <p>处理自定义异常</p>
@@ -58,11 +59,19 @@ public class GlobalExceptionHandler {
 	@ResponseBody
 	public Result<?> handleRuntimeException(RuntimeException e) {
 		log.error("未知异常： {}", e.toString());
-		StringBuilder stackInfo = new StringBuilder(e.getCause().getMessage());
-        for (StackTraceElement traceElement : e.getCause().getStackTrace()) {
-        	stackInfo.append("\n\tat ".concat(traceElement.toString()));
-        }
-		log.error("exception stack: {}", stackInfo.toString());
-		return new Result<>(e);
+		if (e.getCause() != null) {
+			StringBuilder stackInfo = new StringBuilder(e.getCause().getMessage());
+	        for (StackTraceElement traceElement : e.getCause().getStackTrace()) {
+	        	stackInfo.append("\n\tat ".concat(traceElement.toString()));
+	        }
+			log.error("exception stack: {}", stackInfo.toString());
+		} else {
+			StringBuilder stackInfo = new StringBuilder(e.getMessage());
+	        for (StackTraceElement traceElement : e.getStackTrace()) {
+	        	stackInfo.append("\n\tat ".concat(traceElement.toString()));
+	        }
+			log.error("exception stack: {}", stackInfo.toString());
+		}
+		return new Result<>(UNKNOWN_EXCEPTION, e.toString());
 	}
 }

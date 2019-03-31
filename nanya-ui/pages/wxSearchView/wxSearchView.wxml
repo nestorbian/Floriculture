@@ -4,7 +4,7 @@
   </view>
 
   <!-- <view class="wxSearch" style="'block';height:{{wxSearchData.view.seachHeight}}px;top:{{wxSearchData.view.barHeight}}px;" > -->
-  <view class="wxSearch" style="'block';top:{{wxSearchData.view.barHeight}}px;" >
+  <view class="wxSearch" style="height:{{wxSearchData.view.seachHeight}}px !important;" wx:if="{{showCancle}}">
 
     <view class="wxSearchInner">
       <!-- 搜索提示部分 -->
@@ -27,7 +27,9 @@
           <text>\n\n</text>
         </view>     
         <view class ="deleteButton">
-          <van-button round  size="normal"bindtap="wxSearchDeleteAll"><van-cell  title="清空历史记录"  icon="close"  /></van-button>
+          <van-button round  size="normal" bindtap="wxSearchDeleteAll">
+            <van-cell  title="清空历史记录"  icon="close"  />
+          </van-button>
         </view>
       </view>      
     </view>

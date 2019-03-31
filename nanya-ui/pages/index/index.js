@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    mainHeight: wx.getSystemInfoSync().windowHeight,
     mainCategoryActive: 0,
     mainCategoryActiveForSkip: 0,
     categories:[

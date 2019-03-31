@@ -53,11 +53,12 @@ public class ProductController {
 	}
 	
 	/**
+	 * <p>design for admin-ui</p>
 	 * <p>更新商品</p>
 	 * @param product
 	 * @return
 	 */
-	@PutMapping(path = "/products")
+	@PutMapping(path = "/admin/products")
 	@LogHttpInfo
 	public Result<Boolean> update(@RequestBody Product product) {
 		// base check
@@ -69,16 +70,30 @@ public class ProductController {
 	}
 	
 	/**
-	 * 删除商品
+	 * <p>删除商品</p>
+	 * <p>design for admin-ui</p>
 	 * @param id
 	 * @return
 	 */
-	@DeleteMapping(path = "/products")
+	@DeleteMapping(path = "/admin/products")
 	@LogHttpInfo
-	public Result<Boolean> delete(@RequestParam(value = "id") String id) {
+	public Result<Boolean> delete(@RequestParam(value = "id", required = true) String id) {
 		CheckUtil.notEmpty(id, "id不能为空");
 		service.deleteById(id);
 		return new Result<>(true);
+	}
+	
+	/**
+	 * <p>design for admin-ui</p>
+	 * <p>根据id获取商品信息</p>
+	 * @param Id
+	 * @return
+	 */
+	@GetMapping(path = "/admin/products")
+	@LogHttpInfo
+	public Result<ExtProductView> getById(@RequestParam(value = "id", required = true) String id) {
+		CheckUtil.notEmpty(id, "id不能为空");
+		return new Result<>(service.findByProductId(id));
 	}
 	
 	/**
@@ -101,7 +116,6 @@ public class ProductController {
 		CheckUtil.notEmpty(product.getProductName(), "商品名称不能为空");
 		CheckUtil.notEmpty(product.getProductDescription(), "商品描述不能为空");
 		CheckUtil.notNull(product.getProductOriginalPrice(), "商品原价不能为空");
-		CheckUtil.notNull(product.getProductDiscountPrice(), "商品折扣价不能为空");
 		CheckUtil.notNull(product.getProductStock(), "商品库存不能为空");
 		CheckUtil.notEmpty(product.getFlowerMaterial(), "花材描述不能为空");
 		CheckUtil.notEmpty(product.getProductPackage(), "包装描述不能为空");
@@ -119,10 +133,13 @@ public class ProductController {
 		CheckUtil.notExceedMaxLength(product.getProductPackage(), 100, "包装描述最大长度不能超过100");
 		CheckUtil.notExceedMaxLength(product.getProductScene(), 100, "场景描述最大长度不能超过100");
 		CheckUtil.notExceedMaxLength(product.getDistribution(), 100, "配送描述最大长度不能超过100");
+		CheckUtil.notEmptyList(product.getProductImages(), "至少需要上传一张商品图片");
+		CheckUtil.notEmptyList(product.getCategories(), "至少选择一个所属分类");
 	}
 	
 	@GetMapping(path = "/test")
-	public Result<?> testProduct() {
+	public Result<Object> testProduct() {
+		int a = 1 / 0;
 		return new Result<>(null);
 	}
 }

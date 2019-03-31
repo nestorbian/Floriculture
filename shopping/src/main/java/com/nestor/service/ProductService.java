@@ -16,5 +16,6 @@ public interface ProductService {
 	
 	public Page<ExtProductView> findAll(int pageNumber, int pageSize);
 	
-	public Object[] findProductView();
+	public ExtProductView findByProductId(String id);
+
 }

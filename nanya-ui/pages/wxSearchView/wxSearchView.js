@@ -26,7 +26,6 @@ var __that = null;
 var showCancle = false;
 
 
-
 // 初始化函数
 function init(that, hotKeys, tipKeys, searchFunction, goBackFunction) {
 
@@ -36,21 +35,22 @@ function init(that, hotKeys, tipKeys, searchFunction, goBackFunction) {
   __goBackFunction = goBackFunction;
 
   var temData = {};
-  var barHeight = 43;
+  var barHeight = 45;
   var view = {
     barHeight: barHeight
   }
   temData.hotKeys = hotKeys;
 
-  wx.getSystemInfo({
-    success: function (res) {
-      var wHeight = res.windowHeight;
-      view.seachHeight = wHeight - barHeight;
-      temData.view = view;
-      __that.setData({
-        wxSearchData: temData
-      });
-    }
+  // wx.getSystemInfo({
+  //   success: function (res) {
+  //   }
+  // });
+  var wHeight = wx.getSystemInfoSync().windowHeight;
+  console.log('-----' + wHeight);
+  view.seachHeight = wHeight - barHeight;
+  temData.view = view;
+  __that.setData({
+    wxSearchData: temData
   });
 
   getHisKeys(__that);
@@ -176,6 +176,7 @@ function wxSearchAddHisKey(inputValue) {
 
 //点击搜索框时 显示
 function onClick() {
+  this.isShowSearchView = true;
   this.setData({
     showCancle: true
   })

@@ -1,6 +1,7 @@
 package com.nestor.util;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
@@ -45,6 +46,11 @@ public class CheckUtil {
 		}
 	}
 	
+	/**
+	 * <p>检验是否为图片文件</p>
+	 * @param file
+	 * @param msg
+	 */
 	public static void imageFile(MultipartFile file, String msg) {
 		String fileName = file.getOriginalFilename();
 		String type = fileName.substring(fileName.lastIndexOf(".") + 1);
@@ -64,6 +70,12 @@ public class CheckUtil {
 	public static void imageFiles(MultipartFile[] files, String msg) {
 		for (MultipartFile multipartFile : files) {
 			imageFile(multipartFile, msg);
+		}
+	}
+	
+	public static void notEmptyList(List<?> list, String msg) {
+		if (null == list || list.isEmpty()) {
+			throw new ParameterException(msg);
 		}
 	}
 }

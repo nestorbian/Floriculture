@@ -8,4 +8,5 @@ public interface CategoryProductService {
 	
 	public void saveAll(List<CategoryProduct> categoryProducts);
 	
+	public void deleteByProductId(String productId);
 }

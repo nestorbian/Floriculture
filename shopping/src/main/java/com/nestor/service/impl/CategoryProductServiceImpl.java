@@ -20,4 +20,9 @@ public class CategoryProductServiceImpl implements CategoryProductService {
 		repository.saveAll(categoryProducts);
 	}
 
+	@Override
+	public void deleteByProductId(String productId) {
+		repository.deleteByProductId(productId);
+	}
+
 }

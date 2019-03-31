@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.nestor.entity.ProductImage;
+import org.springframework.beans.factory.annotation.Value;
 
 public interface ProductView {
 	String getProductId();
@@ -21,5 +21,12 @@ public interface ProductView {
 	LocalDateTime getCreateTime();
 	LocalDateTime getUpdateTime();
 	
-	List<ProductImage> getProductImages();
+	List<productImageView> getProductImages();
+	
+	interface productImageView {
+		String getProductImageId();
+		String getImagePath();
+		@Value("#{@viewConvertion.getProductImageFullUrl(target)}")
+		String getimageUrl();
+	}
 }
