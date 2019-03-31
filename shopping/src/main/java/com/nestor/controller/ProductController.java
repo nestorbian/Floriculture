@@ -1,5 +1,6 @@
 package com.nestor.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -19,15 +20,20 @@ import com.nestor.common.LogHttpInfo;
 import com.nestor.common.ParameterException;
 import com.nestor.entity.Product;
 import com.nestor.entity.Result;
+import com.nestor.service.ProductSearchService;
 import com.nestor.service.ProductService;
 import com.nestor.util.CheckUtil;
 import com.nestor.vo.ExtProductView;
+import com.nestor.vo.ProductWithSingleImage;
 
 @RestController
 public class ProductController {
 
 	@Autowired
 	private ProductService service;
+	
+	@Autowired
+	private ProductSearchService  seaService;
 	
 	/**
 	 * <p>添加商品</p>
@@ -142,4 +148,11 @@ public class ProductController {
 		int a = 1 / 0;
 		return new Result<>(null);
 	}
+	
+	@GetMapping(path = "/searchProduct")
+	@LogHttpInfo
+	public HashMap<Boolean,ArrayList<ProductWithSingleImage>> searchProduct(String value,String order) {
+		return seaService.findProductList(value, order);
+	}
+	
 }

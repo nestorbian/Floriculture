@@ -10,7 +10,7 @@
       <!-- 搜索提示部分 -->
       <view class="wxSearchMindKey">
         <view class="wxSearchMindKeyList">
-          <block wx:for="{{wxSearchData.tipKeys}}">
+          <block wx:for="{{wxSearchData.tipKeys}}" wx:key="item" >
             <view class="wxSearchMindKeyItem" bindtap="wxSearchKeyTap" data-key="{{item}}">{{item}}</view>
           </block>
         </view>

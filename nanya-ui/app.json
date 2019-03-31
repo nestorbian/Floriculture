@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/index/index",
+    "pages/search/search",
     "pages/mine/mine",
     "pages/test2/test2",
     "pages/product-detail/product-detail",
@@ -9,10 +11,8 @@
     "pages/test1/ny_personal",
     "pages/test1/ny_index",
     "pages/mine/order",
-    "pages/index/index",
     "pages/mine/edit_address",
     "pages/mine/address",
-    "pages/search/search",
     "pages/category-detail/category-detail"
   ],
   "window": {
@@ -77,6 +77,8 @@
     "van-tag": "/dist/tag/index",
     "van-notify": "/dist/notify/index",
     "van-toast": "/dist/toast/index",
-    "van-notice-bar": "dist/notice-bar/index"
+    "van-notice-bar": "dist/notice-bar/index",
+    "van-tab" : "dist/tab/index",
+    "van-tabs": "dist/tabs/index"
   }
 }

@@ -258,9 +258,12 @@ Page({
   mySearchFunction: function (value) {
     // do your job here
     // 示例：跳转
-    console.log("jump")
-    wx.switchTab({
-      url: '/pages/find/find'
+    this.setData({
+      showCancle: false
+    })
+    //value 是 搜索的值
+    wx.navigateTo({
+      url: '/pages/search/search?value='+value
     })
   },
 

@@ -15,25 +15,6 @@
       {{item.categoryName}}
       </view>
 
-      <!-- <view class='product'>
-        <view class='product-image' style='background-image:url(http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg)'>
-        </view>
-
-        <view class='product-content'>
-          <view class='product-name'>
-            浓情蜜意
-          </view>
-
-          <view class='product-description'>
-            99枝戴安娜
-          </view>
-
-          <view class='product-price'>
-            <view class='price'>￥ 899</view>
-            <van-button size="mini" type='buy'>购买</van-button>
-          </view>
-        </view>
-      </view> -->
       <view wx:for="{{item.products}}" wx:for-item="product" wx:key="key2">
         <van-card num="2" tag="" price="{{product.price}}" desc="{{product.description}}" title="{{product.productName}}" origin-price="" centered="true"
           thumb="{{product.productImages[0].productUrl}}">

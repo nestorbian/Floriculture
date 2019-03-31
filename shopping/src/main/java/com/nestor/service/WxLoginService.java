@@ -1,39 +1,16 @@
 package com.nestor.service;
 
-import java.util.ArrayList;
-
-import javax.transaction.Transactional;
-
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-
 import com.nestor.entity.WxUser;
 
-//继承JpaRepository<entity类型  , 主键类型>
-public interface WxLoginService extends JpaRepository<WxUser, String> {
-	//public List findById(String openid);
-	//public WxUser saveAndFlush(WxUser wxUser);
-	
-	//原生SQL实现更新方法接口
-	@Transactional
-	@Query(value = "update t_wx_user set session_key=?2,third_session=?3,unionid=?4 where openid=?1 ", nativeQuery = true)  
-	@Modifying  
-	public void updateOne(String openid,String session_key,String setThirdSession,String unionid); 
 
-	public ArrayList<WxUser> findByThirdSession(String thirdSession);
+public interface WxLoginService {
 	
-	//原生SQL实现更新方法接口
-	@Transactional
-	@Query(value = "update t_wx_user set avatarurl=?1,nickname= ?2,telnum= ?3,gender= ?4,location= ?5,birthday= ?6,province= ?7,city= ?8,country=?9 where third_session=?10 ", nativeQuery = true)  
-	@Modifying  
-	public void updateBy3rd(String avatarurl,String nickname ,String telnum ,String gender ,String location ,String birthday ,String province ,String city,String country,String thirdSession); 
-	
-	//原生SQL实现更新方法接口
-	@Transactional
-	@Query(value = "select openid from  t_wx_user  where third_session=?1 ", nativeQuery = true)  
-	@Modifying  
-	public ArrayList<String> findOpenidBy3rd(String thirdSession); 
 
+	public String loginUser(String code);
+		
+
+	public WxUser getUInfo(String thirdSession) ;
+
+	public String setUInfo( WxUser wxUser);
 
 }

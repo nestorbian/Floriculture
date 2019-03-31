@@ -1,12 +1,13 @@
 // pages/mine/address.js
+import Toast from '../../dist/toast/toast';
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    address: [
-    ],
+    address: [],
     delBtnWidth: 180
 
   },
@@ -25,7 +26,6 @@ Page({
         'content-type': 'application/json' // 默认值
       },
       success(res) {
-        console.log(res.data)
         that.setData({
           address : res.data
         })
@@ -94,16 +94,32 @@ Page({
     })
   },
 
-  add: function () {
-    //增加收货地址 省略
-  },
 
   delItem: function (e) {
     var id = e.currentTarget.dataset.id;
     var index = e.currentTarget.dataset.index;
-    this.data.address.splice(index, 1);
-    this.setData({
-      address: this.data.address
+    var list = this.data.address;
+    
+    var that = this;
+    wx.request({
+      url: 'http://127.0.0.1:80/nanyahuayi/addressController/delAddress', // 仅为示例，并非真实的接口地址
+      data: {
+        id: id
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        Toast(res.data);
+        if(res.data == "ok"){
+          //SPLICE(INDEX,个数，数组元素)用提删除、替换、修
+          list.splice(index,1);
+          that.setData({
+            address : list
+          })
+     
+        }
+      }
     })
   },
 
@@ -123,20 +139,20 @@ Page({
       //手指起始点位置与移动期间的差值
       var disX = this.data.startX - moveX;
       var delBtnWidth = this.data.delBtnWidth;
-      var txtStyle = "";
+      var city = "";
       if (disX == 0 || disX < 0) {//如果移动距离小于等于0，文本层位置不变
-        txtStyle = "left:0rpx";
+        city = "left:0rpx";
       } else if (disX > 0) {//移动距离大于0，文本层left值等于手指移动距离
-        txtStyle = "left:-" + disX + "rpx";
+        city = "left:-" + disX + "rpx";
         if (disX >= delBtnWidth) {
           //控制手指移动距离最大值为删除按钮的宽度
-          txtStyle = "left:-" + delBtnWidth + "rpx";
+          city = "left:-" + delBtnWidth + "rpx";
         }
       }
       //获取手指触摸的是哪一项
       var index = e.currentTarget.dataset.index;
       var list = this.data.address;
-      list[index]['txtStyle'] = txtStyle;
+      list[index]['city'] = city;
       //更新列表的状态
       this.setData({
         address: list
@@ -151,13 +167,13 @@ Page({
       var disX = this.data.startX - endX;
       var delBtnWidth = this.data.delBtnWidth;
       //如果距离小于删除按钮的1/2，不显示删除按钮
-      var txtStyle = disX > delBtnWidth / 2 ? "left:-" + delBtnWidth + "rpx" : "left:0rpx";
+      var city = disX > delBtnWidth / 2 ? "left:-" + delBtnWidth + "rpx" : "left:0rpx";
       //获取手指触摸的是哪一项
       var index = e.currentTarget.dataset.index;
       var list = this.data.address;
       var del_index = '';
       disX > delBtnWidth / 2 ? del_index = index : del_index = '';
-      list[index].txtStyle = txtStyle;
+      list[index].city = city;
       //更新列表的状态
       this.setData({
         address: list,

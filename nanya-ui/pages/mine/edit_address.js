@@ -384,6 +384,11 @@ Page({
     if (username == null || telnum == null || location == null || detail_add == null || error_name == true || error_phone == true || error_locate == true || error_detail_add == true ){
       Toast("请确保信息正确哦！");
     }else{
+      //提示加载中
+      Toast.loading({
+        mask: true,
+        message: '加载中...'
+      });
       wx.request({
         url: 'http://127.0.0.1:80/nanyahuayi/addressController/setAddress', // 仅为示例，并非真实的接口地址
         data: {
@@ -399,9 +404,11 @@ Page({
         },
         success(res) {
           Toast(res.data);
-          wx.switchTab({
-            url: '/pages/mine/mine'
-          })
+          if (res.data == "保存成功") {
+            wx.redirectTo({
+              url: '/pages/mine/address'
+            })
+          }
         }
       })
     }

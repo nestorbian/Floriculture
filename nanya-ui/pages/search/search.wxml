@@ -1,6 +1,21 @@
 <!--pages/search/search.wxml-->
+<van-toast id="van-toast" />
 <view>
   <view>
-    <van-search   placeholder="请输入搜索关键词"  disabled bindtap= 'onClick'/>
+    <van-search   placeholder="请输入搜索关键词"   bind:search= 'onClick'/>
   </view>
+  <view>
+  <van-tabs swipeable  bind:click="onSort">
+  <van-tab title="综合"></van-tab>
+  <van-tab title="销量"></van-tab>
+  <van-tab title="上新"></van-tab>
+</van-tabs>
+    <van-notice-bar  style="display : {{dis}}"   text="没有找到相关花束，猜您喜欢："/>
+  </view>
+  <view wx:for="{{product}}" wx:key ="{{index}}" style='position: relative;'>
+    <view data-index='{{index}}' bindtap="onHref">
+      <van-card id="{{item.productId}}"  num="{{item.productStock}}"   price="{{item.productDiscountPrice==null?item.productOriginalPrice:item.productDiscountPrice}}"  desc="{{item.productDescription}}" origin-price="{{item.productDiscountPrice==null?'':item.productOriginalPrice}}"  title="{{item.productName}}"  thumb="http://129.204.173.36/images/demo2.jpg" thumb-mode='aspectFill'/>
+    </view>
+  </view>
+
 </view>
