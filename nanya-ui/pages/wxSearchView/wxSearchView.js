@@ -41,12 +41,7 @@ function init(that, hotKeys, tipKeys, searchFunction, goBackFunction) {
   }
   temData.hotKeys = hotKeys;
 
-  // wx.getSystemInfo({
-  //   success: function (res) {
-  //   }
-  // });
   var wHeight = wx.getSystemInfoSync().windowHeight;
-  console.log('-----' + wHeight);
   view.seachHeight = wHeight - barHeight;
   temData.view = view;
   __that.setData({

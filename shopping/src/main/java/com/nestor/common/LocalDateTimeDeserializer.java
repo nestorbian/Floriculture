@@ -15,8 +15,13 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.deser.JSR310DateTimeDeserializerBase;
 
+/**
+ * <p>用于日期反序列化</p>
+ * @author Lenovo
+ *
+ */
 public class LocalDateTimeDeserializer extends JSR310DateTimeDeserializerBase<LocalDateTime> {
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     private static final DateTimeFormatter DEFAULT_FORMATTER = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
@@ -36,8 +41,7 @@ public class LocalDateTimeDeserializer extends JSR310DateTimeDeserializerBase<Lo
     }
 
     @Override
-    public LocalDateTime deserialize(JsonParser parser, DeserializationContext context) throws IOException
-    {
+    public LocalDateTime deserialize(JsonParser parser, DeserializationContext context) throws IOException {
         if (parser.hasTokenId(JsonTokenId.ID_STRING)) {
             String string = parser.getText().trim();
             if (string.length() == 0) {
@@ -45,16 +49,17 @@ public class LocalDateTimeDeserializer extends JSR310DateTimeDeserializerBase<Lo
             }
 
             try {
-	            if (_formatter == DEFAULT_FORMATTER) {
-	                // JavaScript by default includes time and zone in JSON serialized Dates (UTC/ISO instant format).
-	                if (string.length() > 10 && string.charAt(10) == 'T') {
-	                   if (string.endsWith("Z")) {
-	                       return LocalDateTime.ofInstant(Instant.parse(string), ZoneOffset.systemDefault());
-	                   } else {
-	                       return LocalDateTime.parse(string, DEFAULT_FORMATTER);
-	                   }
-	                }
-	            }
+                if (_formatter == DEFAULT_FORMATTER) {
+                    // JavaScript by default includes time and zone in JSON serialized Dates
+                    // (UTC/ISO instant format).
+                    if (string.length() > 10 && string.charAt(10) == 'T') {
+                        if (string.endsWith("Z")) {
+                            return LocalDateTime.ofInstant(Instant.parse(string), ZoneOffset.systemDefault());
+                        } else {
+                            return LocalDateTime.parse(string, DEFAULT_FORMATTER);
+                        }
+                    }
+                }
 
                 return LocalDateTime.parse(string, _formatter);
             } catch (DateTimeException e) {
@@ -72,7 +77,7 @@ public class LocalDateTimeDeserializer extends JSR310DateTimeDeserializerBase<Lo
                 if (parser.nextToken() != JsonToken.END_ARRAY) {
                     handleMissingEndArrayForSingle(parser, context);
                 }
-                return parsed;            
+                return parsed;
             }
             if (t == JsonToken.VALUE_NUMBER_INT) {
                 LocalDateTime result;
@@ -93,8 +98,8 @@ public class LocalDateTimeDeserializer extends JSR310DateTimeDeserializerBase<Lo
                         result = LocalDateTime.of(year, month, day, hour, minute, second);
                     } else {
                         int partialSecond = parser.getIntValue();
-                        if (partialSecond < 1_000 &&
-                                !context.isEnabled(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS))
+                        if (partialSecond < 1_000
+                                && !context.isEnabled(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS))
                             partialSecond *= 1_000_000; // value is milliseconds, convert it to nanoseconds
                         if (parser.nextToken() != JsonToken.END_ARRAY) {
                             throw context.wrongTokenException(parser, handledType(), JsonToken.END_ARRAY,
@@ -105,8 +110,7 @@ public class LocalDateTimeDeserializer extends JSR310DateTimeDeserializerBase<Lo
                 }
                 return result;
             }
-            context.reportInputMismatch(handledType(),
-                    "Unexpected token (%s) within Array, expected VALUE_NUMBER_INT",
+            context.reportInputMismatch(handledType(), "Unexpected token (%s) within Array, expected VALUE_NUMBER_INT",
                     t);
         }
         if (parser.hasToken(JsonToken.VALUE_EMBEDDED_OBJECT)) {

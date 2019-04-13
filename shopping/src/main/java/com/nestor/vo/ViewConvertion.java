@@ -19,4 +19,8 @@ public class ViewConvertion {
 	public String getProductImageFullUrl(ProductImage productImage) {
 		return baseImageUrl.concat(productImage.getImageUrl());
 	}
+	
+	public String getBaseImageUrl() {
+		return baseImageUrl;
+	}
 }

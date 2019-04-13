@@ -1,11 +1,10 @@
 {
   "pages": [
+    "pages/test2/test2",
     "pages/index/index",
     "pages/search/search",
     "pages/mine/mine",
-    "pages/test2/test2",
     "pages/product-detail/product-detail",
-    "pages/userinfo/userinfo",
     "pages/find/find",
     "pages/logs/logs",
     "pages/test1/ny_personal",

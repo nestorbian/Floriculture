@@ -1,6 +1,9 @@
 package com.nestor.service.impl;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,71 +20,109 @@ import com.nestor.repository.CategoryRepository;
 import com.nestor.service.CategoryService;
 import com.nestor.util.CheckUtil;
 import com.nestor.util.IdUtil;
-import com.nestor.util.JacksonUtil;
+import com.nestor.vo.CategoryPageView;
+import com.nestor.vo.CategoryPageView.ProductView;
 import com.nestor.vo.CategoryItemView;
 import com.nestor.vo.CategoryView;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-	
-	@Autowired
-	private CategoryRepository repository;
-	
-	@Value("${image.product.base-url}")
-	private String baseImageUrl;
 
-	@Override
-	public String add(Category category) {
-		String categoryId = IdUtil.generateId();
-		category.setCategoryId(categoryId);
-		// 测试级联插入
+    @Autowired
+    private CategoryRepository repository;
+
+    @Value("${image.product.base-url}")
+    private String baseImageUrl;
+
+    @Override
+    public String add(Category category) {
+        String categoryId = IdUtil.generateId();
+        category.setCategoryId(categoryId);
+        // 测试级联插入
 //		if (category.getProductList() != null && category.getProductList().size() != 0) {
 //			category.getProductList().stream().forEach((item) -> {
 //				item.setProductId(IdUtil.generateId());
 //				item.setCategoryId(categoryId);
 //			});
 //		}
-		category.setImageUrl(category.getImagePath());
-		
-		// 判断分类名称是否重复
-		Category match = new Category();
-		match.setCategoryName(category.getCategoryName());
-		if (repository.exists(Example.of(match))) {
-			throw new DuplicateKeyException("该分类名称已存在");
-		}
-		
-		return repository.save(category).getCategoryId();
-	}
+        category.setImageUrl(category.getImagePath());
 
-	@Override
-	public void update(Category category) {
-		category.setImageUrl(category.getImagePath());
-		
-		if (repository.findById(category.getCategoryId()).get() == null) {
-			throw new BizException("该商品分类已被删除");
-		}
-		
-		repository.save(category);
-	}
+        // 判断分类名称是否重复
+        Category match = new Category();
+        match.setCategoryName(category.getCategoryName());
+        if (repository.exists(Example.of(match))) {
+            throw new DuplicateKeyException("该分类名称已存在");
+        }
 
-	@Override
-	@Transactional
-	public void delete(String id) {
-		CheckUtil.notEmpty(id, "id不能为空");
-		repository.deleteById(id);
-		// 删除对应的商品 通过级联删除已完成
-	}
+        return repository.save(category).getCategoryId();
+    }
 
-	@Override
-	public List<CategoryItemView> findCategories() {
-		return repository.findCategories();
-	}
+    @Override
+    public void update(Category category) {
+        category.setImageUrl(category.getImagePath());
 
-	@Override
-	public Page<CategoryView> findAll(int pageNumber, int pageSize) {
-		Page<CategoryView> page = repository.findByOrderByCreateTimeDesc(PageRequest.of(pageNumber - 1, pageSize));
-		
-		return page;
-	}
+        if (!repository.findById(category.getCategoryId()).isPresent()) {
+            throw new BizException("该商品分类已被删除");
+        }
+
+        repository.save(category);
+    }
+
+    @Override
+    @Transactional
+    public void delete(String id) {
+        CheckUtil.notEmpty(id, "id不能为空");
+        repository.deleteById(id);
+        // 删除对应的商品 通过级联删除已完成
+    }
+
+    @Override
+    public List<CategoryItemView> findCategories() {
+        return repository.findCategories();
+    }
+
+    @Override
+    public Page<CategoryView> findAll(int pageNumber, int pageSize) {
+        Page<CategoryView> page = repository.findByOrderByCreateTimeDesc(PageRequest.of(pageNumber - 1, pageSize));
+
+        return page;
+    }
+
+    @Override
+    public List<CategoryPageView> findCategoryInHome() {
+        List<Category> categories = repository.findByNeedShowInHomeTrueOrderByCreateTimeAsc();
+        
+        // assemble list to CategoryInHomeView class
+        List<CategoryPageView> categoryInHomeViews = new ArrayList<>();
+        
+        categories.stream().forEach(category -> {
+            List<Map<String, Object>> list = repository.callCategorySP(category.getCategoryId());
+            
+            CategoryPageView categoryInHomeView = new CategoryPageView();
+            List<ProductView> products = new ArrayList<>();
+
+            list.stream().forEach(map -> {
+                if (categoryInHomeView.getCategoryId() == null) {
+                    categoryInHomeView.setCategoryId((String) map.get("categoryId"));
+                    categoryInHomeView.setCategoryName((String) map.get("categoryName"));
+                    categoryInHomeView.setCategoryDescription((String) map.get("categoryDescription"));
+                    categoryInHomeView.setImageUrl(baseImageUrl + (String) map.get("imageUrl"));
+                }
+                ProductView productView = categoryInHomeView.new ProductView();
+                productView.setProductId((String) map.get("productId"));
+                productView.setProductName((String) map.get("productName"));
+                productView.setProductDescription((String) map.get("productDescription"));
+                productView.setProductOriginalPrice((BigDecimal) map.get("productOriginalPrice"));
+                productView.setProductDiscountPrice((BigDecimal) map.get("productDiscountPrice"));
+                productView.setProductImageUrl(baseImageUrl + (String) map.get("productImageUrl"));
+                products.add(productView);
+            });
+
+            categoryInHomeView.setProducts(products);
+            categoryInHomeViews.add(categoryInHomeView);
+        });
+        
+        return categoryInHomeViews;
+    }
 
 }

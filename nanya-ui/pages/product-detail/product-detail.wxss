@@ -46,11 +46,21 @@ swiper .slide-image {
 .product-price {
   padding: 15rpx 20rpx;
   display: flex;
+  height: 76rpx;
+  justify-content: first baseline;
 }
 
 .product-price .price {
   font-size: 36rpx;
   color: #535353;
+  display: inline-block;
+}
+
+.product-price .discount-price {
+  font-size: 36rpx;
+  text-decoration: line-through;
+  color: #919191;
+  padding-left: 10rpx;
 }
 
 .product-price .sparator {

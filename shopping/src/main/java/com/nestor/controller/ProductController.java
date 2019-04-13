@@ -24,6 +24,7 @@ import com.nestor.service.ProductSearchService;
 import com.nestor.service.ProductService;
 import com.nestor.util.CheckUtil;
 import com.nestor.vo.ExtProductView;
+import com.nestor.vo.ProductView;
 import com.nestor.vo.ProductWithSingleImage;
 
 @RestController
@@ -33,7 +34,7 @@ public class ProductController {
 	private ProductService service;
 	
 	@Autowired
-	private ProductSearchService  seaService;
+	private ProductSearchService seaService;
 	
 	/**
 	 * <p>添加商品</p>
@@ -143,16 +144,16 @@ public class ProductController {
 		CheckUtil.notEmptyList(product.getCategories(), "至少选择一个所属分类");
 	}
 	
-	@GetMapping(path = "/test")
-	public Result<Object> testProduct() {
-		int a = 1 / 0;
-		return new Result<>(null);
-	}
-	
 	@GetMapping(path = "/searchProduct")
 	@LogHttpInfo
 	public HashMap<Boolean,ArrayList<ProductWithSingleImage>> searchProduct(String value,String order) {
 		return seaService.findProductList(value, order);
+	}
+	
+	@GetMapping(path = "/products/{productId}")
+	@LogHttpInfo
+	public Result<ProductView> findProductById(@PathVariable(name = "productId") String productId) {
+        return new Result<>(service.findProductById(productId));
 	}
 	
 }

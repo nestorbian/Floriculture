@@ -7,9 +7,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * 日志打印注解
- * 用于方法上可以打印请求的参数，请求头，请求url，请求的方法
- * 以及注解所作用方法的执行所耗时间
+ * <p>日志打印注解</p>
+ * <p>用于方法上可以打印请求的参数，请求头，请求url，请求的方法</p>
+ * <p>以及注解所作用方法的执行所耗时间</p>
  * @author bianzeyang
  *
  */
@@ -17,5 +17,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface LogHttpInfo {
-	String value() default "";
+    String value() default "";
 }

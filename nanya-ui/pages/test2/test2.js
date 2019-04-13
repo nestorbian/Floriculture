@@ -1,16 +1,13 @@
+var app = getApp();
+import Notify from '../../dist/notify/notify';
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    categories: [
-      { products: ['', '', '', '', '', ''] },
-      { products: ['', '', '', '', '', ''] },
-      { products: ['', '', '', '', '', ''] },
-      { products: ['', '', '', '', '', ''] },
-      { products: ['', '', '', '', '', ''] }
-    ],
+    categories: {},
     imgUrls: [
       '../../images/demo1.jpg',
       '../../images/demo1.jpg',
@@ -21,8 +18,9 @@ Page({
   },
 
   viewProductDetail: function(event) {
+    const productId = event.currentTarget.dataset.productid;
     wx.navigateTo({
-      url: '/pages/product-detail/product-detail',
+      url: '/pages/product-detail/product-detail?productId=' + productId,
     })
   },
 
@@ -30,7 +28,26 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    wx.startPullDownRefresh({
+    });
+    wx.request({
+      url: app.globalData.baseRequestUrl + '/categories/home',
+      method: 'GET',
+      dataType: 'json',
+      success: (res) => {
+        if(res.statusCode == 200) {
+          this.setData({ categories: res.data.data})
+        } else {
+          Notify('网络错误');
+        }
+      },
+      fail: (res) => {
+        console.log(res);
+      },
+      complete: () => {
+        wx.stopPullDownRefresh();
+      }
+    });
   },
 
   /**
@@ -65,7 +82,25 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-    
+    // wx.showNavigationBarLoading();
+    wx.request({
+      url: app.globalData.baseRequestUrl + '/categories/home',
+      method: 'GET',
+      dataType: 'json',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          this.setData({ categories: res.data.data })
+        } else {
+          Notify('网络错误');
+        }
+      },
+      fail: (res) => {
+        console.log(res);
+      },
+      complete: () => {
+        wx.stopPullDownRefresh();
+      }
+    })
   },
 
   /**

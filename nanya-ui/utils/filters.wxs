@@ -1,0 +1,8 @@
+var filters = {
+  toFix: function(value, count) {
+    return value.toFixed(count);
+  }
+}
+module.exports = {
+  toFix: filters.toFix
+}

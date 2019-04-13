@@ -1,32 +1,32 @@
+var app = getApp();
+
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    imgUrls: [
-      'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg',
-      'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg'],
+    product: {},
     indexNumber: 1,
     actionSheet: {
-      show: false,
-      actions: [
-        {
-          name: '花 材',
-          subname: '红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀',
-          openType: 'share'
-        },
-        {
-          name: '包 装',
-          subname: '韩国进口银色和透明雾面纸及黑色螺纹丝带',
-          openType: 'share'
-        },
-        {
-          name: '场 景',
-          subname: '适合送爱人/女友',
-          openType: 'share'
-        }
-      ]
+      show: false
+      // actions: [
+      //   {
+      //     name: '花 材',
+      //     subname: '红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀',
+      //     openType: 'share'
+      //   },
+      //   {
+      //     name: '包 装',
+      //     subname: '韩国进口银色和透明雾面纸及黑色螺纹丝带',
+      //     openType: 'share'
+      //   },
+      //   {
+      //     name: '场 景',
+      //     subname: '适合送爱人/女友',
+      //     openType: 'share'
+      //   }
+      // ]
     }
   },
 
@@ -47,7 +47,22 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    console.log(options.productId);
+    wx.request({
+      url: app.globalData.baseRequestUrl + '/products/' + options.productId,
+      method: 'GET',
+      dataType: 'json',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          this.setData({ product: res.data.data});
+        } else {
+          Notify('网络错误');
+        }
+      },
+      fail: (res) => {
+        console.log(res);
+      }
+    });
   },
 
   /**

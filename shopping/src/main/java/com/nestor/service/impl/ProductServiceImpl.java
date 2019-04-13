@@ -27,6 +27,7 @@ import com.nestor.service.ProductImageService;
 import com.nestor.service.ProductService;
 import com.nestor.util.IdUtil;
 import com.nestor.vo.ExtProductView;
+import com.nestor.vo.ProductView;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -138,7 +139,10 @@ public class ProductServiceImpl implements ProductService {
 	public ExtProductView findByProductId(String id) {
 		return repository.findByProductId(id);
 	}
- 
- 
+
+    @Override
+    public ProductView findProductById(String productId) {
+        return repository.findDetailById(productId);
+    }
 
 }

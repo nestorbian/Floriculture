@@ -24,7 +24,8 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * 日志打印切面
+ * <p>日志打印切面</p>
+ * 
  * @author bianzeyang
  *
  */
@@ -32,50 +33,50 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class LogHttpInfoHandler {
-	
-	private final List<String> needFilterClassList = Arrays.asList("MultipartFile[]", "StandardMultipartFile");
+
+    private final List<String> needFilterClassList = Arrays.asList("MultipartFile[]", "StandardMultipartFile");
 
     @Pointcut("@annotation(com.nestor.common.LogHttpInfo)")
-	public void httpInfoPoint() {
-		
-	}
-	
-	@Before(value = "httpInfoPoint()")
-	public void before(JoinPoint jp) {
-		
-		RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-		ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
-		HttpServletRequest request = servletRequestAttributes.getRequest();
-		Enumeration<String> enumeration = request.getHeaderNames();
-		StringBuilder header = new StringBuilder();
-		while(enumeration.hasMoreElements()) {
-			header.append(enumeration.nextElement().concat(","));
-		}
-		log.info("前端请求url为：{}", request.getRequestURL());
-		log.info("前端请求方法为：{}", request.getMethod());
-		log.info("前端请求头为：{}", header.substring(0, header.length() - 1));
-		// 过滤不能序列化的object
-		List<?> args = Arrays.asList(jp.getArgs());
-		Object[] objects = args.stream().filter((item) -> {
-			return !needFilterClassList.contains(item.getClass().getSimpleName());
-		}).toArray();
-	    log.info("前端请求参数为：{}", JacksonUtil.object2JsonStr(objects));
-	}
-	
-	@Around(value = "httpInfoPoint()")
-	@SneakyThrows
-	public Object around(ProceedingJoinPoint pjp) {
-		String className = pjp.getSignature().getDeclaringTypeName();
-	    String methodName = pjp.getSignature().getName();
-	    Object result = null;
-	    long start = System.currentTimeMillis();
-	    result = pjp.proceed();
-	    log.info(className + "." + methodName + "方法执行时长为:" + (System.currentTimeMillis() - start) + "ms");
-	    return result;
-	}
-	
-	@AfterReturning(value = "httpInfoPoint()", returning = "result")
-	public void afterReturing(JoinPoint joinPoint, Object result) {
-		log.info("返回结果：{}", JacksonUtil.object2JsonStr(result));
-	}
+    public void httpInfoPoint() {
+
+    }
+
+    @Before(value = "httpInfoPoint()")
+    public void before(JoinPoint jp) {
+
+        RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) requestAttributes;
+        HttpServletRequest request = servletRequestAttributes.getRequest();
+        Enumeration<String> enumeration = request.getHeaderNames();
+        StringBuilder header = new StringBuilder();
+        while (enumeration.hasMoreElements()) {
+            header.append(enumeration.nextElement().concat(","));
+        }
+        log.info("前端请求url为：{}", request.getRequestURL());
+        log.info("前端请求方法为：{}", request.getMethod());
+        log.info("前端请求头为：{}", header.substring(0, header.length() - 1));
+        // 过滤不能序列化的object
+        List<?> args = Arrays.asList(jp.getArgs());
+        Object[] objects = args.stream().filter((item) -> {
+            return !needFilterClassList.contains(item.getClass().getSimpleName());
+        }).toArray();
+        log.info("前端请求参数为：{}", JacksonUtil.object2JsonStr(objects));
+    }
+
+    @Around(value = "httpInfoPoint()")
+    @SneakyThrows
+    public Object around(ProceedingJoinPoint pjp) {
+        String className = pjp.getSignature().getDeclaringTypeName();
+        String methodName = pjp.getSignature().getName();
+        Object result = null;
+        long start = System.currentTimeMillis();
+        result = pjp.proceed();
+        log.info(className + "." + methodName + "方法执行时长为:" + (System.currentTimeMillis() - start) + "ms");
+        return result;
+    }
+
+    @AfterReturning(value = "httpInfoPoint()", returning = "result")
+    public void afterReturing(JoinPoint joinPoint, Object result) {
+        log.info("返回结果：{}", JacksonUtil.object2JsonStr(result));
+    }
 }
