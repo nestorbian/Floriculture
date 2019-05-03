@@ -43,6 +43,7 @@ public class AddressController {
     @GetMapping(path = "/getAllAddress")
     @LogHttpInfo
     public ArrayList<WxAddress> getAllAddress(String thirdSession) {
+    	System.out.println(thirdSession);
         return addSce.getAllAddress(thirdSession);
     }
 

@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
 import com.nestor.common.LogHttpInfo;
+import com.nestor.entity.WxInfo;
 import com.nestor.entity.WxUser;
 import com.nestor.repository.WxLoginRepository;
 import com.nestor.service.WxLoginService;
@@ -19,9 +20,7 @@ import com.nestor.service.WxLoginService;
 public class WxLoginServiceImpl implements WxLoginService {
     @Autowired
     private WxLoginRepository wxLgn;
-
-    private String appid = "wxa7025e69b9d8b749";
-    private String appSecret = "abd4247f4848c338717e0a556c3c419e";
+    
 
     /**
      * 获取获取的openid、session_key、unionid和thirdSession
@@ -32,7 +31,7 @@ public class WxLoginServiceImpl implements WxLoginService {
     @LogHttpInfo
     public String loginUser(String code) {
 
-        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + appid + "&secret=" + appSecret
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + WxInfo.appid + "&secret=" + WxInfo.appSecret
                 + "&js_code=" + code + "&grant_type=authorization_code";
 
         // REST将资源的状态以最合适客户端或服务端的形式从服务器端转移到客户端（相反亦可）
@@ -57,6 +56,8 @@ public class WxLoginServiceImpl implements WxLoginService {
             }
             // 返回 3rd_session
             return wxSession.getThirdSession();
+        }else {
+        	System.out.println("连接失败======================================================");
         }
 
         return null;

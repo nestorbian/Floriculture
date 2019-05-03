@@ -1,0 +1,21 @@
+<!--pages/wuliu/wuliu.wxml-->
+<!-- <view class='page_row top'>
+  <image class='goods' src='../../images/dsh.png'></image>
+  <view class='page_clu logistics'>
+    <text>物流公司: {{wuLiu.company}}申通快递</text>
+    <text>物流单号: {{wuliu.nu}}4326665981311546542</text>
+    <text>官方电话: {{wuliu.phone}}95533</text>
+  </view>
+</view> -->
+<view class='br'></view>
+<block wx:for="{{wuLiu}}" wx:key="index">
+  <view class='order'>
+    <view class='icon {{0==index?"in":"no_in"}}'></view>
+    <view class='logistics_centent page_clu'>
+      <text>{{item.ftime}}</text>
+      <text> {{item.context}}</text>
+    </view>
+    <view class='on'></view>
+  </view>
+</block>
+<view class='icon no_in'></view>

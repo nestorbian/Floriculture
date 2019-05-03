@@ -3,7 +3,7 @@
 <view>
   <van-notice-bar
     mode="link"
-    text="南亚花艺目前只支持江浙沪配送，其余地区暂未开发。"
+    text="南亚花艺目前只支持上海地区配送，其余地区即将开放。"
   />
 <view wx:for="{{address}}" wx:key ="{{index}}" style='position: relative;'>
   <!-- 列表层 -->

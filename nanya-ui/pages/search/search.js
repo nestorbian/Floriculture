@@ -136,7 +136,7 @@ Page({
     //商品编号
     var productId = e.target.id;
     wx.navigateTo({
-      url: '../product-detail/product-detail？productId=' + productId
+      url: '../product-detail/product-detail?productId=' + productId
     })
   }
 })
