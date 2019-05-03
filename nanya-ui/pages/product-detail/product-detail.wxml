@@ -30,7 +30,10 @@
     <text class='price' wx:if="{{product.productDiscountPrice != null}}">￥{{filters.toFix(product.productDiscountPrice, 2)}}</text>
     <text class='discount-price' wx:if="{{product.productDiscountPrice != null}}">￥{{filters.toFix(product.productOriginalPrice, 2)}}</text>
     <text class='sparator'>|</text>
-    <text class='sales-volume'>已售{{product.saleVolume}}份</text>                                  
+    <text class='sales-volume'>已售{{product.saleVolume}}份</text>
+    <text class='sparator'>|</text>
+    <text class='sales-volume' wx:if="{{product.productStock > 0}}">库存{{product.productStock}}份</text>
+    <text class='sales-volume' wx:if="{{product.productStock <= 0}}">库存已售罄</text>                           
   </view>
 </view>
 
@@ -129,3 +132,4 @@
     <view class='_two'>{{product.distribution}}</view>                               
   </view>
 </van-action-sheet>
+<van-notify id="van-notify" />

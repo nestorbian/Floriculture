@@ -150,6 +150,11 @@ public class ProductController {
 		return seaService.findProductList(value, order);
 	}
 	
+	/**
+	 * <p>获取商品详情</p>
+	 * @param productId
+	 * @return
+	 */
 	@GetMapping(path = "/products/{productId}")
 	@LogHttpInfo
 	public Result<ProductView> findProductById(@PathVariable(name = "productId") String productId) {

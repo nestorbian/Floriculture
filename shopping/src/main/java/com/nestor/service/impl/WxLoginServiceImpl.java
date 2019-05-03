@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
 import com.nestor.common.LogHttpInfo;
-import com.nestor.entity.WxInfo;
+import com.nestor.config.WechatAccountConfig;
 import com.nestor.entity.WxUser;
 import com.nestor.repository.WxLoginRepository;
 import com.nestor.service.WxLoginService;
@@ -20,7 +20,8 @@ import com.nestor.service.WxLoginService;
 public class WxLoginServiceImpl implements WxLoginService {
     @Autowired
     private WxLoginRepository wxLgn;
-    
+    @Autowired
+    private WechatAccountConfig wechatAccountConfig;
 
     /**
      * 获取获取的openid、session_key、unionid和thirdSession
@@ -31,8 +32,8 @@ public class WxLoginServiceImpl implements WxLoginService {
     @LogHttpInfo
     public String loginUser(String code) {
 
-        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + WxInfo.appid + "&secret=" + WxInfo.appSecret
-                + "&js_code=" + code + "&grant_type=authorization_code";
+        String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + wechatAccountConfig.getAppId()
+            + "&secret=" + wechatAccountConfig.getAppSecret() + "&js_code=" + code + "&grant_type=authorization_code";
 
         // REST将资源的状态以最合适客户端或服务端的形式从服务器端转移到客户端（相反亦可）
         RestTemplate restTemplate = new RestTemplate();

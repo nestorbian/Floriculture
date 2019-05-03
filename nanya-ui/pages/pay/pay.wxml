@@ -1,0 +1,15 @@
+<button
+  type="primary"
+  plain="微信支付"
+  bindtap="pay"
+>
+微信支付
+</button>
+
+<button
+  type="primary"
+  plain="微信支付"
+  bindtap="refund"
+>
+微信退款
+</button>

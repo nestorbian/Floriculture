@@ -92,9 +92,26 @@ public class CategoryServiceImpl implements CategoryService {
     public List<CategoryPageView> findCategoryInHome() {
         List<Category> categories = repository.findByNeedShowInHomeTrueOrderByCreateTimeAsc();
         
-        // assemble list to CategoryInHomeView class
-        List<CategoryPageView> categoryInHomeViews = new ArrayList<>();
+        // assemble list to CategoryPageView class
+        List<CategoryPageView> categoryPageViews = new ArrayList<>();
+        assembleCategoryPageView(categoryPageViews, categories);
+
+        return categoryPageViews;
+    }
+
+    @Override
+    public List<CategoryPageView> findAllCategory() {
+        List<Category> categories = repository.findAll();
         
+        // assemble list to CategoryPageView class
+        List<CategoryPageView> categoryPageViews = new ArrayList<>();
+        assembleCategoryPageView(categoryPageViews, categories);
+
+        return categoryPageViews;
+    }
+    
+    // assemble list to CategoryPageView class
+    private void assembleCategoryPageView(List<CategoryPageView> categoryPageViews, List<Category> categories) {
         categories.stream().forEach(category -> {
             List<Map<String, Object>> list = repository.callCategorySP(category.getCategoryId());
             
@@ -119,10 +136,8 @@ public class CategoryServiceImpl implements CategoryService {
             });
 
             categoryInHomeView.setProducts(products);
-            categoryInHomeViews.add(categoryInHomeView);
+            categoryPageViews.add(categoryInHomeView);
         });
-        
-        return categoryInHomeViews;
     }
 
 }

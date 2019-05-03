@@ -131,4 +131,14 @@ public class CategoryController {
     public Result<List<CategoryPageView>> findCategoryInHome() {
         return new Result<>(service.findCategoryInHome());
     }
+    
+    /**
+     * <p>获取显示在小程序分类页面的分类信息</p>
+     * @return
+     */
+    @GetMapping(path = "/categories/all")
+    @LogHttpInfo
+    public Result<List<CategoryPageView>> findAllCategory() {
+        return new Result<>(service.findAllCategory());
+    }
 }

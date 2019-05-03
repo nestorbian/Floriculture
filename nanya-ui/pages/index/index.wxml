@@ -1,3 +1,5 @@
+<wxs module="filters" src="../../utils/filters.wxs"></wxs>
+
 <view style='height: 44px;'>
 <include src="../wxSearchView/wxSearchView.wxml" />
 </view>
@@ -10,20 +12,29 @@
 
   <scroll-view class='right-view' scroll-y scroll-with-animation="{{true}}" bindscroll="scroll"
   scroll-into-view="{{'category' + mainCategoryActiveForSkip}}">
-    <view wx:for="{{categories}}" id="{{'category' + index}}" wx:key="key1">
+    <view wx:for="{{categories}}" id="{{'category' + index}}" wx:key="key1" style='background-color:white'>
       <view class='category-name'>
       {{item.categoryName}}
       </view>
 
       <view wx:for="{{item.products}}" wx:for-item="product" wx:key="key2">
-        <van-card num="2" tag="" price="{{product.price}}" desc="{{product.description}}" title="{{product.productName}}" origin-price="" centered="true"
-          thumb="{{product.productImages[0].productUrl}}">
-          <view slot="footer">
+        <van-card wx:if="{{product.productDiscountPrice != null}}" tag="" price="{{filters.toFix(product.productDiscountPrice, 2)}}" desc="{{product.description}}" title="{{product.productName}}" origin-price="{{filters.toFix(product.productOriginalPrice, 2)}}" centered="true" bindtap='viewProductDetail' data-productid="{{product.productId}}"
+          thumb="{{product.productImageUrl}}">
+          <!-- <view slot="footer">
             <van-button size="mini">查看</van-button>
             <van-button size="mini">购买</van-button>
-          </view>
+          </view> -->
         </van-card>
+        <van-card wx:if="{{product.productDiscountPrice == null}}" tag="" price="{{filters.toFix(product.productOriginalPrice, 2)}}" desc="{{product.description}}" title="{{product.productName}}" origin-price="" centered="true" bindtap='viewProductDetail' data-productid="{{product.productId}}"
+          thumb="{{product.productImageUrl}}">
+          <!-- <view slot="footer">
+            <van-button size="mini">查看</van-button>
+            <van-button size="mini">购买</van-button>
+          </view> -->
+        </van-card>
+
       </view>
     </view>
   </scroll-view>
 </view>
+<van-notify id="van-notify" />

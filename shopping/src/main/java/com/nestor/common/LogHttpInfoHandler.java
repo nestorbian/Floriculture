@@ -77,6 +77,6 @@ public class LogHttpInfoHandler {
 
     @AfterReturning(value = "httpInfoPoint()", returning = "result")
     public void afterReturing(JoinPoint joinPoint, Object result) {
-        log.info("返回结果：{}", JacksonUtil.object2JsonStr(result));
+        log.info("返回结果：\n{}", JacksonUtil.object2JsonStr(result));
     }
 }
