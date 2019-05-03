@@ -23,6 +23,7 @@ public class Order {
     @GenericGenerator(name = "generateOrderId", strategy = "uuid")
     @GeneratedValue(generator = "generateOrderId")
     private String orderId;
+    private String openid;
     private String orderNumber; // 订单编号
     private BigDecimal payAmount; // 支付金额
     private String payStatus; // 支付状态
@@ -35,10 +36,10 @@ public class Order {
     private String productName; // 商品名称
     private String productDescription; // 商品描述
     private BigDecimal productPrice; // 商品价格
-    private Long productStock; // 库存
     private String productImageUrl; // 商品图片
     private Integer buyAmount; // 购买数量 
-    private LocalDate expectedDeliveryDate; // 期望配送日期
+    private LocalDateTime expectedDeliveryStartDate; // 期望配送开始日期
+    private LocalDateTime expectedDeliveryEndDate; // 期望配送结束日期
     private String label; // 标签
     private String remark; // 备注
     private String leaveMessage; // 留言
