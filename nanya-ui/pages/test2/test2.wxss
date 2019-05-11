@@ -111,6 +111,7 @@ swiper .slide-image {
   font-size: 25rpx;
   color: #bcbcbc;
   padding-top: 5rpx;
+  height: 70rpx;
 }
 
 .product-text-view .product-price {

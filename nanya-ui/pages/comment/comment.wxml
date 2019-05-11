@@ -1,0 +1,27 @@
+<!--pages/comment/comment.wxml-->
+
+<van-toast id="van-toast" />
+<view>
+  <view class='row' id="textareawrap" >
+      <textarea  fixed="true" bindinput='onBlur' class='text'  maxlength="5000"  name="content"   placeholder="TA收到花想必本开心吧，快来和大家分享你们的甜蜜！"   />
+  </view>
+  <view>\n</view>
+  <view class='rongqi'>
+    <van-rate class ="xingxing"size="30" value="{{ value }}" bind:change="onChange" />
+  </view>
+  <view class='rongqi' wx:if="{{tfps==null}}">
+    <van-icon class ="tupian" name="https://www.ailejia.club/images/addPhoto.jpg" size="50px" bindtap='onPhoto' />
+  </view>
+  <view class='rongqi' wx:else>
+    <block wx:for="{{tfps}}" wx:key="item">
+      <image style="width: 50px; height: 50px; background-color: #eeeeee;"
+              mode="scaleToFill" src="{{item}}"></image>
+    </block>
+    <button bindtap='onClear'>清空图片</button>
+  </view>
+  <view>
+      <button class="footer"  type="warn"  size="large"  bindtap="onCommit">分享快乐</button>
+  </view>
+
+</view>
+

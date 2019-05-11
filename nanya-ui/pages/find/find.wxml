@@ -1,48 +1,53 @@
 <!-- <view> -->
-  <view class='comment' wx:for="{{list}}" wx:key="key">
-    <view class='product'>
-      <image class='product-image' src='http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg'>
-
-      </image>
+  <view class='comment' wx:for="{{comList}}" wx:key="item">
+    <view class='product' bindtap='onClick' id=' {{item.productId}} '>
+      <view class='rongqi' wx:if="{{item.productImage==null}}">
+        <image src='http://img01.hua.com/uploadpic/images/by_2018121815035427.jpg'></image>
+      </view>
+      <view class='rongqi' wx:else>
+        <image class='product-image' src="{{srcHead+item.productImage}}"/>
+      </view>
+      
       <view class='product-name'>
       偏偏爱上你,一生挚爱
-      </view>
+      </view>      
+    
     </view>
 
     <view class='content'>
       <view class='user-item'>
-        <view class='user'>
-          <image src='https://b.yzcdn.cn/vant/icon-demo-1126.png'></image>
-          <text>189****6000</text>
+        <view class='user' wx:if='{{item.nickname!=null}}'>
+          <image src='{{item.avatarurl}}'></image>
+          <text>{{item.nickname}}</text>
+        </view>
+        <view class='user' wx:else>
+          <image src='https://www.ailejia.club/images/smile.jpeg'></image>
+          <text>"一位不愿透露姓名的热心群众"</text>
         </view>
 
         <view class='time'>
-        7小时前
+        {{item.updateTime}}
         </view>
       </view>
 
       <view class='score-item'>
         <view class='score'>
-          <van-icon name="star" class='star' />
-          <van-icon name="star" class='star' />
-          <van-icon name="star" class='star' />
-          <van-icon name="star" class='star' />
-          <van-icon name="star" class='star' />
-
-          <text>5.0分</text>
+          <van-rate class ="xingxing" value="{{ item.value }}"  />
         </view>
 
         <view class='location'>
-        广东 东莞市 南城区
+        {{item.location}}
         </view>
       </view>
 
       <view class='comment-item'>
         <view class='comment-text'>
-        <text>物流很快。服务态度很好。送货很快，商家很用心。</text>
+        <text>{{item.texxt}}</text>
         </view>
         <view class='comment-images'>
-          <image src='http://img01.hua.com/uploadpic/images/by_2018121815035427.jpg' wx:for="list" wx:key="key"></image>
+          <!-- <image src='http://img01.hua.com/uploadpic/images/by_2018121815035427.jpg' wx:for="list" wx:key="key"></image>           -->
+          <image src='{{item.imageUrls}}' ></image>
+          <!-- <image src='{{item.imageUrls}}' wx:for="list" wx:key="key"></image> -->
         </view>
       </view>
     </view>

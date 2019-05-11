@@ -1,0 +1,55 @@
+/* pages/wuliu/wuliu.wxss */
+
+.goods{
+  margin: 50rpx;
+  height: 150rpx;
+  width: 150rpx;
+  border-radius: 15rpx;
+}
+.logistics{
+  margin-top: 70rpx;
+  font-size: 28rpx;
+}
+.br{
+  width: 95%;
+  margin-left: 2.5%;
+  margin-bottom: 30rpx;
+  background: #d0d0d0;
+  height: 1rpx;
+}
+ 
+/* 下部分 */
+.logistics_centent{
+  position: absolute;
+  left: 100rpx;
+  font-size: 28rpx;
+  color: #666
+}
+.icon{
+  width: 20rpx;
+  height: 20rpx;
+  background: white;
+  border-radius: 50%;
+  display: inline-block;
+  margin:0rpx 20rpx 0rpx 40rpx;
+}
+.in{
+  border: 1rpx solid red;
+  animation: my_animation 2s infinite;
+}
+@keyframes my_animation{
+    100% {  
+    transform: scale(2);  
+    background-color: transparent;  
+    }  
+}
+ 
+.no_in{
+  border: 1rpx solid #d0d0d0;
+}
+.on{
+  background: #d0d0d0;
+  height: 100rpx;
+  width: 1px;
+  margin-left: 50rpx;
+}

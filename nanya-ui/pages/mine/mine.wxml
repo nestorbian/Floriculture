@@ -28,16 +28,16 @@
 
   <view class="separate"></view>
 
-  <view class="order" catchtap="toOrder">
+  <view class="order" >
     <text class="myorder-text">我的订单</text>
-    <text class="myorderlook-text">查看全部订单</text>
+    <text class="myorderlook-text" data-typeid="5" bindtap='onClickOrder'>查看全部订单</text>
     <van-icon name="arrow" color='gray'/>
   </view>
   <view class="line"></view>
 
   <view class="navs">
     <block wx:for-items="{{orderItems}}" wx:key="name">
-      <view class="nav-item" catchtap="toOrder" data-type="{{item.name}}" data-typeid="{{item.typeId}}">
+      <view class="nav-item" data-type="{{item.name}}" data-typeid="{{item.typeId}}" bindtap='onClickOrder'>
         <van-icon name="{{item.imageurl}}" />
         <text>{{item.name}}</text>
       </view>

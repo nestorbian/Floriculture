@@ -4,14 +4,34 @@ Page({
    * 页面的初始数据
    */
   data: {
-    list:['aa','aa','aa','aa','aa','','','','','','','','','','','']
+    list:['aa','aa','aa','aa','aa','','','','','','','','','','',''],
+    page :'1',
+    pageSize : '60',
+    hasMore : true,
+    comList:[],
+    srcHead:'https://www.ailejia.club'//图片网址
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    
+    var that = this;
+    wx.request({
+      url: 'http://127.0.0.1:80/nanyahuayi/CommentsController/findComment', // 仅为示例，并非真实的接口地址
+      data: {
+        page: this.data.page,
+        pageSize: this.data.pageSize
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        that.setData({
+          comList : res.data
+        })
+      }
+    })
   },
 
   /**
@@ -61,5 +81,11 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+  onClick: function(e){
+    var productId = e.currentTarget.id.replace(/^\s*|\s*$/g, "");;
+    wx.navigateTo({
+      url: '../product-detail/product-detail?productId=' + productId
+    })
   }
 })

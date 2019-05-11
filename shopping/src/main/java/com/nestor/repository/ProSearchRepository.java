@@ -33,5 +33,7 @@ public interface ProSearchRepository   extends JpaRepository<Product, String> {
 				+ "order by ?1 desc,p.product_discount_price desc", nativeQuery = true)  
 		@Modifying  
 		public ArrayList<ProductWithSingleImage> findPListOrderBy(String order); 
+		
+
 
 }

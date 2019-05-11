@@ -82,7 +82,7 @@ Page({
 
   },
   onAdd : function(){
-    wx.navigateTo({
+    wx.redirectTo({
       url: '/pages/mine/edit_address'
     })
   },

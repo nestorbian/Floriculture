@@ -1,4 +1,5 @@
 var WxSearch = require('../wxSearchView/wxSearchView.js');
+var app = getApp();
 
 Page({
 
@@ -9,158 +10,7 @@ Page({
     mainHeight: wx.getSystemInfoSync().windowHeight,
     mainCategoryActive: 0,
     mainCategoryActiveForSkip: 0,
-    categories:[
-      {
-        categoryName:'情人节告白系列',
-        products:[
-          {
-            productName:'浓情蜜意',
-            description:'99枝戴安娜',
-            price:899,
-            productImages:[
-              { productUrl:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3406300341,2036134685&fm=15&gp=0.jpg'}
-            ]
-          },
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          },
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          },
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          }
-        ]
-      },
-      {
-        categoryName: '网红款系列',
-        products: [
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          },
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          },
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          },
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          },
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          },
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          },
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          },
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          }
-        ]
-      }, {
-        categoryName: '水晶之恋-定制系列',
-        products: [
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          },
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          },
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          },
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          },
-          {
-            productName: '浓情蜜意',
-            description: '99枝戴安娜',
-            price: 899,
-            productImages: [
-              { productUrl: 'http://img01.hua.com/uploadpic/newpic/201801162043054106.jpg' }
-            ]
-          }
-        ]
-      }
-    ]
+    categories:[]
   },
   selectCategory:function(event) {
     this.setData({ 
@@ -185,6 +35,8 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.startPullDownRefresh({
+    });
     // 2 搜索栏初始化
     var that = this;
     WxSearch.init(
@@ -194,6 +46,24 @@ Page({
       that.mySearchFunction, // 提供一个搜索回调函数
       that.myGobackFunction //提供一个返回回调函数
     );
+    wx.request({
+      url: app.globalData.baseRequestUrl + '/categories/all',
+      method: 'GET',
+      dataType: 'json',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          this.setData({ categories: res.data.data })
+        } else {
+          Notify('网络错误');
+        }
+      },
+      fail: (res) => {
+        console.log(res);
+      },
+      complete: () => {
+        wx.stopPullDownRefresh();
+      }
+    });
   },
 
   /**
@@ -273,6 +143,12 @@ Page({
     // 示例：返回
     wx.redirectTo({
       url: '../index/index?searchValue=返回'
+    })
+  },
+  viewProductDetail: function (event) {
+    const productId = event.currentTarget.dataset.productid;
+    wx.navigateTo({
+      url: '/pages/product-detail/product-detail?productId=' + productId,
     })
   }
 

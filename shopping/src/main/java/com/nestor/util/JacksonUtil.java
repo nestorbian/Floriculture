@@ -14,6 +14,6 @@ public class JacksonUtil {
 	
 	@SneakyThrows
 	public static String object2JsonStr(Object value) {
-		return objectMapper.writeValueAsString(value);
+		return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(value);
 	}
 }

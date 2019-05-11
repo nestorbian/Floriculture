@@ -46,7 +46,7 @@ Page({
   //事件处理函数
   toOrder: function () {
     wx.navigateTo({
-      url: '../order/order'
+      url: '../order/order?typeId='+typeId
     })
   },
   // login :function(){
@@ -102,6 +102,7 @@ Page({
   onConfirmed(e) {
     var that = this ;
     app.globalData.userInfo = e.detail.userInfo;
+    console.log(e.detail);
     that.setData({
       userInfo : e.detail.userInfo
     })
@@ -148,6 +149,13 @@ Page({
         }
       }
     })
+  },
+  onClickOrder : function(e){
+    var typeId =e.currentTarget.dataset.typeid
+    wx.navigateTo({
+      url: '../order/order?typeId=' + typeId
+    })
+
   }
   
 })

@@ -1,18 +1,22 @@
 {
   "pages": [
-    "pages/test2/test2",
-    "pages/index/index",
-    "pages/search/search",
     "pages/mine/mine",
-    "pages/product-detail/product-detail",
     "pages/find/find",
+    "pages/comment/comment",
+    "pages/index/index",
+    "pages/wuliu/wuliu",
+    "pages/test2/test2",
+    "pages/pay/pay",
+    "pages/search/search",
+    "pages/product-detail/product-detail",
     "pages/logs/logs",
     "pages/test1/ny_personal",
     "pages/test1/ny_index",
     "pages/mine/order",
     "pages/mine/edit_address",
     "pages/mine/address",
-    "pages/category-detail/category-detail"
+    "pages/category-detail/category-detail",
+    "pages/order/order"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -77,7 +81,8 @@
     "van-notify": "/dist/notify/index",
     "van-toast": "/dist/toast/index",
     "van-notice-bar": "dist/notice-bar/index",
-    "van-tab" : "dist/tab/index",
-    "van-tabs": "dist/tabs/index"
+    "van-tab": "dist/tab/index",
+    "van-tabs": "dist/tabs/index",
+    "van-rate": "dist/rate/index"
   }
 }

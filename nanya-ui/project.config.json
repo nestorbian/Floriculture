@@ -9,12 +9,12 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false,
-		"nodeModules": true
+		"nodeModules": true,
+		"autoAudits": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.4.1",
-	"appid": "wxa7025e69b9d8b749",
+	"appid": "wxa3a9cf2825b29135",
 	"projectname": "nanya-ui",
 	"debugOptions": {
 		"hidedInDevtools": []

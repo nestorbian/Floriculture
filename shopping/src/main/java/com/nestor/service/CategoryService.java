@@ -22,4 +22,6 @@ public interface CategoryService {
     public Page<CategoryView> findAll(int pageNumber, int pageSize);
 
     public List<CategoryPageView> findCategoryInHome();
+
+    public List<CategoryPageView> findAllCategory();
 }

@@ -1,0 +1,16 @@
+
+    <van-tabs active='true' swipeable> 
+      <view wx:for="{{orderItems}}" wx:key="item">
+        <van-tab title="{{item.name}}" index="{{item.typeId}}">
+           <view wx:for="{{order}}" wx:key ="{{index}}" style='position: relative;'>
+               <view data-index='{{index}}' bindtap="onHref">
+               <van-card id="{{item.productId}}"  num="{{item.productStock}}"   price="{{item.productDiscountPrice==null?item.productOriginalPrice:item.productDiscountPrice}}"  desc="{{item.productDescription}}" origin-price="{{item.productDiscountPrice==null?'':item.productOriginalPrice}}"  title="{{item.productName}}"  thumb="http://129.204.173.36/images/demo2.jpg" thumb-mode='aspectFill'/>
+           </view>
+    </view>
+
+        </van-tab>  
+      </view>
+    </van-tabs>
+
+
+

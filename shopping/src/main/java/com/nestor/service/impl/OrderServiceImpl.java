@@ -1,12 +1,12 @@
 package com.nestor.service.impl;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.nestor.entity.OrderMaster;
+
 import com.nestor.entity.OrderParam;
-import com.nestor.repository.OrderMasterRepository;
 import com.nestor.repository.ProductRepository;
 import com.nestor.service.OrderService;
 
@@ -15,9 +15,6 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private ProductRepository productRepository;
-	
-	@Autowired
-	private OrderMasterRepository orderMasterRepository;
 
 	@Override
 	@Transactional
@@ -61,18 +58,6 @@ public class OrderServiceImpl implements OrderService {
 //		orderMaster.setOrderDetails(orderDetails);
 //		
 //		orderMasterRepository.save(orderMaster);
-	}
-
-	@Override
-	public List<OrderMaster> findAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public OrderMaster findById() {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 }
