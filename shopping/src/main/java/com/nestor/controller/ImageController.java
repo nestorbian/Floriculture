@@ -29,6 +29,12 @@ public class ImageController {
 	@Autowired
 	private ImageService imageService;
 	
+	/**
+	 * 上传单张图片
+	 * @param image
+	 * @param type
+	 * @return
+	 */
 	@PostMapping(path = "/images/one")
 	@LogHttpInfo
 	public Result<Image> saveOneImage(@RequestParam(name = "image", required = true) MultipartFile image,
@@ -39,6 +45,12 @@ public class ImageController {
 		return new Result<>(imageService.saveOneImage(image, type));
 	}
 	
+	/**
+	 * <p>上传多张图片</p>
+	 * @param images
+	 * @param type
+	 * @return
+	 */
 	@PostMapping(path = "/images/many")
 	@LogHttpInfo
 	public Result<List<Image>> saveManyImages(@RequestParam(name = "images", required = true) MultipartFile[] images,

@@ -1,0 +1,5 @@
+module.exports = {
+  formateLocation: function (location) {
+    return location.split('/').join('');
+  }
+}

@@ -1,0 +1,129 @@
+<wxs module="format" src="../../utils/format.wxs"></wxs>
+
+<view wx-if="{{address == null}}" class='add-address' bindtap='chooseAddress'>
+  <view class='body'>
+    <van-icon name="add" class='icon add'/>
+    <view>选择收货地址</view>
+  </view>
+  <view class='link'>
+    <van-icon name="arrow" color="#999"/>
+  </view>
+</view>
+<view wx-if="{{address != null}}" class='address' bindtap='chooseAddress'>
+  <view class='body'>
+    <view class='row-1'>
+      <van-icon name="location-o" class='icon'/>
+      <view class='username'>收货人：{{address.username}}</view>
+      <view class='phone'>{{address.telnum}}</view>
+    </view>
+    <view class='row-2'>
+      <view>收货地址：{{format.formateLocation(address.location)}}{{address.detailAdd}}</view>
+    </view>
+  </view>
+  <view class='link'>
+    <van-icon name="arrow" color="#999"/>
+  </view>
+</view>
+
+<van-card
+  num="2"
+  price="2.00"
+  desc="描述信息"
+  title="商品标题"
+  thumb="https://www.ailejia.club/images/demo2.jpg"
+/>
+
+<view class="section date">
+  <van-icon name="clock-o" class="icon" />
+  <picker
+    mode="date"
+    value="{{date}}"
+    start="2015-09-01"
+    end="2017-09-01"
+    bindchange="bindDateChange"
+  >
+    <view class="picker">
+      选择配送日期: {{date}}
+    </view>
+  </picker>
+</view>
+<view class="section date">
+  <van-icon name="underway-o" class="icon" />
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{dateRang}}">
+    <view class="picker">
+      选择时间段：{{dateRang[index]}}
+    </view>
+  </picker>
+</view>
+
+<view class='label-view' bindtap='showLabel'>
+  <view class='label'>
+    <van-icon name="label-o" class="icon" />
+    <text wx:if="{{labelArray.length != 0}}" wx:for="{{labelArray}}" wx:for-item="item" wx:key="key" class='label-item'>{{item}}</text>
+    <text wx:if="{{labelArray.length == 0}}">选择标签，我们将更好的为您服务</text>
+  </view>
+  <view class='link'>
+    <van-icon name="arrow" color="#999"/>
+  </view>
+</view>
+
+<view class="section remark-view">
+  <van-icon name="comment-o" class="icon" />
+  <textarea
+    placeholder="备注：请写下您的特殊需求，我们将竭诚为您服务!"
+    placeholder-style="color:#c9c9cc;"
+    class='remark'
+    maxlength="100"
+    bindinput="countRemark"
+    cursor-spacing="80px"
+  />
+  <text>{{remarkNumber}}/100</text>
+</view>
+
+<view class="section leaveMessage-view">
+  <van-icon name="point-gift-o" class="icon" />
+  <textarea
+    placeholder="留言：填写卡片,为TA送出你的祝福吧!"
+    placeholder-style="color:#c9c9cc;"
+    class='leaveMessage'
+    maxlength="50"
+    bindinput="countLeaveMessage"
+    cursor-spacing="80px"
+  />
+  <text>{{leaveMessageNumber}}/50</text>
+</view>
+
+<van-submit-bar
+  price="{{ 3050 }}"
+  button-text="提交订单"
+  bind:submit="onSubmit"
+/>
+
+<van-popup
+  show="{{ isShowLabel }}"
+  position="bottom"
+  overlay="true"
+  bind:close="closeLabel"
+  custom-class="popup"
+>
+  <!-- <van-icon name="cross" bind:click="closeLabel" class='back'/> -->
+  <van-cell-group>
+    <van-cell title="生日" data-label="生日" bind:click="setLabel">
+      <van-checkbox value="{{ birthdayLabel }}"></van-checkbox>
+    </van-cell>
+    <van-cell title="纪念日" data-label="纪念日" bind:click="setLabel">
+      <van-checkbox value="{{ commemorationLabel }}"></van-checkbox>
+    </van-cell>
+    <van-cell title="节日" data-label="节日" bind:click="setLabel">
+      <van-checkbox value="{{ festivalLabel }}"></van-checkbox>
+    </van-cell>
+    <van-cell title="问候" data-label="问候" bind:click="setLabel">
+      <van-checkbox value="{{ greetLabel }}"></van-checkbox>
+    </van-cell>
+    <van-cell title="祝贺" data-label="祝贺" bind:click="setLabel">
+      <van-checkbox value="{{ congratulationLabel }}"></van-checkbox>
+    </van-cell>
+  </van-cell-group>
+  <van-button type="danger" size="large" class='finish-btn' bindtap='finish'>完成</van-button>
+</van-popup>
+<view style='height:50px'></view>

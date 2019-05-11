@@ -54,7 +54,7 @@
 
         <view class='products-view'>
 
-          <view class='product-view' bindtap='viewProductDetail' wx:for="{{item.products}}" 
+          <view class='product-view' bindtap='viewProductDetail' wx:for="{{item.products}}" wx:key="key"
           wx:for-item="product" data-productid="{{product.productId}}">
             <view class='product-image' style='background-image: url({{product.productImageUrl}});'></view>
             <view class='product-text-view'>

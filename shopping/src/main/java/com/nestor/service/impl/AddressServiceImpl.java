@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nestor.common.BizException;
 import com.nestor.common.LogHttpInfo;
 import com.nestor.entity.WxAddress;
 import com.nestor.repository.AddressRepository;
@@ -13,7 +14,10 @@ import com.nestor.repository.WxLoginRepository;
 import com.nestor.service.AddressService;
 import com.nestor.util.IdUtil;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Service
+@Slf4j
 public class AddressServiceImpl implements AddressService  {
 	@Autowired
 	private AddressRepository addR;
@@ -28,7 +32,7 @@ public class AddressServiceImpl implements AddressService  {
 		wxAddress.setUsername(username);
 		wxAddress.setTelnum(telnum);
 		wxAddress.setLocation(location);
-		wxAddress.setDetail_add(detail_add);
+		wxAddress.setDetailAdd(detail_add);
 		wxAddress.setCity("");
 		ArrayList<String> openIdList = wxR.findOpenidBy3rd(thirdSession);
 		//如果地址信息编号为空，则赋值给他
@@ -48,10 +52,13 @@ public class AddressServiceImpl implements AddressService  {
 	/*
 	 * 用来获取单个地址信息	 *
 	 */
-	public Optional<WxAddress> getAddress(String id) {
-		if(id == null ) {return null ;}
+	public WxAddress getAddress(String id) {
 		Optional<WxAddress> wxAddress = addR.findById(id);
-		return wxAddress;
+		if (!wxAddress.isPresent()) {
+		    log.warn("该地址已被删除，id为{}", id);
+		    throw new BizException("该地址已被删除");
+		}
+		return wxAddress.get();
 	}
 	
 	/*

@@ -10,23 +10,6 @@ Page({
     indexNumber: 1,
     actionSheet: {
       show: false
-      // actions: [
-      //   {
-      //     name: '花 材',
-      //     subname: '红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀红色玫瑰19枝，黄莺点缀',
-      //     openType: 'share'
-      //   },
-      //   {
-      //     name: '包 装',
-      //     subname: '韩国进口银色和透明雾面纸及黑色螺纹丝带',
-      //     openType: 'share'
-      //   },
-      //   {
-      //     name: '场 景',
-      //     subname: '适合送爱人/女友',
-      //     openType: 'share'
-      //   }
-      // ]
     }
   },
 
@@ -112,5 +95,10 @@ Page({
    */
   onShareAppMessage: function () {
     
+  },
+  buy: function() {
+    wx.navigateTo({
+      url: '/pages/order/order?productId=' + this.data.product.productId
+    })
   }
 })

@@ -1,5 +1,6 @@
 package com.nestor.common;
 
+import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -63,19 +64,8 @@ public class GlobalExceptionHandler {
     @ResponseBody
     public Result<?> handleRuntimeException(RuntimeException e) {
         log.error("未知异常： {}", e.toString());
-        if (e.getCause() != null) {
-            StringBuilder stackInfo = new StringBuilder(e.getCause().getMessage());
-            for (StackTraceElement traceElement : e.getCause().getStackTrace()) {
-                stackInfo.append("\n\tat ".concat(traceElement.toString()));
-            }
-            log.error("exception stack: {}", stackInfo.toString());
-        } else {
-            StringBuilder stackInfo = new StringBuilder(e.getMessage());
-            for (StackTraceElement traceElement : e.getStackTrace()) {
-                stackInfo.append("\n\tat ".concat(traceElement.toString()));
-            }
-            log.error("exception stack: {}", stackInfo.toString());
-        }
+        String stackTrace = ExceptionUtils.getStackTrace(e);
+        log.error("exception stack: {}", stackTrace);
         return new Result<>(UNKNOWN_EXCEPTION, e.toString());
     }
 }

@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/order/confirm-order",
+    "pages/order/order",
     "pages/comment/comment",
     "pages/index/index",
     "pages/wuliu/wuliu",
@@ -14,7 +16,9 @@
     "pages/mine/edit_address",
     "pages/mine/address",
     "pages/category-detail/category-detail",
-    "pages/order/order"
+    "pages/order/choose-address",
+    "pages/find/find",
+    "pages/mine/mine"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -81,6 +85,9 @@
     "van-notice-bar": "dist/notice-bar/index",
     "van-tab": "dist/tab/index",
     "van-tabs": "dist/tabs/index",
-    "van-rate": "dist/rate/index"
+    "van-submit-bar": "dist/submit-bar/index",
+    "van-rate": "dist/rate/index",
+    "van-checkbox": "dist/checkbox/index",
+    "van-checkbox-group": "dist/checkbox-group/index"
   }
 }

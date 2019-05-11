@@ -16,7 +16,7 @@ public interface AddressService  {
 	/*
 	 * 用来获取单个地址信息	 *
 	 */
-	public Optional<WxAddress> getAddress(String id) ;
+	public WxAddress getAddress(String id) ;
 	
 	/*
 	 * 用来获取全部地址信息	 *

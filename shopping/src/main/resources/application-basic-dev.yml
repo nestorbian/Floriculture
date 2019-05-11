@@ -55,7 +55,7 @@ logging:
 image: 
   product: 
     base-directory: D:/nginx/html/dist
-    base-url: http://129.204.173.36:80
+    base-url: https://www.ailejia.club
 
 wechat: 
   appId: wxa3a9cf2825b29135

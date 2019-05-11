@@ -1,14 +1,15 @@
 package com.nestor.controller;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.nestor.common.LogHttpInfo;
+import com.nestor.entity.Result;
 import com.nestor.entity.WxAddress;
 import com.nestor.service.AddressService;
 
@@ -29,12 +30,12 @@ public class AddressController {
     }
 
     /*
-     * 用来获取单个地址信息 *
+     *<p>用来获取单个地址信息 </p>
      */
     @GetMapping(path = "/getAddress")
     @LogHttpInfo
-    public Optional<WxAddress> getAddress(String id) {
-        return addSce.getAddress(id);
+    public Result<WxAddress> getAddress(@RequestParam(name = "id", required = true) String id) {
+        return new Result<>(addSce.getAddress(id));
     }
 
     /*

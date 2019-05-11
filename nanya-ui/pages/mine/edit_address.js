@@ -1,5 +1,6 @@
 // pages/mine/edit_address.js
 import Toast from '../../dist/toast/toast';
+var app = getApp();
 Page({
 
   /**
@@ -275,7 +276,7 @@ Page({
     //如果之前是修改 则进方法，是新增则不进方法
     if (typeof(options.id) !="undefined"){
       wx.request({
-        url: 'http://127.0.0.1:80/nanyahuayi/addressController/getAddress', // 仅为示例，并非真实的接口地址
+        url: app.globalData.baseRequestUrl + '/addressController/getAddress', // 仅为示例，并非真实的接口地址
         data: {
           id: options.id
         },
@@ -285,12 +286,12 @@ Page({
         success(res) {
           //console.log(res.data);
           that.setData({
-            detail_add: res.data.detail_add,
-            id: res.data.id,
-            location: res.data.location,
-            openid: res.data.openid,
-            telnum: res.data.telnum,
-            username: res.data.username
+            detail_add: res.data.data.detailAdd,
+            id: res.data.data.id,
+            location: res.data.data.location,
+            openid: res.data.data.openid,
+            telnum: res.data.data.telnum,
+            username: res.data.data.username
           })
         }
       })
@@ -395,7 +396,7 @@ Page({
           thirdSession: thirdSession 
           ,username : username
           ,telnum : telnum
-          ,location :location
+          , location: location
           ,detail_add : detail_add
           , id: id == null ? 1 : id
         },
@@ -405,8 +406,11 @@ Page({
         success(res) {
           Toast(res.data);
           if (res.data == "保存成功") {
-            wx.redirectTo({
-              url: '/pages/mine/address'
+            // wx.redirectTo({
+            //   url: '/pages/mine/address'
+            // })
+            wx.navigateBack({
+              delta: 1
             })
           }
         }

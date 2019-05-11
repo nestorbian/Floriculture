@@ -55,4 +55,4 @@ logging:
 image: 
   product: 
     base-directory: /usr/share/nginx/html
-    base-url: http://129.204.173.36:80
+    base-url: https://www.ailejia.club

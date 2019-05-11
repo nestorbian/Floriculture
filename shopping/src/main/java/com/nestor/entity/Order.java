@@ -1,7 +1,6 @@
 package com.nestor.entity;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import javax.persistence.Entity;
@@ -38,8 +37,7 @@ public class Order {
     private BigDecimal productPrice; // 商品价格
     private String productImageUrl; // 商品图片
     private Integer buyAmount; // 购买数量 
-    private LocalDateTime expectedDeliveryStartDate; // 期望配送开始日期
-    private LocalDateTime expectedDeliveryEndDate; // 期望配送结束日期
+    private String expectedDeliveryTime; // 期望配送时间
     private String label; // 标签
     private String remark; // 备注
     private String leaveMessage; // 留言

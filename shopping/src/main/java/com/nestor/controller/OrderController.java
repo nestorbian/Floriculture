@@ -69,6 +69,6 @@ public class OrderController {
     public void payCallBack(@RequestBody String body) {
         System.out.printf("callback body is %s\n", body);
         PayResponse payResponse = wxPayService.asyncNotify(body);
-        System.out.printf("callback payResponse is {}", JacksonUtil.object2JsonStr(payResponse));
+        System.out.printf("callback payResponse is %s\n", JacksonUtil.object2JsonStr(payResponse));
     }
 }
