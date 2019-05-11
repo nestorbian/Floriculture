@@ -1,7 +1,5 @@
 {
   "pages": [
-    "pages/mine/mine",
-    "pages/find/find",
     "pages/comment/comment",
     "pages/index/index",
     "pages/wuliu/wuliu",
