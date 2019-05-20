@@ -1,4 +1,5 @@
 <wxs module="format" src="../../utils/format.wxs"></wxs>
+<wxs module="filters" src="../../utils/filters.wxs"></wxs>
 
 <view wx-if="{{address == null}}" class='add-address' bindtap='chooseAddress'>
   <view class='body'>
@@ -25,12 +26,28 @@
   </view>
 </view>
 
-<van-card
-  num="2"
-  price="2.00"
-  desc="描述信息"
-  title="商品标题"
-  thumb="https://www.ailejia.club/images/demo2.jpg"
+<van-card wx:if="{{product.productDiscountPrice == null}}"
+  num="{{num}}"
+  price="{{filters.toFix(product.productOriginalPrice, 2)}}"
+  desc="{{product.productDescription}}"
+  title="{{product.productName}}"
+  thumb="{{product.imageUrl}}"
+  title-class="title-size"
+  desc-class="des-size"
+  price-class="price-size"
+  origin-price-class="price-size"
+/>
+<van-card wx:if="{{product.productDiscountPrice != null}}"
+  num="{{num}}"
+  price="{{filters.toFix(product.productDiscountPrice, 2)}}"
+  origin-price="{{filters.toFix(product.productOriginalPrice, 2)}}"
+  desc="{{product.productDescription}}"
+  title="{{product.productName}}"
+  thumb="{{product.imageUrl}}"
+  title-class="title-size"
+  desc-class="des-size"
+  price-class="price-size"
+  origin-price-class="price-size"
 />
 
 <view class="section date">
@@ -38,19 +55,21 @@
   <picker
     mode="date"
     value="{{date}}"
-    start="2015-09-01"
-    end="2017-09-01"
+    start="{{currentDate}}"
+    end="2030-09-01"
     bindchange="bindDateChange"
+    class="picker"
   >
-    <view class="picker">
+    <view>
       选择配送日期: {{date}}
     </view>
   </picker>
 </view>
-<view class="section date">
+<view class="section time">
   <van-icon name="underway-o" class="icon" />
-  <picker bindchange="bindPickerChange" value="{{index}}" range="{{dateRang}}">
-    <view class="picker">
+  <picker bindchange="bindPickerChange" value="{{index}}" range="{{dateRang}}"
+    class="picker">
+    <view>
       选择时间段：{{dateRang[index]}}
     </view>
   </picker>
@@ -93,8 +112,13 @@
   <text>{{leaveMessageNumber}}/50</text>
 </view>
 
-<van-submit-bar
-  price="{{ 3050 }}"
+<van-submit-bar wx:if="{{product.productDiscountPrice == null}}"
+  price="{{ product.productOriginalPrice * num * 100 }}"
+  button-text="提交订单"
+  bind:submit="onSubmit"
+/>
+<van-submit-bar wx:if="{{product.productDiscountPrice != null}}"
+  price="{{ product.productDiscountPrice * num * 100 }}"
   button-text="提交订单"
   bind:submit="onSubmit"
 />
@@ -126,4 +150,6 @@
   </van-cell-group>
   <van-button type="danger" size="large" class='finish-btn' bindtap='finish'>完成</van-button>
 </van-popup>
-<view style='height:50px'></view>
+<view style='height:70px'></view>
+<van-notify id="van-notify" />
+<van-toast id="van-toast" />

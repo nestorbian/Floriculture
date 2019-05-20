@@ -15,7 +15,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import lombok.Data;
 
 @Entity
-@Table(name = "order")
+@Table(name = "`order`")
 @Data
 public class Order {
     @Id

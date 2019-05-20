@@ -1,9 +1,10 @@
 package com.nestor.service;
 
-import java.util.List;
-
-import com.nestor.entity.OrderParam;
+import com.lly835.bestpay.model.PayResponse;
+import com.nestor.dto.SimpleOrder;
+import com.nestor.entity.Order;
 
 public interface OrderService {
-	public void generateOrder(List<OrderParam> orderParams);
+	PayResponse generateOrder(SimpleOrder simpleOrder);
+	void handleCallback(String callBackBody);
 }

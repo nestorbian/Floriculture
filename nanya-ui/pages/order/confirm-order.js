@@ -1,3 +1,4 @@
+import Toast from '../../dist/toast/toast';
 var app = getApp();
 
 Page({
@@ -7,7 +8,8 @@ Page({
    */
   data: {
     date: '',
-    dateRang: ['上午（8：00-12：00）', '下午（14：00-18：00）'],
+    dateRang: ['上午（8：00-12：00）', '下午（14：00-18：00）', '晚上（18：00-21：00）'],
+    currentDate: null,
     index: null,
     remarkNumber: 0,
     leaveMessageNumber: 0,
@@ -18,7 +20,11 @@ Page({
     festivalLabel: false,
     greetLabel: false,
     congratulationLabel: false,
-    address: null
+    address: null,
+    product: null,
+    num: 1,
+    remark: '',
+    leaveMessage: ''
   },
 
   /**
@@ -26,6 +32,21 @@ Page({
    */
   onLoad: function (options) {
     console.log(options.productId);
+    wx.request({
+      url: app.globalData.baseRequestUrl + '/products/single-image/' + options.productId,
+      dataType: 'json',
+      method: 'GET',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          this.setData({ product: res.data.data });
+        } else {
+          Notify('网络错误');
+        }
+      },
+      fail: (res) => {
+        console.log(res);
+      }
+    })
   },
 
   /**
@@ -39,27 +60,46 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var addressId = wx.getStorageSync('addressId');
-    if (addressId) {
-      wx.request({
-        url: app.globalData.baseRequestUrl + '/addressController/getAddress',
-        method: 'GET',
-        data: { id: addressId },
-        dataType: 'json',
-        success: (res) => {
-          if (res.statusCode == 200) {
-            this.setData({ address: res.data.data });
-            console.log(this.data.address);
-          } else {
-            Notify('网络错误');
+    // 获取当前日期
+    var now = new Date();
+    this.setData({ currentDate: now.getFullYear() + '-' + (now.getMonth() + 1) + '-' + now.getDate()});
+    // 获取地址信息
+    wx.request({
+      url: app.globalData.baseRequestUrl + '/user-addresses',
+      method: 'GET',
+      header: {
+        'authorization': wx.getStorageSync('thirdSession')
+      },
+      dataType: 'json',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          var userAddress = res.data.data;
+          if (userAddress) {
+            wx.request({
+              url: app.globalData.baseRequestUrl + '/addressController/getAddress',
+              method: 'GET',
+              data: { id: userAddress.addressId },
+              dataType: 'json',
+              success: (res) => {
+                if (res.statusCode == 200) {
+                  this.setData({ address: res.data.data });
+                } else {
+                  Notify('网络错误');
+                }
+              },
+              fail: (res) => {
+                console.log(res);
+              }
+            })
           }
-        },
-        fail: (res) => {
-          console.log(res);
+        } else {
+          Notify('网络错误');
         }
-      })
-    }
-    console.log("addressId: " + addressId);
+      },
+      fail: (res) => {
+        console.log(res);
+      }
+    });
   },
 
   /**
@@ -103,10 +143,10 @@ Page({
     this.setData({ index: event.detail.value });
   },
   countRemark: function (event) {
-    this.setData({ remarkNumber: event.detail.value.length });
+    this.setData({ remarkNumber: event.detail.value.length, remark: event.detail.value });
   },
   countLeaveMessage: function(event) {
-    this.setData({ leaveMessageNumber: event.detail.value.length});
+    this.setData({ leaveMessageNumber: event.detail.value.length, leaveMessage: event.detail.value});
   },
   onClose: function(event) {
     this.setData({ isShowLabel: false });
@@ -166,5 +206,65 @@ Page({
     wx.navigateTo({
       url: './choose-address',
     });
+  },
+  // 提交订单
+  onSubmit: function() {
+    // 参数验证
+    if (!this.data.address) {
+      Toast.fail('请选择收货地址');
+    } else if (!this.data.date) {
+      Toast.fail('请选择配送日期');
+    } else if (this.data.index == null) {
+      Toast.fail('请选择时间段');
+    } else if (!this.data.product) {
+      Toast.fail('请选择商品');
+    } else {
+      wx.request({
+        url: app.globalData.baseRequestUrl + '/orders',
+        method: 'POST',
+        header: {
+          'authorization': wx.getStorageSync('thirdSession'),
+          'content-type': 'application/json;charset=utf8'
+        },
+        data: {
+          addressId: this.data.address.id,
+          productId: this.data.product.productId,
+          buyAmount: this.data.num,
+          expectedDeliveryTime: this.data.date + ' ' + this.data.dateRang[this.data.index],
+          label: this.data.labelArray.length == 0 ? null : this.data.labelArray.join(','),
+          remark: this.data.remark ? this.data.remark : null,
+          leaveMessage: this.data.leaveMessage ? this.data.leaveMessage : null
+        },
+        dataType: 'json',
+        success: (res) => {
+          if (res.statusCode == 200) {
+            var preOrderInfo = res.data.data;
+            // 调起微信支付控件
+            wx.requestPayment({
+              'timeStamp': preOrderInfo.timeStamp,
+              'nonceStr': preOrderInfo.nonceStr,
+              'package': preOrderInfo.package,
+              'signType': 'MD5',
+              'paySign': preOrderInfo.paySign,
+              'success': (result) => {
+                console.log("支付成功！");
+                wx.navigateTo({
+                  url: './pay-success',
+                })
+              },
+              'fail': (result) => {
+                // TODO 跳转到待支付页面
+                console.log("用户取消支付");
+              }
+            })
+          } else {
+            Notify('网络错误');
+          }
+        },
+        fail: (res) => {
+          console.log(res);
+        }
+      })
+    }
   }
 })

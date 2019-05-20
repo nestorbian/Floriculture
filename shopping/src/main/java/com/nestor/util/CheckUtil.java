@@ -33,6 +33,18 @@ public class CheckUtil {
 			throw new ParameterException(msg);
 		}
 	}
+
+	/**
+	 * value1不小于value2
+	 * @param value1
+	 * @param value2
+	 * @param msg
+	 */
+	public static void notLessThan(Long value1, Long value2, String msg) {
+		if (value1.compareTo(value2) < 0) {
+			throw new ParameterException(msg);
+		}
+	}
 	
 	public static void notLessThanZero(BigDecimal value, String msg) {
 		if (BigDecimal.ZERO.compareTo(value) > 0) {

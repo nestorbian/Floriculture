@@ -93,7 +93,7 @@ public class ProductController {
 	/**
 	 * <p>design for admin-ui</p>
 	 * <p>根据id获取商品信息</p>
-	 * @param Id
+	 * @param id
 	 * @return
 	 */
 	@GetMapping(path = "/admin/products")
@@ -148,6 +148,16 @@ public class ProductController {
 	@LogHttpInfo
 	public HashMap<Boolean,ArrayList<ProductWithSingleImage>> searchProduct(String value,String order) {
 		return seaService.findProductList(value, order);
+	}
+	
+	/**
+	 * <p>获取单图片商品信息</p>
+	 * @param productId
+	 * @return
+	 */
+	@GetMapping(path = "/products/single-image/{productId}")
+	public Result<ProductWithSingleImage> getProductWithSingleImage(@PathVariable(name = "productId") String productId) {
+	    return new Result<>(service.getProductWithSingleImage(productId));
 	}
 	
 	/**

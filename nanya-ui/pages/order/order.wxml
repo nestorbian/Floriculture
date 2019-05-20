@@ -1,16 +1,13 @@
+<van-tabs active='true' swipeable> 
+<view wx:for="{{orderItems}}" wx:key="item">
+<van-tab title="{{item.name}}" index="{{item.typeId}}">
+<van-card id="productId" num="商品数量" price="666" desc="商品描述" origin-price="999" title="商品名" thumb="http://129.204.173.36/images/demo2.jpg" thumb-mode='aspectFill'>
+<view slot="footer">
+<van-button size="mini">按钮</van-button>
+<van-button size="mini">按钮</van-button>
+</view>
+</van-card>
 
-    <van-tabs active='true' swipeable> 
-      <view wx:for="{{orderItems}}" wx:key="item">
-        <van-tab title="{{item.name}}" index="{{item.typeId}}">
-           <view wx:for="{{order}}" wx:key ="{{index}}" style='position: relative;'>
-               <view data-index='{{index}}' bindtap="onHref">
-               <van-card id="{{item.productId}}"  num="{{item.productStock}}"   price="{{item.productDiscountPrice==null?item.productOriginalPrice:item.productDiscountPrice}}"  desc="{{item.productDescription}}" origin-price="{{item.productDiscountPrice==null?'':item.productOriginalPrice}}"  title="{{item.productName}}"  thumb="http://129.204.173.36/images/demo2.jpg" thumb-mode='aspectFill'/>
-           </view>
-    </view>
-
-        </van-tab>  
-      </view>
-    </van-tabs>
-
-
-
+</van-tab> 
+</view>
+</van-tabs>

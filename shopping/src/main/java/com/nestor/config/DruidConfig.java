@@ -18,7 +18,7 @@ import com.alibaba.druid.support.http.WebStatFilter;
 import lombok.Data;
 
 /**
- * <p>配置多数据源</p>
+ * <p>配置数据库连接池</p>
  * @author Lenovo
  *
  */

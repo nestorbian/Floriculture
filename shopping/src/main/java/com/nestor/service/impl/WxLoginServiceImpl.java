@@ -11,6 +11,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
 import com.nestor.common.LogHttpInfo;
+import com.nestor.common.LoginExpiredException;
 import com.nestor.config.WechatAccountConfig;
 import com.nestor.entity.WxUser;
 import com.nestor.repository.WxLoginRepository;
@@ -29,7 +30,6 @@ public class WxLoginServiceImpl implements WxLoginService {
      * @param loginUser
      * @return
      */
-    @LogHttpInfo
     public String loginUser(String code) {
 
         String url = "https://api.weixin.qq.com/sns/jscode2session?appid=" + wechatAccountConfig.getAppId()
@@ -67,11 +67,10 @@ public class WxLoginServiceImpl implements WxLoginService {
     /*
      * 用来获取用户个人信息 *
      */
-    @LogHttpInfo
     public WxUser getUInfo(String thirdSession) {
         ArrayList<WxUser> wxUsers = wxLgn.findByThirdSession(thirdSession);
         if (wxUsers == null || wxUsers.size() == 0) {
-            return null;
+            throw new LoginExpiredException("登录失效，请重新登录");
         }
         return wxUsers.get(0);
     }
@@ -79,7 +78,6 @@ public class WxLoginServiceImpl implements WxLoginService {
     /*
      * 新增或更新用户个人信息 *
      */
-    @LogHttpInfo
     public String setUInfo(WxUser wxUser) {
         if (wxUser == null) {
             return null;

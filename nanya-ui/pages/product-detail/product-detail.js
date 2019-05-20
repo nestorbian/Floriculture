@@ -97,8 +97,13 @@ Page({
     
   },
   buy: function() {
-    wx.navigateTo({
-      url: '/pages/order/order?productId=' + this.data.product.productId
-    })
+    var thirdSession = wx.getStorageSync('thirdSession');
+    if (thirdSession) {
+      wx.navigateTo({
+        url: '/pages/order/confirm-order?productId=' + this.data.product.productId
+      })
+    } else {
+      Notify('请先登录');
+    }
   }
 })

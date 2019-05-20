@@ -24,4 +24,6 @@ public interface CategoryService {
     public List<CategoryPageView> findCategoryInHome();
 
     public List<CategoryPageView> findAllCategory();
+
+    public List<CategoryPageView> findById(String id);
 }

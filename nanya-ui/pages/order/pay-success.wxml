@@ -1,0 +1,3 @@
+<van-icon name="success" size="50px" />
+<text>交易成功</text>
+<van-button size="large" type="danger">完成</van-button>

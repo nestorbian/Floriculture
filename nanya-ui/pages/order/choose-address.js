@@ -182,9 +182,28 @@ Page({
     }
   },
   select_addr: function(event) {
-    wx.setStorageSync('addressId', event.currentTarget.dataset.id);
-    wx.navigateBack({
-      delta: 1
+    wx.request({
+      url: app.globalData.baseRequestUrl + '/user-addresses',
+      method: 'POST',
+      header: {
+        'authorization': wx.getStorageSync('thirdSession')
+      },
+      data: {
+        addressId: event.currentTarget.dataset.id
+      },
+      dataType: 'json',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          wx.navigateBack({
+            delta: 1
+          });
+        } else {
+          Notify('网络错误');
+        }
+      },
+      fail: (res) => {
+        console.log(res);
+      }
     });
   }
 })

@@ -6,19 +6,21 @@ import org.springframework.data.domain.Page;
 import com.nestor.entity.Product;
 import com.nestor.vo.ExtProductView;
 import com.nestor.vo.ProductView;
+import com.nestor.vo.ProductWithSingleImage;
 
 public interface ProductService {
 	
-	public String add(Product product);
+	String add(Product product);
 	
-	public void update(Product product);
+	void update(Product product);
 	
-	public void deleteById(String id);
+	void deleteById(String id);
 	
-	public Page<ExtProductView> findAll(int pageNumber, int pageSize);
+	Page<ExtProductView> findAll(int pageNumber, int pageSize);
 	
-	public ExtProductView findByProductId(String id);
+	ExtProductView findByProductId(String id);
 	
-	public ProductView findProductById(String productId);
+	ProductView findProductById(String productId);
 
+	ProductWithSingleImage getProductWithSingleImage(String productId);
 }

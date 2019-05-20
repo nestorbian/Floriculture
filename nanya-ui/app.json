@@ -1,19 +1,21 @@
 {
   "pages": [
+    "pages/order/orderList",
+    "pages/test2/test2",
+    "pages/wuliu/wuliu",
+    "pages/order/pay-success",
+    "pages/pay/pay",
     "pages/order/confirm-order",
     "pages/order/order",
     "pages/comment/comment",
     "pages/index/index",
-    "pages/wuliu/wuliu",
-    "pages/test2/test2",
-    "pages/pay/pay",
     "pages/search/search",
     "pages/product-detail/product-detail",
     "pages/logs/logs",
     "pages/test1/ny_personal",
     "pages/test1/ny_index",
     "pages/mine/order",
-    "pages/mine/edit_address",
+    "pages/mindit_address",
     "pages/mine/address",
     "pages/category-detail/category-detail",
     "pages/order/choose-address",
@@ -89,5 +91,6 @@
     "van-rate": "dist/rate/index",
     "van-checkbox": "dist/checkbox/index",
     "van-checkbox-group": "dist/checkbox-group/index"
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

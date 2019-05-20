@@ -20,8 +20,8 @@ public interface CategoryRepository extends JpaRepository<Category, String> {
     @Query("SELECT c FROM Category c")
     public List<CategoryItemView> findCategories();
 
-    @Query(value = "call category_sp(:categoryId)", nativeQuery = true)
-    public List<Map<String, Object>> callCategorySP(@Param("categoryId") String categoryId);
+    @Query(value = "call category_sp(:categoryId, :pageSize)", nativeQuery = true)
+    public List<Map<String, Object>> callCategorySP(@Param("categoryId") String categoryId, @Param("pageSize") Integer pageSize);
 
     public List<Category> findByNeedShowInHomeTrueOrderByCreateTimeAsc();
 

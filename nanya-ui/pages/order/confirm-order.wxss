@@ -1,8 +1,13 @@
+page {
+  background-color: #f9f9f9;
+}
+
 .address, .add-address {
   display: flex;
   align-items: center;
   padding:10px 15px;
-  border-bottom: 1px solid #f8f9fa;
+  background: #ffffff;
+  margin-bottom: 15px;
 }
 
 .address .body {
@@ -28,6 +33,7 @@
   margin-right: 5px;
   display: flex;
   align-items: center;
+  font-size: 20px;
 }
 
 .add {
@@ -49,10 +55,15 @@
   align-items: center;
 }
 
-.date {
+.date,.time {
   display: flex;
   padding:10px 15px;
   font-size: 16px;
+  background: #ffffff;
+}
+
+.date,.label-view,.remark-view,.leaveMessage-view {
+  margin-top: 15px;
 }
 
 .remark-view, .leaveMessage-view {
@@ -60,6 +71,7 @@
   padding:10px 15px;
   align-items: flex-start;
   position: relative;
+  background: #ffffff;
 }
 
 .remark, .leaveMessage {
@@ -101,6 +113,7 @@
   display: flex;
   padding:10px 15px;
   font-size: 16px;
+  background: #ffffff;
 }
 
 .label {
@@ -122,4 +135,16 @@
   border: 2px solid #cddef2;
   margin-right: 5px;
   padding: 2px;
+}
+
+.picker {
+  flex-grow: 1;
+}
+
+.title-size {
+  font-size: 15px;
+}
+
+.des-size, .price-size {
+  font-size: 14px;
 }

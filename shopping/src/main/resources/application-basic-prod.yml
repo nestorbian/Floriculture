@@ -56,3 +56,11 @@ image:
   product: 
     base-directory: /usr/share/nginx/html
     base-url: https://www.ailejia.club
+
+wechat: 
+  appId: wxa3a9cf2825b29135
+  appSecret: 628f3d999cf43530818e2945136f41db
+  mchId: 1531448031
+  mchKey: 13685wyh13685wyh13685wyh13685wyh
+  keyPath: D:/chrome_download/WXCertUtil/cert/apiclient_cert.p12
+  notifyUrl: https://www.ailejia.club/nanyahuayi/pay/callback

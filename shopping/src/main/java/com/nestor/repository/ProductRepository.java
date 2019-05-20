@@ -8,14 +8,18 @@ import org.springframework.data.jpa.repository.Query;
 import com.nestor.entity.Product;
 import com.nestor.vo.ExtProductView;
 import com.nestor.vo.ProductView;
+import com.nestor.vo.ProductWithSingleImage;
 
 public interface ProductRepository extends JpaRepository<Product, String> {
 	
-	public Page<ExtProductView> findByOrderByCreateTimeDesc(Pageable pageable);
+	Page<ExtProductView> findByOrderByCreateTimeDesc(Pageable pageable);
 	
-	public ExtProductView findByProductId(String id);
+	ExtProductView findByProductId(String id);
 
 	@Query(value = "SELECT p FROM Product p WHERE p.productId = ?1")
-	public ProductView findDetailById(String id);
+	ProductView findDetailById(String id);
+	
+	@Query(value = "SELECT * FROM product_with_single_image WHERE productId = ?1", nativeQuery = true)
+	ProductWithSingleImage getProductWithSingleImage(String productId);
 }
 

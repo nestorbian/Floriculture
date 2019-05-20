@@ -1,9 +1,7 @@
 package com.nestor.service.impl;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -94,7 +92,7 @@ public class CategoryServiceImpl implements CategoryService {
         
         // assemble list to CategoryPageView class
         List<CategoryPageView> categoryPageViews = new ArrayList<>();
-        assembleCategoryPageView(categoryPageViews, categories);
+        assembleCategoryPageView(categoryPageViews, categories, 6);
 
         return categoryPageViews;
     }
@@ -105,15 +103,29 @@ public class CategoryServiceImpl implements CategoryService {
         
         // assemble list to CategoryPageView class
         List<CategoryPageView> categoryPageViews = new ArrayList<>();
-        assembleCategoryPageView(categoryPageViews, categories);
+        assembleCategoryPageView(categoryPageViews, categories, null);
 
         return categoryPageViews;
     }
-    
+
+    @Override
+    public List<CategoryPageView> findById(String id) {
+        Optional<Category> categoryOptional = repository.findById(id);
+        if (!categoryOptional.isPresent()) {
+            throw new BizException(String.format("该分类已被删除, 分类id：%s", id));
+        }
+        Category category = categoryOptional.get();
+
+        List<CategoryPageView> categoryPageViews = new ArrayList<>();
+        assembleCategoryPageView(categoryPageViews, Arrays.asList(category), null);
+
+        return categoryPageViews;
+    }
+
     // assemble list to CategoryPageView class
-    private void assembleCategoryPageView(List<CategoryPageView> categoryPageViews, List<Category> categories) {
+    private void assembleCategoryPageView(List<CategoryPageView> categoryPageViews, List<Category> categories, Integer pageSize) {
         categories.stream().forEach(category -> {
-            List<Map<String, Object>> list = repository.callCategorySP(category.getCategoryId());
+            List<Map<String, Object>> list = repository.callCategorySP(category.getCategoryId(), pageSize);
             
             CategoryPageView categoryInHomeView = new CategoryPageView();
             List<ProductView> products = new ArrayList<>();
