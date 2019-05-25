@@ -135,7 +135,7 @@ public class CategoryServiceImpl implements CategoryService {
                     categoryInHomeView.setCategoryId((String) map.get("categoryId"));
                     categoryInHomeView.setCategoryName((String) map.get("categoryName"));
                     categoryInHomeView.setCategoryDescription((String) map.get("categoryDescription"));
-                    categoryInHomeView.setImageUrl(baseImageUrl + (String) map.get("imageUrl"));
+                    categoryInHomeView.setCategoryImageUrl(baseImageUrl + (String) map.get("imageUrl"));
                 }
                 ProductView productView = categoryInHomeView.new ProductView();
                 productView.setProductId((String) map.get("productId"));
@@ -143,7 +143,7 @@ public class CategoryServiceImpl implements CategoryService {
                 productView.setProductDescription((String) map.get("productDescription"));
                 productView.setProductOriginalPrice((BigDecimal) map.get("productOriginalPrice"));
                 productView.setProductDiscountPrice((BigDecimal) map.get("productDiscountPrice"));
-                productView.setProductImageUrl(baseImageUrl + (String) map.get("productImageUrl"));
+                productView.setImageUrl(baseImageUrl + (String) map.get("productImageUrl"));
                 products.add(productView);
             });
 

@@ -99,7 +99,7 @@ Page({
             if (res.code) {
               // 发起网络请求
               wx.request({
-                url: '129.204.173.36/loginUser',
+                url: app.globalData.baseRequestUrl+'/loginUser',
                 data: {
                   code: res.code
                 }

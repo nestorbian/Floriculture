@@ -82,7 +82,7 @@ Page({
   onPhoto: function(){
     var that = this;
     wx.chooseImage({
-      count: 1,
+      count: 5,
       sizeType: ['original', 'compressed'],
       sourceType: ['album', 'camera'],
       success(res) {
@@ -114,20 +114,24 @@ Page({
         message: '加载中...'
       });
       //一张图片上传
-      this.upImage();
+      //this.upImage();
       //多张图片上传
       //this.init();
-      //this.uploadImage().then(this.commitFile());
+      this.uploadImage().then(res=>{this.commitFile(res)});
     }  
   },
   //上传图片到服务器
   uploadImage: function () {
     var that = this;
     return new Promise(function (resolve, reject) {
-      var fUrls = '';
-      for (var i = 0; i < that.data.tfps.length; i++) {
+      var len = that.data.tfps.length;
+      //图片路径的容器
+      var fUrls =new Array(len);
+      var successFlag= 0;
+      console.log(len)
+      for (var i = 0; i < len; i++) {
         wx.uploadFile({
-          url: 'http://127.0.0.1:80/nanyahuayi/admin/images/one', // 仅为示例，非真实的接口地址
+          url: app.globalData.baseRequestUrl+'/admin/images/one', // 仅为示例，非真实的接口地址
           filePath: that.data.tfps[i],
           name: "image",
           formData: {
@@ -138,23 +142,34 @@ Page({
           },
           success(res) {
             // do something
-            fUrls = fUrls + JSON.parse(res.data).data.imageUrl + ";";
+            //fUrls = fUrls + JSON.parse(res.data).data.imageUrl + ";";
+            fUrls.push(JSON.parse(res.data).data.imageUrl);
+            console.log("res.data= "+ res.data)
+            console.log("json = "+ JSON.parse(res.data))
             that.setData({
-              fileUrls: fUrls
+              fileUrls: fUrls.toString()
             })
-            console.log(that.data.fileUrls.length)
+            successFlag++;
+            if (successFlag == len) {
+              console.log("success")              
+              resolve(res)
+            }
+          },fail(){
+            reject();
+            console.log("fail")
           }
         })
       }
     })  
   },
   //将评论信息上传到数据库
-  commitFile: function () {
+  commitFile: function (e) {
     var that = this;
-    var thirdSession = wx.getStorageSync('thirdSession')
+    var thirdSession = wx.getStorageSync('thirdSession');
+    console.log("commitFile")
     return new Promise(function (resolve, reject) {
       wx.request({
-        url: 'http://127.0.0.1:80/nanyahuayi/CommentsController/addComments', // 仅为示例，并非真实的接口地址
+        url: app.globalData.baseRequestUrl+'/CommentsController/addComments', // 仅为示例，并非真实的接口地址
         method: 'POST',
         header: {
           'content-type': 'application/x-www-form-urlencoded'
@@ -168,9 +183,13 @@ Page({
         },
         success(res) {
           console.log(res);
+          resolve(res)
+        },fail(){
+          reject();
         }
       })
     })
+
   },
   async init() {
     await this.uploadImage();
@@ -184,7 +203,7 @@ Page({
     if (that.data.tfps != null){
       fPath = that.data.tfps[0];
       wx.uploadFile({
-        url: 'http://127.0.0.1:80/nanyahuayi/CommentsController/addComment', // 仅为示例，非真实的接口地址
+        url: app.globalData.baseRequestUrl+'/CommentsController/addComment', // 仅为示例，非真实的接口地址
         filePath: fPath,
         name: "image",
         formData: {

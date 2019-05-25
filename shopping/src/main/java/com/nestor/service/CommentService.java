@@ -7,6 +7,7 @@ import com.nestor.vo.CommentView;
 
 public interface CommentService {
 	public String addComment(Comment comment);
-	public ArrayList<CommentView> findComments(String page ,String pageSize);
+
+	public ArrayList<CommentView> findComments(Integer page, Integer pageSize);
 
 }

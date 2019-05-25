@@ -1,5 +1,6 @@
 // pages/mine/address.js
 import Toast from '../../dist/toast/toast';
+var app = getApp();
 
 Page({
 
@@ -18,7 +19,7 @@ Page({
   onLoad: function (options) {
     // var that = this;
     // wx.request({
-    //   url: 'http://127.0.0.1:80/nanyahuayi/addressController/getAllAddress', // 仅为示例，并非真实的接口地址
+    //   url: app.globalData.baseRequestUrl+'/addressController/getAllAddress', // 仅为示例，并非真实的接口地址
     //   data: {
     //     thirdSession: wx.getStorageSync('thirdSession')
     //   },
@@ -46,7 +47,7 @@ Page({
   onShow: function () {
     var that = this;
     wx.request({
-      url: 'http://127.0.0.1:80/nanyahuayi/addressController/getAllAddress', // 仅为示例，并非真实的接口地址
+      url: app.globalData.baseRequestUrl+'/addressController/getAllAddress', // 仅为示例，并非真实的接口地址
       data: {
         thirdSession: wx.getStorageSync('thirdSession')
       },
@@ -116,7 +117,7 @@ Page({
     
     var that = this;
     wx.request({
-      url: 'http://127.0.0.1:80/nanyahuayi/addressController/delAddress', // 仅为示例，并非真实的接口地址
+      url: app.globalData.baseRequestUrl+'/addressController/delAddress', // 仅为示例，并非真实的接口地址
       data: {
         id: id
       },

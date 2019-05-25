@@ -43,7 +43,7 @@
       </view>
       <view class='content'>
 
-        <view class='category-view' style='background-image: url({{item.imageUrl}});' bindtap='navigateToCategoryDetail'>
+        <view class='category-view' style='background-image: url({{item.categoryImageUrl}});' id="{{item.categoryId}}"  bindtap='navigateToCategoryDetail'>
           <!-- <image src='../../images/demo1.jpg'></image> -->
           <!-- <view class='category-text-view'>
             <text>红玫瑰臻选</text>
@@ -56,7 +56,7 @@
 
           <view class='product-view' bindtap='viewProductDetail' wx:for="{{item.products}}" wx:key="key"
           wx:for-item="product" data-productid="{{product.productId}}">
-            <view class='product-image' style='background-image: url({{product.productImageUrl}});'></view>
+            <view class='product-image' style='background-image: url({{product.imageUrl}});'></view>
             <view class='product-text-view'>
               <text class='product-name'>{{product.productName}}</text>
               <view class='product-desc van-multi-ellipsis--l2'>

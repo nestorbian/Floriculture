@@ -1,4 +1,6 @@
 // pages/test1/ny_index.js
+var app = getApp();
+
 Page({
 
   /**
@@ -24,7 +26,7 @@ Page({
             if (res.code) {
               // 发起网络请求
               wx.request({
-                url: 'http://127.0.0.1:80/nanyahuayi/WxLoginController/loginUser',
+                url: app.globalData.baseRequestUrl+'/WxLoginController/loginUser',
                 data: {
                   code: res.code
                 },
@@ -110,7 +112,7 @@ Page({
             if (res.code) {
               // 发起网络请求
               wx.request({
-                url: 'http://127.0.0.1:80/nanyahuayi/WxLoginController/loginUser',
+                url: app.globalData.baseRequestUrl+'/WxLoginController/loginUser',
                 data: {
                   code: res.code
                 },

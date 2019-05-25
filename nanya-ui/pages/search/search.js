@@ -9,20 +9,31 @@ Page({
     product :[]
     ,dis : "none"
     ,value:''
+    ,isCategory : false
+    ,categoryId:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var values = options.value;
-    if (values == null) {
-      values = ''
+    if (typeof (options.categoryId) != "undefined") {
+      var categoryId = options.categoryId;
+      this.searchCategory(categoryId);
+      this.setData({
+        isCategory : true
+        , categoryId: categoryId 
+      })
+    } else {
+      var values = options.value;
+      if (values == null) {
+        values = ''
+      }
+      this.setData({
+        value: values
+      })
+      this.search(values);
     }
-    this.setData({
-      value: values
-    })
-    this.search(values);
   },
 
   /**
@@ -86,7 +97,7 @@ Page({
       message: '加载中...'
     });
     wx.request({
-      url: 'http://127.0.0.1:80/nanyahuayi/searchProduct', // 仅为示例，并非真实的接口地址
+      url: app.globalData.baseRequestUrl+'/searchProduct', // 仅为示例，并非真实的接口地址
       data: {
         value: values,
         order : "3"
@@ -129,14 +140,47 @@ Page({
     var order = e.detail.index;
     var values = this.data.value;
 
-
-    this.search(values,order);
+    if (this.data.isCategory){
+      this.searchCategory(this.data.categoryId);
+    } else {
+      this.search(values, order);
+    }
   },
   onHref : function(e){
     //商品编号
-    var productId = e.target.id;
+    var productId = e.currentTarget.id;
+    console.log(e)
     wx.navigateTo({
       url: '../product-detail/product-detail?productId=' + productId
     })
-  }
+  },
+  searchCategory: function (categoryId) {
+    var that = this ;
+    //提示加载中
+    Toast.loading({
+      mask: true,
+      message: '加载中...'
+    });
+    wx.request({
+      url: app.globalData.baseRequestUrl+'/categories', // 仅为示例，并非真实的接口地址
+      data: {
+        id: categoryId
+      },
+      header: {
+        'content-type': 'application/json' // 默认值
+      },
+      success(res) {
+        //产品列表
+        var pLists = res.data.data[0].products;
+        //产品分类名称
+        var pName = res.data.data[0].categoryName;
+        
+        //关闭提示
+        Toast.clear();
+        that.setData({
+          product: pLists
+        })
+      }
+    })
+  },
 })

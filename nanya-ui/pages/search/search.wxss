@@ -1,1 +1,3 @@
 /* pages/search/search.wxss */
+@import "/dist/common/index.wxss";
+@import "/pages/test2/test2.wxss";

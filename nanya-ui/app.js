@@ -31,14 +31,16 @@ App({
   globalData: {
     userInfo: null,
     baseRequestUrl: 'http://localhost:80/nanyahuayi'
+    ,phoneNum  : "18221456048"
   },
   // 拨打电话
   callPhone: function() {
     wx.makePhoneCall({
-      phoneNumber: '18221456048' // 仅为示例，并非真实的电话号码
+      phoneNumber: this.globalData.phoneNum // 仅为示例，并非真实的电话号码
     })
   },
   loginNy: function() {
+    var that = this;
     wx.checkSession({
       success() {
         //session未过期
@@ -52,7 +54,7 @@ App({
             if (res.code) {
               // 发起网络请求
               wx.request({
-                url: 'http://127.0.0.1:80/nanyahuayi/WxLoginController/loginUser',
+                url: that.globalData.baseRequestUrl+'/WxLoginController/loginUser',
                 data: {
                   code: res.code
                 },
@@ -63,6 +65,7 @@ App({
                 },
                 fail(res) {
                   console.log(res)
+                  console.log("shi bai le ")
                 }
               })
             } else {

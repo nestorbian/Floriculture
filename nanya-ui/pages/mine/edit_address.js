@@ -391,7 +391,7 @@ Page({
         message: '加载中...'
       });
       wx.request({
-        url: 'http://127.0.0.1:80/nanyahuayi/addressController/setAddress', // 仅为示例，并非真实的接口地址
+        url: app.globalData.baseRequestUrl+'/addressController/setAddress', // 仅为示例，并非真实的接口地址
         data: {
           thirdSession: thirdSession 
           ,username : username

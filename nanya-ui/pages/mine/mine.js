@@ -136,7 +136,7 @@ Page({
           console.log('code:' + res.code);
           // 发起网络请求
           wx.request({
-            url: 'http://127.0.0.1:80/nanyahuayi/WxLoginController/loginUser',
+            url: app.globalData.baseRequestUrl+'/WxLoginController/loginUser',
             data: {
               code: res.code
             },
@@ -154,7 +154,7 @@ Page({
   onClickOrder : function(e){
     var typeId =e.currentTarget.dataset.typeid
     wx.navigateTo({
-      url: '../order/order?typeId=' + typeId
+      url: '../order/orderList?typeId=' + typeId
     })
 
   }

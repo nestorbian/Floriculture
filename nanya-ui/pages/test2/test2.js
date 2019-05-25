@@ -116,9 +116,11 @@ Page({
   onShareAppMessage: function () {
     
   },
-  navigateToCategoryDetail: function() {
+  navigateToCategoryDetail: function(e) {
+    //传递商品类型编号
+    var categoryId = e.currentTarget.id ;
     wx.navigateTo({
-      url: '../category-detail/category-detail',
+      url: '../search/search?categoryId=' + categoryId,
     })
   }
 })

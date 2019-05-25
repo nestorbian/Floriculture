@@ -69,7 +69,7 @@ public class CommentsController {
 	//查询评论
 	@GetMapping(path = "/findComment")
 	@LogHttpInfo
-	public ArrayList<CommentView> findComment(String page ,String pageSize) {
+	public ArrayList<CommentView> findComment(Integer page ,Integer pageSize) {
 		ArrayList<CommentView>  comList = comService.findComments(page, pageSize);
 		return comList;
 	}

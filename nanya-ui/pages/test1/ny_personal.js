@@ -3820,7 +3820,7 @@ Page({
     //获取3rd_session
     var thirdSession = wx.getStorageSync('thirdSession');
     wx.request({
-      url: 'http://127.0.0.1:80/nanyahuayi/WxLoginController/getUInfo', // 仅为示例，并非真实的接口地址
+      url: app.globalData.baseRequestUrl+'/WxLoginController/getUInfo', // 仅为示例，并非真实的接口地址
       data: {
         thirdSession : wx.getStorageSync('thirdSession')
       },
@@ -3927,7 +3927,7 @@ Page({
   //提交个人信息
   onCommit(){
     wx.request({
-      url: 'http://127.0.0.1:80/nanyahuayi/WxLoginController/setUInfo', // 仅为示例，并非真实的接口地址
+      url: app.globalData.baseRequestUrl+'/WxLoginController/setUInfo', // 仅为示例，并非真实的接口地址
       data: {
         avatarurl: this.data.avatarUrl,
         nickname: this.data.nickName,

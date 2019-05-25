@@ -28,7 +28,7 @@ public class CommentServiceImpl implements CommentService {
 	}
 
 	@Override
-	public ArrayList<CommentView> findComments(String page, String pageSize) {
+	public ArrayList<CommentView> findComments(Integer page, Integer pageSize) {
 		// TODO Auto-generated method stub		
 		return comRes.findComment(page, pageSize);
 	}
