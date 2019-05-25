@@ -10,7 +10,8 @@ Page({
     indexNumber: 1,
     actionSheet: {
       show: false
-    }
+    },
+    showChooseNumber: false
   },
 
   changeSwiperItem: function(event) {
@@ -97,6 +98,7 @@ Page({
     
   },
   buy: function() {
+    // this.setData({ showChooseNumber: true })
     var thirdSession = wx.getStorageSync('thirdSession');
     if (thirdSession) {
       wx.navigateTo({

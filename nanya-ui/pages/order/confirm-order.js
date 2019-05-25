@@ -250,13 +250,13 @@ Page({
                 console.log("支付成功！");
                 wx.navigateTo({
                   url: './pay-success',
-                })
+                });
               },
               'fail': (result) => {
                 // TODO 跳转到待支付页面
                 console.log("用户取消支付");
               }
-            })
+            });
           } else {
             Notify('网络错误');
           }

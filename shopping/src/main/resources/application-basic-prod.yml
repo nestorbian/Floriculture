@@ -9,7 +9,7 @@ spring:
       max-file-size: 10Mb
       max-request-size: 100Mb
   datasource: 
-    url: jdbc:mysql://129.204.173.36:3306/nanya?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/nanya?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
     password: NANyahuayi123,
     driver-class-name: com.mysql.jdbc.Driver

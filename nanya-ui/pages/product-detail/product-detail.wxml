@@ -111,6 +111,18 @@
   />
 </van-goods-action>
 
+<van-popup
+  show="{{ showChooseNumber }}"
+  position="bottom"
+  overlay="{{ false }}"
+  bind:close="onClose"
+>
+<view class='choose-number'>
+  <van-stepper value="{{ 1 }}" bind:change="onChange" />
+  <van-button type="danger" size="large" class='finish-btn' bindtap='finish'>完成</van-button>
+</view>
+</van-popup>
+
 <van-action-sheet show="{{ actionSheet.show }}" title="产品参数"  bind:close="onClose">
   <view class='flower-material'>
     <view class='one'>花 材</view>

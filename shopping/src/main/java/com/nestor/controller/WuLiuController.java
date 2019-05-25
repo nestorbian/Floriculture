@@ -15,6 +15,7 @@ import com.nestor.common.LogHttpInfo;
 @RequestMapping("/wuliuController")
 public class WuLiuController {
 
+	// 暂时弃用
 	@GetMapping(path = "/getWuLiu")
 	@LogHttpInfo
 	public ResponseEntity<String> getWuliu(String type ,String postid,String temp,String phone ) {

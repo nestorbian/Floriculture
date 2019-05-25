@@ -1,12 +1,12 @@
 {
   "pages": [
     "pages/find/find",
-    "pages/test2/test2",
+    "pages/order/pay-success",
+    "pages/test2/test2",    
     "pages/comment/comment",
-    "pages/index/index",
+    "pages/index/index",    
     "pages/order/orderList",
     "pages/wuliu/wuliu",
-    "pages/order/pay-success",
     "pages/pay/pay",
     "pages/order/confirm-order",
     "pages/search/search",
@@ -88,7 +88,8 @@
     "van-submit-bar": "dist/submit-bar/index",
     "van-rate": "dist/rate/index",
     "van-checkbox": "dist/checkbox/index",
-    "van-checkbox-group": "dist/checkbox-group/index"
+    "van-checkbox-group": "dist/checkbox-group/index",
+    "van-stepper": "dist/stepper/index"
   },
   "sitemapLocation": "sitemap.json"
 }

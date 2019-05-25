@@ -10,4 +10,18 @@ public enum PayStatus {
     private PayStatus(String desc) {
         this.desc = desc;
     }
+
+    public static PayStatus parse(String value) {
+        for (PayStatus payStatus : PayStatus.values()) {
+            if (payStatus.toString().equals(value)) {
+                return payStatus;
+            }
+        }
+
+        return null;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
 }

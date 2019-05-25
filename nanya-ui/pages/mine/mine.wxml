@@ -38,7 +38,7 @@
   <view class="navs">
     <block wx:for-items="{{orderItems}}" wx:key="name">
       <view class="nav-item" data-type="{{item.name}}" data-typeid="{{item.typeId}}" bindtap='onClickOrder'>
-        <van-icon name="{{item.imageurl}}" />
+        <van-icon name="{{item.imageurl}}" info="9"/>
         <text>{{item.name}}</text>
       </view>
     </block>

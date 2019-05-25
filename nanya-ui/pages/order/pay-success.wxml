@@ -1,3 +1,7 @@
-<van-icon name="success" size="50px" />
-<text>交易成功</text>
-<van-button size="large" type="danger">完成</van-button>
+<view class='body'>
+  <van-icon name="success" size="50px" class='icon' color="#07c160"/>
+  <text>交易成功</text>
+</view>
+<view class='finish'>
+  <van-button size="large" type="danger" bindtap='finish'>完成</van-button>
+</view>

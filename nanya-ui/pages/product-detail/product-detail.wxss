@@ -199,3 +199,7 @@ swiper .slide-image {
   color: #828282;
   padding: 0rpx 30rpx;
 }
+
+.choose-number {
+  height: 200px;
+}
