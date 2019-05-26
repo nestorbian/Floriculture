@@ -22,7 +22,7 @@ Page({
   },
   getCategoryActive: function(scrollTop) {
     var categoryNameHeight = 36;
-    var productHeight = 122;
+    var productHeight = 100;
     var totalHeight = 0;
     for (var i = 0; i < this.data.categories.length; i ++) {
       totalHeight += categoryNameHeight + productHeight * this.data.categories[i].products.length;

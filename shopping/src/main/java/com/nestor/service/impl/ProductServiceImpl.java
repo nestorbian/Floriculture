@@ -1,34 +1,25 @@
 package com.nestor.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.nestor.Constants;
 import com.nestor.common.BizException;
 import com.nestor.common.DuplicateKeyException;
-import com.nestor.entity.Category;
-import com.nestor.entity.CategoryProduct;
-import com.nestor.entity.Product;
-import com.nestor.entity.ProductImage;
+import com.nestor.entity.*;
+import com.nestor.repository.CommentRespository;
 import com.nestor.repository.ProductRepository;
 import com.nestor.service.CategoryProductService;
 import com.nestor.service.ProductImageService;
 import com.nestor.service.ProductService;
 import com.nestor.util.IdUtil;
-import com.nestor.vo.ExtProductView;
-import com.nestor.vo.ProductView;
-import com.nestor.vo.ProductWithSingleImage;
+import com.nestor.vo.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.*;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -44,6 +35,9 @@ public class ProductServiceImpl implements ProductService {
 	
 	@Autowired
 	private CategoryProductService categoryProductService;
+
+	@Autowired
+	private CommentRespository commentRespository;
 
 	@Override
 	@Transactional
@@ -142,8 +136,34 @@ public class ProductServiceImpl implements ProductService {
 	}
 
     @Override
-    public ProductView findProductById(String productId) {
-        return repository.findDetailById(productId);
+    public ProductDetailView findProductById(String productId) throws Exception {
+		ProductView productView = repository.findDetailById(productId);
+		ProductDetailView product = new ProductDetailView();
+		product.setProductId(productView.getProductId());
+		product.setProductName(productView.getProductName());
+		product.setProductDescription(productView.getProductDescription());
+		product.setProductOriginalPrice(productView.getProductOriginalPrice());
+		product.setProductDiscountPrice(productView.getProductDiscountPrice());
+		product.setProductStock(productView.getProductStock());
+		product.setProductPackage(productView.getProductPackage());
+		product.setFlowerMaterial(productView.getFlowerMaterial());
+		product.setProductScene(productView.getProductScene());
+		product.setDistribution(productView.getDistribution());
+		product.setSaleVolume(productView.getSaleVolume());
+		product.setCreateTime(productView.getCreateTime());
+		product.setUpdateTime(productView.getUpdateTime());
+		product.setProductImages(productView.getProductImages());
+
+//		Comment query = new Comment();
+//		CommentKey commentKey = new CommentKey();
+//		commentKey.setProductId(productId);
+//		query.setId(commentKey);
+//		Pageable pageable = PageRequest.of(0, 4, Sort.by(Sort.Direction.DESC, "createTime"));
+//		Example<Comment> example = Example.of(query);
+//		Page<Comment> page = commentRespository.findAll(example, pageable);
+		List<CommentView> commentViews = commentRespository.findComment(0, 4);
+		product.setComments(commentViews);
+        return product;
     }
 
     @Override

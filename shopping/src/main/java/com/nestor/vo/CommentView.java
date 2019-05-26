@@ -2,13 +2,13 @@ package com.nestor.vo;
 
 
 public interface CommentView {
-   String getimageUrls();
-   String getproductImage();
-   String getvalue();
-   String getupdateTime();
-   String gettext();
-   String getnickname();
-   String getavatarurl();
-   String getlocation();
+   String getImageUrls();
+   String getProductImage();
+   String getValue();
+   String getUpdateTime();
+   String getText();
+   String getNickname();
+   String getAvatarurl();
+   String getLocation();
    String getProductId();
 }

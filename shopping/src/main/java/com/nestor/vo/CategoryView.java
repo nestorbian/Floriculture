@@ -15,7 +15,7 @@ public interface CategoryView {
     String getCategoryName();
     String getCategoryDescription();
     String getImagePath();
-    @Value("#{@viewConvertion.getCategoryImageFullUrl(target)}")
+    @Value("#{@viewConvertion.getFullImageUrl(target.imageUrl)}")
     String getImageUrl();
     Boolean getNeedShowInHome();
     LocalDateTime getCreateTime();

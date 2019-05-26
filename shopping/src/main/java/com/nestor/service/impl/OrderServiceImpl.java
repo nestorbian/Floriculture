@@ -22,9 +22,11 @@ import com.nestor.service.OrderService;
 import com.nestor.util.CheckUtil;
 import com.nestor.util.JacksonUtil;
 import com.nestor.util.RandomUtil;
+import com.nestor.vo.CountOrderView;
 import com.nestor.vo.ProductWithSingleImage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.hibernate.criterion.Order;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -218,11 +220,22 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public Page<WxOrder> listOrderByOrderStatus(String openid, OrderStatus orderStatus, int pageNumber, int pageSize) {
+	public Page<WxOrder> listOrderByOrderStatus(String openid, String orderStatus, int pageNumber, int pageSize) {
 		Pageable pageable = PageRequest.of(pageNumber - 1, pageSize,
 				Sort.by(Sort.Direction.DESC, "orderTime"));
-		Page<WxOrder> page = orderRepository.findByOpenidAndOrderStatus(openid, orderStatus.toString(), pageable);
-		page.getContent().stream().forEach(item -> item.setProductImageUrl(baseImageUrl.concat(item.getProductImageUrl())));
+		WxOrder query = new WxOrder();
+		query.setOpenid(openid);
+		if (!"ALL".equals(orderStatus)) {
+			query.setOrderStatus(orderStatus);
+		}
+		Example<WxOrder> wxOrderExample = Example.of(query);
+		Page<WxOrder> page = orderRepository.findAll(wxOrderExample, pageable);
+//		Page<WxOrder> page = orderRepository.findByOpenidAndOrderStatus(openid, orderStatus.toString(), pageable);
+		page.getContent().stream().forEach(item -> {
+		    item.setProductImageUrl(baseImageUrl.concat(item.getProductImageUrl()));
+            item.setOrderStatus(OrderStatus.parse(item.getOrderStatus()).getDesc());
+            item.setPayStatus(PayStatus.parse(item.getPayStatus()).getDesc());
+        });
 		return page;
 	}
 
@@ -263,9 +276,42 @@ public class OrderServiceImpl implements OrderService {
 		return order;
 	}
 
+	@Override
+	public CountOrderView countOrder(String openid) {
+		CountOrderView countOrderView = new CountOrderView();
+		WxOrder query = new WxOrder();
+		query.setOpenid(openid);
+		// 待支付
+		query.setOrderStatus(OrderStatus.PENDING_PAY.toString());
+		Example<WxOrder> wxOrderExample = Example.of(query);
+		long pendingPay = orderRepository.count(wxOrderExample);
+		countOrderView.setPendingPay(pendingPay);
+		// 待发货
+		query.setOrderStatus(OrderStatus.PENDING_DELIVERY.toString());
+		wxOrderExample = Example.of(query);
+		long pendingDelivery = orderRepository.count(wxOrderExample);
+		countOrderView.setPendingDelivery(pendingDelivery);
+		// 待收货
+		query.setOrderStatus(OrderStatus.PENDING_RECEIVE.toString());
+		wxOrderExample = Example.of(query);
+		long pendingReceive = orderRepository.count(wxOrderExample);
+		countOrderView.setPendingReceive(pendingReceive);
+		// 待评价
+		query.setOrderStatus(OrderStatus.PENDING_COMMENT.toString());
+		wxOrderExample = Example.of(query);
+		long pendingComment = orderRepository.count(wxOrderExample);
+		countOrderView.setPendingComment(pendingComment);
+		// 待退款
+		query.setOrderStatus(OrderStatus.PENDING_REFUND.toString());
+		wxOrderExample = Example.of(query);
+		long pendingRefund = orderRepository.count(wxOrderExample);
+		countOrderView.setPendingRefund(pendingRefund);
+		return countOrderView;
+	}
+
 	private PayResponse getPreOrderInfo(String orderId, String openid, BigDecimal payAmount, String productName) {
 		PayRequest payRequest = new PayRequest();
-		log.info("orderId: {}, openid: {}", orderId, openid);
+		log.info("orderId: [{}], openid: [{}]", orderId, openid);
 		payRequest.setOpenid(openid);
 		payRequest.setOrderAmount(payAmount.doubleValue());
 		payRequest.setOrderId(orderId);

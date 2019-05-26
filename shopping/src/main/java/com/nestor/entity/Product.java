@@ -49,5 +49,8 @@ public class Product {
 	
 	@ManyToMany(mappedBy = "productList")
 	private List<Category> categories;
-	
+
+	@OneToMany(cascade = {}, fetch = FetchType.LAZY)
+	@JoinColumn(name = "product_id", insertable = false, updatable = false)
+	private List<Comment> comments;
 }

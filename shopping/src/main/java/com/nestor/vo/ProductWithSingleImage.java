@@ -27,6 +27,6 @@ public interface ProductWithSingleImage {
 
     Long getSaleVolume(); // 销量
 
-    @Value("#{@viewConvertion.getBaseImageUrl() + target.imageUrl}")
+    @Value("#{@viewConvertion.getFullImageUrl(target.imageUrl)}")
     String getImageUrl();
 }

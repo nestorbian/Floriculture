@@ -1,13 +1,10 @@
 {
   "pages": [
-    "pages/find/find",
-    "pages/order/order-detail",
-    "pages/comment/comments",
     "pages/mine/mine",
-    "pages/order/pay-success",
-    "pages/test2/test2",
-    "pages/index/index",
     "pages/order/orderList",
+    "pages/test2/test2",
+    "pages/find/find",
+    "pages/index/index",
     "pages/wuliu/wuliu",
     "pages/pay/pay",
     "pages/order/confirm-order",

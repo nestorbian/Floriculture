@@ -9,13 +9,12 @@
   position: relative;
   z-index: 2;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   border-bottom:1px solid black;
 }
  
 .swiper-tab-list {
-  margin: 0 30px;
   padding: 0 4px;
   font-size: 15px;
 }
@@ -125,4 +124,19 @@
 .productCount>view {
   float: right;
   margin-right: 30rpx;
+}
+
+.price-num {
+  display: flex;
+  justify-content: space-between;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.btn {
+  margin-top: 8px;
+  margin-right: 5px;
 }

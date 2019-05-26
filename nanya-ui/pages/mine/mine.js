@@ -42,6 +42,7 @@ Page({
         imageurl: 'chat-o'
       }
     ],
+    orderCount: {}
   },
   //事件处理函数
   toOrder: function () {
@@ -49,30 +50,25 @@ Page({
       url: '../order/order?typeId='+typeId
     })
   },
-  // login :function(){
-  //   var that =this;
-  //     wx.getUserInfo({
-  //       success: res => {
-  //         // 可以将 res 发送给后台解码出 unionId
-  //         app.globalData.userInfo = res.userInfo
-  //         that.data.userInfo = app.globalData.userInfo;
-  //         that.setData({
-  //           "userInfo": app.globalData.userInfo
-  //         })
-  //         // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-  //         // 所以此处加入 callback 以防止这种情况
-  //         if (app.userInfoReadyCallback) {
-  //           app.userInfoReadyCallback(res)
-  //         }
-  //         this.loginNy();
-  //       }
-  //     }) 
-  // },
   //初始化时获取用户信息
   onLoad : function () {
-    if (app.globalData.userInfo) {
-      this.setData({ userInfo: app.globalData.userInfo});
+    if (wx.getStorageSync("thirdSession")) {
+      var that = this;
+      wx.getUserInfo({
+        success(res) {
+          that.setData({ userInfo: res.userInfo });
+        }
+      });
       this.loginNy();
+      // this.getOrderStatusCount();
+    }
+  },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    if (wx.getStorageSync("thirdSession")) {
+      this.getOrderStatusCount();
     }
   },
   //授权窗口信息
@@ -102,7 +98,6 @@ Page({
   onConfirmed(e) {
     var that = this ;
     app.globalData.userInfo = e.detail.userInfo;
-    console.log(e.detail);
     that.setData({
       userInfo : e.detail.userInfo
     })
@@ -157,6 +152,26 @@ Page({
       url: '../order/orderList?typeId=' + typeId
     })
 
+  },
+  // 获取待支付、待发货订单状态下订单的数量，用于页面展示
+  getOrderStatusCount: function() {
+    var thirdSession = wx.getStorageSync("thirdSession");
+    wx.request({
+      url: app.globalData.baseRequestUrl + '/orders/count',
+      method: 'GET',
+      header: { 'authorization': thirdSession},
+      dataType: 'json',
+      success: (res) => {
+        if (res.statusCode == 200) {
+          this.setData({ orderCount: res.data.data });
+        } else {
+          Notify('网络错误');
+        }
+      },
+      fail: (res) => {
+        console.log(res);
+      }
+    });
   }
   
 })

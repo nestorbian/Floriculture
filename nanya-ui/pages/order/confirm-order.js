@@ -31,7 +31,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.productId);
+    this.setData({num: options.num});
     wx.request({
       url: app.globalData.baseRequestUrl + '/products/single-image/' + options.productId,
       dataType: 'json',

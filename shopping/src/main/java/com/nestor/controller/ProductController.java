@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.nestor.vo.ProductDetailView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -167,7 +168,7 @@ public class ProductController {
 	 */
 	@GetMapping(path = "/products/{productId}")
 	@LogHttpInfo
-	public Result<ProductView> findProductById(@PathVariable(name = "productId") String productId) {
+	public Result<ProductDetailView> findProductById(@PathVariable(name = "productId") String productId) throws Exception {
         return new Result<>(service.findProductById(productId));
 	}
 	

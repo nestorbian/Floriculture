@@ -18,7 +18,7 @@ public interface CommentRespository   extends JpaRepository<Comment, CommentKey>
 			+ "c.update_time as updateTime ,c.text as text,c.product_id as productId,u.nickname as nickname,u.avatarurl as avatarurl ,u.location as  location \r\n" + 
 			"	from t_comment  as c \r\n" + 
 			"	left join t_wx_user u\r\n" + 
-			"	  on c.openid = u.openid "
+			"	  on c.openid = u.openid order by c.create_time desc\n"
 			+ "LIMIT ?1 , ?2 \r\n", nativeQuery = true)  
 	@Modifying  
 	public ArrayList<CommentView> findComment(Integer page, Integer pageSize); 

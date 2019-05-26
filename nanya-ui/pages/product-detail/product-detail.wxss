@@ -200,6 +200,58 @@ swiper .slide-image {
   padding: 0rpx 30rpx;
 }
 
+.pop-view {
+  height: 500rpx;
+  /* padding: 5px; */
+}
+
 .choose-number {
-  height: 200px;
+  display: flex;
+  justify-content: space-between;
+  font-size: 16px;
+  margin-top: 15px;
+  padding: 0px 10px;
+}
+
+.finish-btn {
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+}
+
+.product-image {
+  height: 100px;
+  width: 100px;
+  border-radius: 10px;
+  margin-top: 5px;
+}
+
+.pop-view .body {
+  padding: 0px 10px;
+}
+
+.pop-product {
+  display: flex;
+}
+
+.pop-product .info {
+  display: flex;
+  flex-direction: column;
+  font-size: 16px;
+  padding-left: 20px;
+}
+
+.pop-product .info text {
+  padding-top: 10px;
+}
+
+.pop-price {
+  color: #d74848;
+}
+
+.close-icon {
+  margin-top: 10px;
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
 }

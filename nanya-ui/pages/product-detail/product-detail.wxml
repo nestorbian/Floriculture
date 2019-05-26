@@ -61,28 +61,28 @@
     <van-icon name="arrow" class='three'/>
   </view>
 
-  <view class='content'>
+  <view class='content' wx:for="{{product.comments}}" wx:key="key">
     <view class='left'>
-      <image src='https://b.yzcdn.cn/vant/icon-demo-1126.png'></image>
+      <image src='{{item.avatarurl}}'></image>
     </view>
 
     <view class='right'>
       <view class='userinfo'>
         <view class='phone-address'>
-          <view class='phone'>189****6000</view>
-          <view class='address'>广东 东莞市 南城区</view>
+          <view class='phone'>{{item.nickname}}</view>
+          <view class='address'>{{item.location}}</view>
         </view>
 
-        <view class='date'>2016-06-19</view>
+        <view class='date'>{{item.updateTime}}</view>
       </view>
 
       <view class='comment-item'>
         <view class='comment-text'>
-          <text>物流很快。服务态度很好。送货很快，商家很用心。</text>
+          <text>{{item.text}}</text>
         </view>
 
         <view class='comment-images'>
-          <image src='http://img01.hua.com/uploadpic/images/by_2018121815035427.jpg' wx:for="list" wx:key="key"></image>
+          <image wx:for="{{item.imageUrls}}" wx:key="key" wx:for-item="imageUrl" src='{{imageUrl}}' mode='aspectFill'></image>
         </view>
       </view>
     </view>
@@ -114,12 +114,26 @@
 <van-popup
   show="{{ showChooseNumber }}"
   position="bottom"
-  overlay="{{ false }}"
+  overlay="{{ true }}"
   bind:close="onClose"
 >
-<view class='choose-number'>
-  <van-stepper value="{{ 1 }}" bind:change="onChange" />
-  <van-button type="danger" size="large" class='finish-btn' bindtap='finish'>完成</van-button>
+<view class='pop-view'>
+  <view class='body'>
+    <view class='pop-product'>
+      <image src='{{product.productImages[0].imageUrl}}' mode='aspectFit' class='product-image'></image>
+      <view class='info'>
+        <text>{{product.productName}}</text>
+        <text class='pop-price' wx:if="{{product.productDiscountPrice == null}}">￥{{filters.toFix(product.productOriginalPrice, 2)}}</text>
+        <text class='pop-price' wx:if="{{product.productDiscountPrice != null}}">￥{{filters.toFix(product.productDiscountPrice, 2)}}</text>
+      </view>
+      <van-icon name="close" class='close-icon' bindtap='onClose'/>
+    </view>
+    <view class='choose-number'>
+      <text>购买数量</text>
+      <van-stepper value="{{ num }}" bind:change="onChange" integer="true" max="{{product.productStock}}"/>
+    </view>
+  </view>
+  <van-button type="danger" size="large" class='finish-btn' bindtap='finish'>确定</van-button>
 </view>
 </van-popup>
 

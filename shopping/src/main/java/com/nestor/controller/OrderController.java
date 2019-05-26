@@ -222,10 +222,12 @@ public class OrderController {
     public Result<?> listOrderByOrderStatus(@RequestHeader(name = "authorization") String token, @PathVariable String orderStatus,
                                             @RequestParam("pageNumber") int pageNumber, @RequestParam("pageSize") int pageSize) {
         WxUser wxUser = checkLogin(token);
-        CheckUtil.notNull(OrderStatus.parse(orderStatus), "订单状态不合法");
+        if (!"ALL".equals(orderStatus)) {
+            CheckUtil.notNull(OrderStatus.parse(orderStatus), "订单状态不合法");
+        }
         CheckUtil.notLessThanEqualZero(pageNumber, "当前页不合法");
         CheckUtil.notLessThanEqualZero(pageSize, "分页数不合法");
-        return new Result<>(service.listOrderByOrderStatus(wxUser.getOpenid(), OrderStatus.parse(orderStatus), pageNumber, pageSize));
+        return new Result<>(service.listOrderByOrderStatus(wxUser.getOpenid(), orderStatus, pageNumber, pageSize));
     }
 
     @GetMapping(path = "/orders/detail")
@@ -253,6 +255,19 @@ public class OrderController {
         CheckUtil.notLessThanEqualZero(orderQuery.getPageNumber(), "当前页不合法");
         CheckUtil.notLessThanEqualZero(orderQuery.getPageSize(), "分页数不合法");
         return new Result<>(service.listOrderByOrderQuery(orderQuery));
+    }
+
+    /**
+     * 获取待支付、待发货订单状态下订单的数量
+     * @param token
+     * @return
+     */
+    @GetMapping(path = "/orders/count")
+    @LogHttpInfo
+    @ResponseBody
+    public Result<?> countOrder(@RequestHeader(name = "authorization") String token) {
+        WxUser wxUser = checkLogin(token);
+        return new Result<>(service.countOrder(wxUser.getOpenid()));
     }
 
     /**

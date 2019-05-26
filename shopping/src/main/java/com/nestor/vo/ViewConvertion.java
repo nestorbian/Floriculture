@@ -11,20 +11,8 @@ public class ViewConvertion {
 	
 	@Value("${image.product.base-url}")
 	private String baseImageUrl;
-	
-	public String getCategoryImageFullUrl(Category category) {
-		return category.getImageUrl() == null ? null : baseImageUrl.concat(category.getImageUrl());
-	}
-	
-	public String getProductImageFullUrl(ProductImage productImage) {
-		return baseImageUrl.concat(productImage.getImageUrl());
-	}
 
 	public String getFullImageUrl(String partImageUrl) {
 		return baseImageUrl.concat(partImageUrl);
-	}
-	
-	public String getBaseImageUrl() {
-		return baseImageUrl;
 	}
 }

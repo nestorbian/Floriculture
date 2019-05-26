@@ -1,6 +1,7 @@
 package com.nestor.service;
 
 
+import com.nestor.vo.ProductDetailView;
 import org.springframework.data.domain.Page;
 
 import com.nestor.entity.Product;
@@ -19,8 +20,8 @@ public interface ProductService {
 	Page<ExtProductView> findAll(int pageNumber, int pageSize);
 	
 	ExtProductView findByProductId(String id);
-	
-	ProductView findProductById(String productId);
+
+	ProductDetailView findProductById(String productId) throws Exception, IllegalAccessException;
 
 	ProductWithSingleImage getProductWithSingleImage(String productId);
 }

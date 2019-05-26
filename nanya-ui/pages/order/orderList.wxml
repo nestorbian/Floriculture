@@ -5,120 +5,37 @@
   </block>
 </view>
  
-<swiper current="{{currtab}}" class="swiper-box" duration="300" style="height:{{deviceH-31}}px" bindchange="tabChange">
-  <!-- 完成 -->
-  <swiper-item>
-    <scroll-view class="hot-box" scroll-y="true">
-      <view  class="orderDetails" wx:for="{{alreadyOrder}}" wx:key=" ">
-        <view class="orderListTitle">
-          <text class="userName">{{item.name}}</text>
-          <text class="orderStatus">{{item.state}}</text>
-        </view>
-        <view class="orderListDetails">
-          <view class="productImg">
-            <image src="{{item.url}}" background-size="cover"></image>
-          </view>
-          <view class="productInfo">
-            <view class="productTitle">预定时间: {{item.time}}</view>
-            <text class="productPrice">当前状态：{{item.status}}</text>
-          </view>
-        </view>
-        <view slot="footer">
-          <van-button size="mini">按钮</van-button>
-          <van-button size="mini">按钮</van-button>
-        </view>
-        <view class="productCount">
-          <view>
-            <text>合计：￥{{item.money}}</text>
-          </view>
-        </view>
-      </view>
-    </scroll-view>
-  </swiper-item>
+<swiper class="swiper-box" duration="300" style="height:{{deviceH-31}}px">
   <!-- 待付款 -->
   <swiper-item>
     <scroll-view class="hot-box" scroll-y="true">
-      <view class="orderDetails" wx:for="{{waitPayOrder}}" wx:key=" ">
+      <view class="orderDetails" wx:for="{{orderList}}" wx:key="key">
         <view class="orderListTitle">
-           <text class="userName">{{item.name}}</text>
-          <text class="orderStatus">{{item.state}}</text>
+           <text class="userName">订单状态</text>
+          <text class="orderStatus">{{item.orderStatus}}</text>
         </view>
         <view class="orderListDetails">
           <view class="productImg">
-            <image src="{{item.url}}" background-size="cover"></image>
+            <image src="{{item.productImageUrl}}" mode='aspectFill'></image>
           </view>
           <view class="productInfo">
-            <view class="productTitle">商品详情: {{item.time}}</view>
-            <text class="productPrice">商品单价：{{item.status}}\n</text>
-            <text class="productPrice">商品数量：{{item.status}}</text>
+            <view class="productTitle">{{item.productName}}</view>
+            <view class='price-num'>
+              <text class="productPrice">￥{{item.productPrice}}</text>
+              <text class="productPrice">x {{item.buyAmount}}</text>
+            </view>
           </view>
         </view>
-        <view slot="footer">
-          <van-button size="mini">按钮</van-button>
-          <van-button size="mini">按钮</van-button>
+        <view slot="footer" class='footer'>
+          <van-button plain type="info" size='small' round="true" class='btn' bind:click="contactService">联系客服</van-button>
+          <van-button wx:if="{{item.orderStatus == '待支付'}}" plain type="info" size='small' round="true" data-orderid="{{item.orderId}}" class='btn' bind:click="cancelOrder">取消订单</van-button>
+          <van-button wx:if="{{item.orderStatus == '待支付'}}" plain type="info" size='small' round="true" data-orderid="{{item.orderId}}" class='btn' bind:click="continuePay">继续支付</van-button>
+          <van-button wx:if="{{item.orderStatus == '待收货'}}" plain type="info" size='small' round="true" class='btn' data-orderid="{{item.orderId}}" bind:click="confirmReceive">确认收货</van-button>
+          <van-button wx:if="{{item.orderStatus == '待评价'}}" plain type="info" size='small' round="true" data-productid="{{item.productId}}" class='btn' bind:click="comment">评价</van-button>
         </view>
         <view class="productCount">
           <view>
-             <text>合计：￥{{item.money}}</text>
-          </view>
-        </view>
-      </view>
-    </scroll-view>
-  </swiper-item>
-  <!-- 取消 -->
-  <swiper-item>
-    <scroll-view class="hot-box" scroll-y="true">
-      <view class="orderDetails" wx:for="{{lostOrder}}" wx:key=" ">
-        <view class="orderListTitle">
-         <text class="userName">{{item.name}}</text>
-          <text class="orderStatus">{{item.state}}</text>
-        </view>
-        <view class="orderListDetails">
-          <view class="productImg">
-            <image src="{{item.url}}" background-size="cover"></image>
-          </view>
-          <view class="productInfo">
-            <view class="productTitle">预定时间: {{item.time}}</view>
-            <text class="productPrice">当前状态：{{item.status}}</text>
-          </view>
-        </view>
-        <view slot="footer">
-          <van-button size="mini">按钮</van-button>
-          <van-button size="mini">按钮</van-button>
-        </view>
-        <view class="productCount">
-          <view>
-             <text>合计：￥{{item.money}}</text>
-          </view>
-        </view>
-      </view>
-    </scroll-view>
-  </swiper-item>
-  
-  <!-- 待评价 -->
-  <swiper-item>
-    <scroll-view class="hot-box" scroll-y="true">
-      <view class="orderDetails" wx:for="{{waitForComment}}" wx:key=" ">
-        <view class="orderListTitle">
-         <text class="userName">{{item.name}}</text>
-          <text class="orderStatus">{{item.state}}</text>
-        </view>
-        <view class="orderListDetails">
-          <view class="productImg">
-            <image src="{{item.url}}" background-size="cover"></image>
-          </view>
-          <view class="productInfo">
-            <view class="productTitle">预定时间: {{item.time}}</view>
-            <text class="productPrice">当前状态：{{item.status}}</text>
-          </view>
-        </view> 
-        <view slot="footer">
-          <van-button size="mini">按钮</van-button>
-          <van-button size="mini">按钮</van-button>
-        </view>
-        <view class="productCount">
-          <view>
-             <text>合计：￥{{item.money}}</text>
+             <text>合计：￥{{item.payAmount}}</text>
           </view>
         </view>
       </view>
@@ -126,3 +43,4 @@
   </swiper-item>
  
 </swiper>
+<van-notify id="van-notify" />
