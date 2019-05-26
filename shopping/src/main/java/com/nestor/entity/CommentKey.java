@@ -18,34 +18,46 @@ public class CommentKey implements Serializable {
     
    @Column(name = "product_id")
     private String productId;
+   
+   @Column(name = "order_id")
+   private String orderId;
 
-	@Override
-	public String toString() {
-		return "CommentKey [commentNumber=" + commentNumber + ", openid=" + openid + ", productId=" + productId + "]";
-	}
+public String getCommentNumber() {
+	return commentNumber;
+}
 
-	public String getCommentNumber() {
-		return commentNumber;
-	}
+public void setCommentNumber(String commentNumber) {
+	this.commentNumber = commentNumber;
+}
 
-	public void setCommentNumber(String commentNumber) {
-		this.commentNumber = commentNumber;
-	}
+public String getOpenid() {
+	return openid;
+}
 
-	public String getOpenid() {
-		return openid;
-	}
+public void setOpenid(String openid) {
+	this.openid = openid;
+}
 
-	public void setOpenid(String openid) {
-		this.openid = openid;
-	}
+public String getProductId() {
+	return productId;
+}
 
-	public String getProductId() {
-		return productId;
-	}
+public void setProductId(String productId) {
+	this.productId = productId;
+}
 
-	public void setProductId(String productId) {
-		this.productId = productId;
-	}
+public String getOrderId() {
+	return orderId;
+}
+
+public void setOrderId(String orderId) {
+	this.orderId = orderId;
+}
+
+public static long getSerialversionuid() {
+	return serialVersionUID;
+}
+
+	
 
 }

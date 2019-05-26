@@ -1,0 +1,50 @@
+<!--pages/comment/comments.wxml-->
+<!--服务评价-->
+<van-toast id="van-toast" />
+<view class="service">
+  <!--评分-->
+  <view class='score'>
+    <view class='left'>
+      评分
+    </view>
+    <view class='right'>
+       <van-rate size="40" value="{{ value }}" bind:change="onChange" />
+    </view>
+  </view>
+  <!--内容-->
+  <view class='content'>
+    <view class='left'>
+      内容
+    </view>
+    <view class='right'>
+      <text bindtap='label' id ='attitude' class="{{attitude===true ? 'labelColor':''}}" data-index="{{attitude}}">服务态度好</text>
+      <text bindtap='label'id ='time'  class="{{time===false? 'labelColor':''}}" data-index="{{time}}">物流时间短</text>
+      <text bindtap='label'id ='efficiency'  class="{{efficiency===false?'labelColor':''}}" data-index="{{efficiency}}">效率高</text>
+      <text bindtap='label'id ='environment'  class="{{environment===false?'labelColor':''}}" data-index="{{environment}}">门店环境好</text>
+      <text bindtap='label'id ='professional'  class="{{professional===false?'labelColor':''}}" data-index="{{professional}}">很专业</text> 
+    </view>
+  </view>
+  <!--图片-->
+  <view class='picture'>
+    <view class='left'>
+      图片
+    </view>
+    <view class='right'>
+       <view class="parcel" wx:for="{{tfps}}" wx:key="{{index}}">
+       <image src="{{item}}" class="According" data-index="{{index}}" mode="aspectFill" bindtap="previewImg"></image>
+       <image src="https://www.ailejia.club/images/delete.png" class='deleteimg' catchtap="deleteImg" data-index="{{index}}"></image>
+       </view>
+      <van-icon class ="add" name="https://www.ailejia.club/images/addPhoto.jpg" size="60px" bindtap='onPhoto' />
+    </view>
+  </view>
+</view>
+<!--textarea-->
+<view class="conts">
+    <textarea class="areas" placeholder='更多评价请写在这里（最多60字）' minlength="{{5}}" maxlength="{{60}}" bindinput="inputs"> 
+         <text class="currentWordNumber">{{currentWordNumber|0}}/{{60}}</text> 
+    </textarea>
+</view>
+<!--提交评价-->
+  <view>
+      <button class="footer"  type="warn"  size="large"  bindtap="onCommit">分享快乐</button>
+  </view>

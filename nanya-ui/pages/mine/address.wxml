@@ -17,7 +17,7 @@
           <!-- <span wx:if="{{item.default == 1}}" class='def'>默认</span> -->
         </view>
         <view>
-          {{item.location}} {{item.detail_add}}
+          {{item.location}}/{{item.detailAdd}}
         </view>
       </view>
       <!-- 编辑图标 -->

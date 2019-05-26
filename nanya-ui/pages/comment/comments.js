@@ -1,7 +1,7 @@
 // pages/comment/comment.js
 import regeneratorRuntime from '../lib/regenerator-runtime/runtime.js';
 import Toast from '../../dist/toast/toast';
-var app =getApp();
+var app = getApp();
 
 Page({
 
@@ -10,20 +10,26 @@ Page({
    */
   data: {
     value: 5,
-    tfps : null,
-    productId:'9d02a5d91d9c47ddbff21ace91636b2b',
-    text :'',
-    fileUrls:''
+    tfps: null,
+    text: '',
+    fileUrls: '',
+    orderId: '',
+    attitude: true,
+    time: true,
+    efficiency: true,
+    environment: true,
+    professional: true,
+    currentWordNumber:0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // var proIds = options.productId;
-    // this.setData({
-    //   productId : proIds
-    // })
+    var orderId = options.orderId;
+    this.setData({
+      orderId: orderId
+    })
   },
 
   /**
@@ -73,13 +79,13 @@ Page({
    */
   onShareAppMessage: function () {
 
-  }, 
+  },
   onChange(event) {
     this.setData({
       value: event.detail
     });
   },
-  onPhoto: function(){
+  onPhoto: function () {
     var that = this;
     wx.chooseImage({
       count: 5,
@@ -93,21 +99,21 @@ Page({
       }
     })
   },
-  onBlur : function(e){
+  onBlur: function (e) {
     this.setData({
-      text : e.detail.value
+      text: e.detail.value
     })
   },
-  onClear : function(){
+  onClear: function () {
     this.setData({
-      tfps : null
+      tfps: null
     })
   },
   //点击提交按钮
-  onCommit : function(){
-    var that =this;
+  onCommit: function () {
+    var that = this;
 
-    if (that.data.value != '' || that.data.tfps!= null){
+    if (that.data.value != '' || that.data.tfps != null) {
       //提示加载中
       Toast.loading({
         mask: true,
@@ -116,9 +122,8 @@ Page({
       //一张图片上传
       //this.upImage();
       //多张图片上传
-      //this.init();
-      this.uploadImage().then(res=>{this.commitFile(res)});
-    }  
+      this.uploadImage().then(res => { this.commitFile(res) }).then(res => { wx.switchTab({ url: '../find/find' }) });
+    }
   },
   //上传图片到服务器
   uploadImage: function () {
@@ -126,12 +131,11 @@ Page({
     return new Promise(function (resolve, reject) {
       var len = that.data.tfps.length;
       //图片路径的容器
-      var fUrls =new Array(len);
-      var successFlag= 0;
-      console.log(len)
+      var fUrls = new Array(len);
+      var successFlag = 0;
       for (var i = 0; i < len; i++) {
         wx.uploadFile({
-          url: app.globalData.baseRequestUrl+'/admin/images/one', // 仅为示例，非真实的接口地址
+          url: app.globalData.baseRequestUrl + '/admin/images/one', // 仅为示例，非真实的接口地址
           filePath: that.data.tfps[i],
           name: "image",
           formData: {
@@ -144,32 +148,30 @@ Page({
             // do something
             //fUrls = fUrls + JSON.parse(res.data).data.imageUrl + ";";
             fUrls.push(JSON.parse(res.data).data.imageUrl);
-            console.log("res.data= "+ res.data)
-            console.log("json = "+ JSON.parse(res.data))
+
             that.setData({
               fileUrls: fUrls.toString()
             })
             successFlag++;
             if (successFlag == len) {
-              console.log("success")              
+              console.log("success")
               resolve(res)
             }
-          },fail(){
+          }, fail() {
             reject();
             console.log("fail")
           }
         })
       }
-    })  
+    })
   },
   //将评论信息上传到数据库
   commitFile: function (e) {
     var that = this;
     var thirdSession = wx.getStorageSync('thirdSession');
-    console.log("commitFile")
     return new Promise(function (resolve, reject) {
       wx.request({
-        url: app.globalData.baseRequestUrl+'/CommentsController/addComments', // 仅为示例，并非真实的接口地址
+        url: app.globalData.baseRequestUrl + '/CommentsController/addComments', // 仅为示例，并非真实的接口地址
         method: 'POST',
         header: {
           'content-type': 'application/x-www-form-urlencoded'
@@ -177,54 +179,62 @@ Page({
         data: {
           value: that.data.value,
           fileUrls: that.data.fileUrls,
-          productId: that.data.productId,
+          orderId: that.data.orderId,
           text: that.data.text,
           thirdSession: thirdSession
         },
         success(res) {
           console.log(res);
           resolve(res)
-        },fail(){
+        }, fail() {
           reject();
         }
       })
     })
 
   },
-  async init() {
-    await this.uploadImage();
-    await this.commitFile();
-  },
-  //上传单张图片到服务器
-  upImage: function () {
+  // 标签
+  label: function (e) {
     var that = this;
-    var thirdSession = wx.getStorageSync('thirdSession')
-    var fPath ='';
-    if (that.data.tfps != null){
-      fPath = that.data.tfps[0];
-      wx.uploadFile({
-        url: app.globalData.baseRequestUrl+'/CommentsController/addComment', // 仅为示例，非真实的接口地址
-        filePath: fPath,
-        name: "image",
-        formData: {
-          type: 'comment',
-          value: that.data.value,
-          productId: that.data.productId,
-          text: that.data.text,
-          thirdSession: thirdSession
-        },
-        header: {
-          "Content-Type": "multipart/form-data"
-        },
-        success(res) {
-          Toast(res.data);
-          // wx.switchTab({
-          //   url: '/pages/find/find'
-          // })
-        }
-      })
-    }else{
-      Toast("请和照片一起上传哦！");
-    }
+    that.setData({
+      [e.currentTarget.id]: !e.currentTarget.dataset.index,
+      text: this.data.text + e.currentTarget.id
+    })
+  },
+  // 删除图片
+  deleteImg: function (e) {
+    var tfps = this.data.tfps;
+    var index = e.currentTarget.dataset.index;
+    tfps.splice(index, 1);
+    this.setData({
+      tfps: tfps
+    });
+  },
+  // 预览图片
+  previewImg: function (e) {
+    //获取当前图片的下标
+    var index = e.currentTarget.dataset.index;
+    //所有图片
+    var tfps = this.data.tfps;
+    wx.previewImage({
+      //当前显示图片
+      current: tfps[index],
+      //所有图片
+      urls: tfps
+    })
+  },
+  // 留言
+  //字数限制  
+  inputs: function (e) {
+    // 获取输入框的内容
+    var value = e.detail.value + "[" + this.data.text+"]" ;
+    // 获取输入框内容的长度
+    var len = parseInt(value.length);
+    //最多字数限制
+    if (len > 60) return;
+    // 当输入框内容的长度大于最大长度限制（max)时，终止setData()的执行
+    this.setData({
+      currentWordNumber: len //当前字数  
+    });
   }
 })

@@ -1,0 +1,82 @@
+<!--pages/order/order-detail.wxml-->
+<wxs module="format" src="../../utils/format.wxs"></wxs>
+<wxs module="filters" src="../../utils/filters.wxs"></wxs>
+
+<view>
+
+  <van-card 
+    num="{{orderData.buyAmount}}"
+    price="{{filters.toFix(orderData.productPrice, 2)}}"
+    desc="{{orderData.productDescription}}"
+    title="{{orderData.productName}}"
+    thumb="{{orderData.productImageUrl}}"
+    tag="{{orderData.label}}"
+    title-class="title-size"
+    desc-class="des-size"
+    price-class="price-size"
+    origin-price-class="price-size"
+    thumb-link="../product-detail/product-detail?productId={{orderData.productId}}"
+  />
+
+  <view class="section date">
+    <van-icon name="clock-o" class="icon" />
+      <view class="price-size">
+        配送日期: {{orderData.expectedDeliveryTime}}
+      </view>
+  </view>
+  <view class="section time">
+    <van-icon name="underway-o" class="icon" />
+      <view class="price-size">
+        下单时间: {{orderData.orderTime}}
+      </view>
+  </view>
+
+  <view class='label-view' bindtap='showLabel'>
+    <view class='label-veiw'>
+      <view class='body'>
+        <view class='row-1'>
+          <van-icon name="location-o" class='icon'/>
+          <view class='username'>收货人：{{orderData.username}}</view>
+          <view class='phone'>{{orderData.phoneNumber}}</view>
+        </view>
+        <view class='row-2'>
+          <view>收货地址：{{orderData.area}}{{orderData.addressDetail}}</view>
+        </view>
+      </view>
+    </view>
+
+    <view class='label'>
+      <van-icon name="label-o" class="icon" />
+      <text class='label-item' >总 价 ：</text> <text style="color :red;fond-size:18px">￥{{orderData.payAmount}}</text>
+    </view>
+    
+    <view class='label'>
+      <van-icon name="label-o" class="icon" />
+      <text class='label-item'>备 注 ：{{orderData.remark!="null"?'未注明备注':orderData.remark}}</text>
+    </view>
+    
+    <view class='label'>
+      <van-icon name="label-o" class="icon" />
+      <text class='label-item'>留 言 ：{{orderData.leaveMessage!="null"?'未注明留言':orderData.leaveMessage}}</text>
+    </view>
+  </view>
+  <view style="height :calc(50% - 2px)"></view>
+  <view class ="button" wx:if="{{orderData.orderStatus=='待支付'}}">
+    <van-button round plain hairline type="primary" class ="button-item" size="normal"  id="pay" bindtap='onclick' >去支付</van-button>
+  </view>
+  <view class ="button" wx:elif="{{orderData.orderStatus=='待发货'}}">
+    <van-button round plain hairline type="primary" class ="button-item" id="prompt" bindtap='onPrompt' >催促商家</van-button>
+  </view>
+  <view class ="button" wx:elif="{{orderData.orderStatus=='待收货'}}">
+    <van-button round plain hairline type="primary" class ="button-item" id="confirm" bindtap='onclick'  >确认收货</van-button>
+  </view>
+  <view class ="button" wx:elif="{{orderData.orderStatus=='待评价'}}">
+    <van-button round plain hairline type="primary" class ="button-item" id="comment" bindtap='onclick' >评价</van-button>
+    <van-button round plain hairline type="primary" class ="button-item" id="refund" bindtap='onclick' >申请退款</van-button>
+  </view>
+  <view class ="button" wx:else>
+    <van-button round plain hairline type="primary" class ="button-item"  disabled >orderData.orderStatus</van-button>
+  </view>
+
+
+</view>

@@ -255,7 +255,7 @@ public class OrderServiceImpl implements OrderService {
 		}
 		WxOrder order = orderOptional.get();
 		if (!openid.equals(order.getOpenid())) {
-			throw new BizException("该订单不存在");
+			throw new BizException("该用户订单不存在");
 		}
 		order.setProductImageUrl(baseImageUrl.concat(order.getProductImageUrl()));
 		order.setOrderStatus(OrderStatus.parse(order.getOrderStatus()).getDesc());

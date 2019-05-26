@@ -6,7 +6,9 @@ App({
     var init = this;
     logs.unshift(Date.now())
     wx.setStorageSync('logs', logs)
-    var that = this
+    var that = this;
+
+    this.loginNy();
 
     wx.getSetting({
       success: res => {
@@ -15,13 +17,12 @@ App({
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
-              that.globalData.userInfo = res.userInfo;
+              var userInfo = res.userInfo;
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
                 this.userInfoReadyCallback(res)
               }
-              this.loginNy();
             }
           })
         }
@@ -30,14 +31,24 @@ App({
   },
   globalData: {
     userInfo: null,
-    baseRequestUrl: 'http://localhost:80/nanyahuayi'
+     baseRequestUrl: 'http://localhost:80/nanyahuayi'
+    //baseRequestUrl: 'https://www.ailejia.club/nanyahuayi'
     ,phoneNum  : "18221456048"
   },
   // 拨打电话
   callPhone: function() {
-    wx.makePhoneCall({
-      phoneNumber: this.globalData.phoneNum // 仅为示例，并非真实的电话号码
-    })
+    var myDate = new Date();
+    var hours =myDate.getHours();
+    console.log(hours)
+    if (9 < hours < 18) {
+      wx.makePhoneCall({
+        phoneNumber: this.globalData.phoneNum // 仅为示例，并非真实的电话号码
+      })
+    }else{
+      wx.showToast({
+        title: '请在上午九点至晚上六点咨询客服！',
+      })
+    }
   },
   loginNy: function() {
     var that = this;
@@ -46,7 +57,7 @@ App({
         //session未过期
         console.log("session is not expired")
       },
-      complete() {
+      fail() {
         // session_key 已经失效，需要重新执行登录流程
         // 重新登录
         wx.login({

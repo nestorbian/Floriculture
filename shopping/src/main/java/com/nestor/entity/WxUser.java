@@ -1,10 +1,13 @@
 package com.nestor.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import lombok.Data;
 
@@ -54,5 +57,9 @@ public class WxUser implements Serializable {
 	private String thirdSession;
 
 	private String unionid;
+    @CreationTimestamp
+    private LocalDateTime createTime;
+    @UpdateTimestamp
+    private LocalDateTime updateTime;
 
 }

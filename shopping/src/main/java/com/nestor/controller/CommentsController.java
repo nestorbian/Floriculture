@@ -39,8 +39,8 @@ public class CommentsController {
 	//新增多图评论
 	@PostMapping(path = "/addComments")
 	@LogHttpInfo
-	public String addComments(String value ,String fileUrls,String productId,String text,String thirdSession) {
-		Comment comment = newComment(value ,productId,text, thirdSession);
+	public String addComments(String value ,String fileUrls,String orderId,String text,String thirdSession) {
+		Comment comment = newComment(value ,orderId,text, thirdSession);
 		if(comment == null){ return "评论失败请稍后重试";}
 		
 		comment.setImageUrls(fileUrls);
@@ -76,7 +76,7 @@ public class CommentsController {
 	
 	
 	//评论对象属性赋值
-	private Comment newComment(String value ,String productId,String text,String thirdSession) {
+	private Comment newComment(String value ,String orderId,String text,String thirdSession) {
 		CommentKey cKey       = new CommentKey();
 		Comment    comment    = new Comment();
 		WxUser wxUser = wxLogin.getUInfo(thirdSession);
@@ -87,7 +87,7 @@ public class CommentsController {
 		
 		cKey.setOpenid(wxUser.getOpenid());
 		cKey.setCommentNumber(IdUtil.generateId());
-		cKey.setProductId(productId);
+		cKey.setOrderId(orderId);
 		comment.setId(cKey);
 		comment.setValue(value);
 		//脏话过滤 共7k+数据

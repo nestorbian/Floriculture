@@ -58,10 +58,9 @@ public class WxLoginServiceImpl implements WxLoginService {
             // 返回 3rd_session
             return wxSession.getThirdSession();
         }else {
-        	System.out.println("连接失败======================================================");
+            return null;
         }
 
-        return null;
     }
 
     /*

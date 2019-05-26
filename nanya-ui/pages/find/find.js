@@ -136,5 +136,19 @@ Page({
         Toast.clear();
       }
     })
+  },
+  // 预览图片
+  previewImg: function (e) {
+    //获取当前图片的下标
+    var index = e.currentTarget.dataset.index;
+    var findex =e.currentTarget.dataset.findex;
+    //所有图片
+    var pics = this.data.comList[findex].imageUrls;
+    wx.previewImage({
+      //当前显示图片
+      current: pics[index],
+      //所有图片
+      urls: pics
+    })
   }
 })

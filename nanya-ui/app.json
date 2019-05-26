@@ -1,10 +1,12 @@
 {
   "pages": [
     "pages/find/find",
+    "pages/order/order-detail",
+    "pages/comment/comments",
+    "pages/mine/mine",
     "pages/order/pay-success",
-    "pages/test2/test2",    
-    "pages/comment/comment",
-    "pages/index/index",    
+    "pages/test2/test2",
+    "pages/index/index",
     "pages/order/orderList",
     "pages/wuliu/wuliu",
     "pages/pay/pay",
@@ -17,8 +19,7 @@
     "pages/mindit_address",
     "pages/mine/address",
     "pages/category-detail/category-detail",
-    "pages/order/choose-address",
-    "pages/mine/mine"
+    "pages/order/choose-address"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -1,6 +1,6 @@
 <!-- <view> -->
 <van-toast id="van-toast" />
-  <view class='comment' wx:for="{{comList}}" wx:key="item">
+  <view class='comment' wx:for="{{comList}}" wx:key="item" wx:for-index='indexA'>
     <view class='product' bindtap='onClick' id=' {{item.productId}} '>
       <view class='rongqi' wx:if="{{item.productImage==null}}">
         <image src='http://img01.hua.com/uploadpic/images/by_2018121815035427.jpg'></image>
@@ -47,8 +47,9 @@
         </view>
         <view class='comment-images'>
           <!-- <image src='http://img01.hua.com/uploadpic/images/by_2018121815035427.jpg' wx:for="list" wx:key="key"></image>           -->
-          <view  wx:for="{{item.imageUrls}}" wx:for-item="url" wx:for-index="index">
-            <image  src='{{url}}' ></image>
+          <!-- 子循环中获取父循环键值 -->
+          <view  wx:for="{{item.imageUrls}}" wx:for-item="url" wx:key="indexB" >
+            <image  src='{{url}}' bindtap='previewImg' data-index='{{indexB}}' data-findex='{{indexA}}'></image>
           </view>
           <!-- <image src='{{item.imageUrls}}' wx:for="list" wx:key="key"></image> -->
         </view>

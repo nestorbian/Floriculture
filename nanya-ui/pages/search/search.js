@@ -1,5 +1,7 @@
 // pages/search/search.js
 import Toast from '../../dist/toast/toast';
+var app =getApp();
+
 Page({
 
   /**
