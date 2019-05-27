@@ -17,8 +17,10 @@ import com.nestor.entity.Comment;
 import com.nestor.entity.CommentKey;
 import com.nestor.entity.WxUser;
 import com.nestor.enums.ImageType;
+import com.nestor.enums.OrderStatus;
 import com.nestor.service.CommentService;
 import com.nestor.service.ImageService;
+import com.nestor.service.OrderService;
 import com.nestor.service.WxLoginService;
 import com.nestor.util.CheckUtil;
 import com.nestor.util.IdUtil;
@@ -35,6 +37,8 @@ public class CommentsController {
 	private CommentService comService;
 	@Autowired
 	private ImageService imageService;
+	@Autowired
+	private OrderService ordService;
 	
 	//新增多图评论
 	@PostMapping(path = "/addComments")
@@ -47,8 +51,12 @@ public class CommentsController {
 		
 		if(comment.equals(null)) {	
 			return "保存失败，请稍后重试！";
-		}		
-		return comService.addComment(comment);	
+		}	
+		String reString =comService.addComment(comment);
+		if(reString.equals("ok")) {
+			ordService.updateOrderStatus(orderId,OrderStatus.FINISH);
+		}
+		return reString ;	
 	}
 	
 	//新增单图评论
@@ -66,7 +74,7 @@ public class CommentsController {
 	    return comService.addComment(comment);
 	}
 	
-	//查询评论
+	//查询所有评论
 	@GetMapping(path = "/findComment")
 	@LogHttpInfo
 	public ArrayList<CommentView> findComment(Integer page ,Integer pageSize) {
@@ -74,6 +82,13 @@ public class CommentsController {
 		return comList;
 	}
 	
+	//查询商品粒度评论
+		@GetMapping(path = "/findProComment")
+		@LogHttpInfo
+		public ArrayList<CommentView> findProComment(String productId,Integer page ,Integer pageSize) {
+			ArrayList<CommentView>  comList = comService.findProComment(productId,page, pageSize);
+			return comList;
+		}
 	
 	//评论对象属性赋值
 	private Comment newComment(String value ,String orderId,String text,String thirdSession) {

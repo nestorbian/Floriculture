@@ -110,6 +110,7 @@ page {
 }
 
 .label-view {
+  display: flex;
   padding:10px 15px;
   font-size: 16px;
   background: #ffffff;
@@ -117,6 +118,7 @@ page {
 
 .label {
   width: 95%;
+  display: flex;
 }
 
 .link {

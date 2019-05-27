@@ -16,11 +16,14 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    // var temp =Math.random();
-    var customer = '1D8BAC25EE2166D21E16A2885561D76B';
-    var com = 'shunfeng';
+    //var num = options.trackingNumber;
+   // var phone = options.phoneNumber;
+
     var num = '046324413852';
     var phone = '17612157621';
+
+    var customer = '1D8BAC25EE2166D21E16A2885561D76B';
+    var com = 'shunfeng';
     var param = "{\"com\":\"" + com + "\",\"num\":\"" + num + "\",\"phone\":\"" + phone + "\"}";
     var key = 'OISRgocN8714';
     var md5 = param + key + customer;
@@ -96,40 +99,40 @@ Page({
   onShareAppMessage: function () {
 
   },
-  kuaidibao : function(){
-    var that = this;
-    // var temp =Math.random();
-    var timestamp = new Date().getTime();
-    var api_key = 'be21e3a628835e8f2bde0194c134efac4d58905e';
-    var md5 = '103021' + 'express.info.get' + timestamp + api_key;
-    var sign = util.hex_md5(md5);
-    console.log(sign)
+  // kuaidibao : function(){
+  //   var that = this;
+  //   // var temp =Math.random();
+  //   var timestamp = new Date().getTime();
+  //   var api_key = 'be21e3a628835e8f2bde0194c134efac4d58905e';
+  //   var md5 = '103021' + 'express.info.get' + timestamp + api_key;
+  //   var sign = util.hex_md5(md5);
+  //   console.log(sign)
 
-    wx.request({
-      url: 'https://kop.kuaidihelp.com/api', // 仅为示例，并非真实的接口地址
-      data: {
-        app_id: '103021',
-        method: 'express.info.get',
-        ts: timestamp,
-        data: '{ "waybill_no":"254939750997", "exp_company_code":"sf","result_sort":"0"}',
-        sign: sign
-      },
-      method: 'POST',
-      header: {
-        'cache-control': 'no-cache',
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      success(res) {
-        console.log(res.data);
-        if (typeof (res.data.data[0]) != 'undefined') {
-          that.setData({
-            wuLiu: res.data.data[0].data
-          })
-          // console.log(that.data.wuLiu)
-        }
-      }
-    })
-  },
+  //   wx.request({
+  //     url: 'https://kop.kuaidihelp.com/api', // 仅为示例，并非真实的接口地址
+  //     data: {
+  //       app_id: '103021',
+  //       method: 'express.info.get',
+  //       ts: timestamp,
+  //       data: '{ "waybill_no":"254939750997", "exp_company_code":"sf","result_sort":"0"}',
+  //       sign: sign
+  //     },
+  //     method: 'POST',
+  //     header: {
+  //       'cache-control': 'no-cache',
+  //       'content-type': 'application/x-www-form-urlencoded'
+  //     },
+  //     success(res) {
+  //       console.log(res.data);
+  //       if (typeof (res.data.data[0]) != 'undefined') {
+  //         that.setData({
+  //           wuLiu: res.data.data[0].data
+  //         })
+  //         // console.log(that.data.wuLiu)
+  //       }
+  //     }
+  //   })
+  // },
   kuaidi100 : function(){
     var that = this;
     // var temp =Math.random();

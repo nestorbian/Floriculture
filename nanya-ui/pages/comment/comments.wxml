@@ -41,7 +41,7 @@
 <!--textarea-->
 <view class="conts">
     <textarea class="areas" placeholder='更多评价请写在这里（最多60字）' minlength="{{5}}" maxlength="{{60}}" bindinput="inputs"> 
-         <text class="currentWordNumber">{{currentWordNumber|0}}/{{60}}</text> 
+         <text class="currentWordNumber">{{currentWordNumber|0}}/60</text> 
     </textarea>
 </view>
 <!--提交评价-->

@@ -61,22 +61,33 @@
     </view>
   </view>
   <view style="height :calc(50% - 2px)"></view>
-  <view class ="button" wx:if="{{orderData.orderStatus=='待支付'}}">
-    <van-button round plain hairline type="primary" class ="button-item" size="normal"  id="pay" bindtap='onclick' >去支付</van-button>
-  </view>
-  <view class ="button" wx:elif="{{orderData.orderStatus=='待发货'}}">
-    <van-button round plain hairline type="primary" class ="button-item" id="prompt" bindtap='onPrompt' >催促商家</van-button>
-  </view>
-  <view class ="button" wx:elif="{{orderData.orderStatus=='待收货'}}">
-    <van-button round plain hairline type="primary" class ="button-item" id="confirm" bindtap='onclick'  >确认收货</van-button>
-  </view>
-  <view class ="button" wx:elif="{{orderData.orderStatus=='待评价'}}">
-    <van-button round plain hairline type="primary" class ="button-item" id="comment" bindtap='onclick' >评价</van-button>
-    <van-button round plain hairline type="primary" class ="button-item" id="refund" bindtap='onclick' >申请退款</van-button>
-  </view>
-  <view class ="button" wx:else>
-    <van-button round plain hairline type="primary" class ="button-item"  disabled >orderData.orderStatus</van-button>
+  <view>
+    <view class ="button" wx:if="{{orderData.orderStatus=='待支付'}}">
+      <van-button round plain hairline type="primary" class ="button-item" size="normal"  data-orderid="{{orderData.orderId}}" bindtap='cancelOrder' >取消订单</van-button>
+      <van-button round plain hairline type="primary" class ="button-item" size="normal"  data-orderid="{{orderData.orderId}}"bindtap='continuePay' >继续支付</van-button>
+    </view>
+    <view class ="button" wx:elif="{{orderData.orderStatus=='待发货'}}">
+      <van-button round plain hairline type="primary" class ="button-item" data-orderid="{{orderData.orderId}}" bindtap='onPrompt' >催促商家</van-button>
+    </view>
+    <view class ="button" wx:elif="{{orderData.orderStatus=='待收货'}}">
+      <van-button round plain hairline type="primary" class ="button-item" data-orderid="{{orderData.orderId}}" bindtap='wuliu' >查看物流</van-button>
+      <van-button round plain hairline type="primary" class ="button-item" data-orderid="{{orderData.orderId}}"bindtap='confirmReceive'  >确认收货</van-button>
+    </view>
+    <view class ="button" wx:elif="{{orderData.orderStatus=='待评价'}}">
+      <van-button round plain hairline type="primary" class ="button-item" data-orderid="{{orderData.orderId}}" bindtap='comment' >评价</van-button>
+      <van-button round plain hairline type="primary" class ="button-item" data-orderid="{{orderData.orderId}}" bindtap='setPopShow' >申请退款</van-button>
+    </view>
+    <view class ="button" wx:else>
+      <van-button round plain hairline type="primary" class ="button-item"  disabled >{{orderData.orderStatus}}</van-button>
+    </view>
   </view>
 
 
 </view>
+<van-notify id="van-notify" />
+<van-popup  show="{{ show }}"  overlay=true
+  data-orderid="{{orderData.orderId}}"
+  bind:close="refund" >
+  <van-icon name="phone-o"  size="4em"  style="background-color:#66cc99" bind:click="callPhone"/>
+  
+</van-popup>

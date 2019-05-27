@@ -137,5 +137,12 @@ Page({
       }
     }
     return arr;
+  },
+  toComment : function(){
+    if (this.data.product.comments.length >= 1) {
+      wx.navigateTo({
+        url: '../comment/prodComment?productId=' + this.data.product.productId,
+      })
+    }
   }
 })

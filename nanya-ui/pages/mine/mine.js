@@ -56,6 +56,7 @@ Page({
       var that = this;
       wx.getUserInfo({
         success(res) {
+          console.log("getUserInfo")
           that.setData({ userInfo: res.userInfo });
         }
       });
@@ -102,6 +103,7 @@ Page({
       userInfo : e.detail.userInfo
     })
     this.loginNy();
+    this.getOrderStatusCount();
   },
   callPhone: function(){
     app.callPhone()

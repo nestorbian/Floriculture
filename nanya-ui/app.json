@@ -1,8 +1,9 @@
 {
   "pages": [
+    "pages/test2/test2",
+    "pages/order/order-detail",
     "pages/mine/mine",
     "pages/order/orderList",
-    "pages/test2/test2",
     "pages/find/find",
     "pages/index/index",
     "pages/wuliu/wuliu",
@@ -16,7 +17,9 @@
     "pages/mindit_address",
     "pages/mine/address",
     "pages/category-detail/category-detail",
-    "pages/order/choose-address"
+    "pages/order/choose-address",
+    "pages/comment/comments",
+    "pages/comment/prodComment"
   ],
   "window": {
     "backgroundTextStyle": "light",

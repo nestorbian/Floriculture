@@ -136,7 +136,7 @@ Page({
   // 评价
   comment: function(event) {
     wx.navigateTo({
-      url: '../comment/comment?productId=' + event.currentTarget.dataset.productid
+      url: '../comment/comments?orderId=' + event.currentTarget.dataset.orderid
     });
   },
   // 继续支付
@@ -232,5 +232,12 @@ Page({
         console.log(res);
       }
     });
+  },
+  //跳转到“订单详情”页面
+  orderDetail : function(e){
+    wx.navigateTo({
+      url: "../order/order-detail?orderId=" + e.currentTarget.dataset.orderid
+    })
   }
 })
+

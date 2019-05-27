@@ -1,0 +1,61 @@
+<!-- <view> -->
+<van-toast id="van-toast" />
+  <view class='comment' wx:for="{{comList}}" wx:key="item" wx:for-index='indexA'>
+    <!-- <view class='product' bindtap='onClick' id=' {{item.productId}} '> -->
+    <!-- //取消点击图片跳转到商品详情的功能 -->
+    <view class='product' bindtap='onClick' id=' {{item.productId}} '>
+      <view class='rongqi' wx:if="{{item.productImage==null}}">
+        <image src='http://img01.hua.com/uploadpic/images/by_2018121815035427.jpg'></image>
+      </view>
+      <view class='rongqi' wx:else>
+        <image class='product-image' src="{{srcHead+item.productImage}}"/>
+      </view>
+      
+      <view class='product-name'>
+      偏偏爱上你,一生挚爱
+      </view>      
+    
+    </view>
+
+    <view class='content'>
+      <view class='user-item'>
+        <view class='user' wx:if='{{item.nickname!=null}}'>
+          <image src='{{item.avatarurl}}'></image>
+          <text>{{item.nickname}}</text>
+        </view>
+        <view class='user' wx:else>
+          <image src='https://www.ailejia.club/images/smile.jpeg'></image>
+          <text>"一位不愿透露姓名的热心群众"</text>
+        </view>
+
+        <view class='time'>
+        {{item.updateTime}}
+        </view>
+      </view>
+
+      <view class='score-item'>
+        <view class='score'>
+          <van-rate class ="xingxing" value="{{ item.value }}"  />
+        </view>
+
+        <view class='location'>
+        {{item.location}}
+        </view>
+      </view>
+
+      <view class='comment-item'>
+        <view class='comment-text'>
+        <text>{{item.text}}</text>
+        </view>
+        <view class='comment-images'>
+          <!-- <image src='http://img01.hua.com/uploadpic/images/by_2018121815035427.jpg' wx:for="list" wx:key="key"></image>           -->
+          <!-- 子循环中获取父循环键值 -->
+          <view  wx:for="{{item.imageUrls}}" wx:for-item="url" wx:key="indexB" >
+            <image  src='{{url}}' bindtap='previewImg' data-index='{{indexB}}' data-findex='{{indexA}}' mode="aspectFill"></image>
+          </view>
+          <!-- <image src='{{item.imageUrls}}' wx:for="list" wx:key="key"></image> -->
+        </view>
+      </view>
+    </view>
+  </view>
+<!-- </view> -->

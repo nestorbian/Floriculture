@@ -36,6 +36,14 @@ page {
   font-size: 20px;
 }
 
+.iconPhone {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  width:20px;
+  height :20px;
+}
+
 .add {
   color: #0079f3;
   font-size: 18px;

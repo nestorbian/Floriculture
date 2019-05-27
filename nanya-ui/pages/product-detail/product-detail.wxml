@@ -55,10 +55,10 @@
   </view>
 </view>
 
-<view class="comments">
-  <view class='header'>
+<view class="comments" >
+  <view class='header' >
     <view>用户评价</view>
-    <van-icon name="arrow" class='three'/>
+    <van-icon name="arrow" class='three' bind:click="toComment"/>
   </view>
 
   <view class='content' wx:for="{{product.comments}}" wx:key="key">

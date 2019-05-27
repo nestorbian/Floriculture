@@ -161,7 +161,7 @@ public class ProductServiceImpl implements ProductService {
 //		Pageable pageable = PageRequest.of(0, 4, Sort.by(Sort.Direction.DESC, "createTime"));
 //		Example<Comment> example = Example.of(query);
 //		Page<Comment> page = commentRespository.findAll(example, pageable);
-		List<CommentView> commentViews = commentRespository.findComment(0, 4);
+		List<CommentView> commentViews = commentRespository.findProComment(productId,0, 4);
 		product.setComments(commentViews);
         return product;
     }

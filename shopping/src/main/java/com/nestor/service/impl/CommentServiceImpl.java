@@ -42,13 +42,19 @@ public class CommentServiceImpl implements CommentService {
 		comment.setProductImage(order.getProductImageUrl());
 		comment.getId().setProductId(order.getProductId());
 		comRes.save(comment);
-		return "保存成功！";
+		return "ok";
 	}
 
 	@Override
 	public ArrayList<CommentView> findComments(Integer page, Integer pageSize) {
 		// TODO Auto-generated method stub		
 		return comRes.findComment(page, pageSize);
+	}
+
+	@Override
+	public ArrayList<CommentView> findProComment(String productId, Integer page, Integer pageSize) {
+		// TODO Auto-generated method stub
+		return comRes.findProComment(productId, page, pageSize);
 	}
 
 }

@@ -10,34 +10,37 @@
   <swiper-item>
     <scroll-view class="hot-box" scroll-y="true">
       <view class="orderDetails" wx:for="{{orderList}}" wx:key="key">
-        <view class="orderListTitle">
-           <text class="userName">订单状态</text>
-          <text class="orderStatus">{{item.orderStatus}}</text>
-        </view>
-        <view class="orderListDetails">
-          <view class="productImg">
-            <image src="{{item.productImageUrl}}" mode='aspectFill'></image>
+        <view bindtap = "orderDetail" data-orderId ="{{item.orderId}}">
+          <view class="orderListTitle">
+            <text class="userName">订单状态</text>
+            <text class="orderStatus">{{item.orderStatus}}</text>
           </view>
-          <view class="productInfo">
-            <view class="productTitle">{{item.productName}}</view>
-            <view class='price-num'>
-              <text class="productPrice">￥{{item.productPrice}}</text>
-              <text class="productPrice">x {{item.buyAmount}}</text>
+          <view class="orderListDetails">
+            <view class="productImg">
+              <image src="{{item.productImageUrl}}" mode='aspectFill'></image>
+            </view>
+            <view class="productInfo">
+              <view class="productTitle">{{item.productName}}</view>
+              <view class='price-num'>
+                <text class="productPrice">￥{{item.productPrice}}</text>
+                <text class="productPrice">x {{item.buyAmount}}</text>
+              </view>
             </view>
           </view>
         </view>
-        <view slot="footer" class='footer'>
-          <van-button plain type="info" size='small' round="true" class='btn' bind:click="contactService">联系客服</van-button>
-          <van-button wx:if="{{item.orderStatus == '待支付'}}" plain type="info" size='small' round="true" data-orderid="{{item.orderId}}" class='btn' bind:click="cancelOrder">取消订单</van-button>
-          <van-button wx:if="{{item.orderStatus == '待支付'}}" plain type="info" size='small' round="true" data-orderid="{{item.orderId}}" class='btn' bind:click="continuePay">继续支付</van-button>
-          <van-button wx:if="{{item.orderStatus == '待收货'}}" plain type="info" size='small' round="true" class='btn' data-orderid="{{item.orderId}}" bind:click="confirmReceive">确认收货</van-button>
-          <van-button wx:if="{{item.orderStatus == '待评价'}}" plain type="info" size='small' round="true" data-productid="{{item.productId}}" class='btn' bind:click="comment">评价</van-button>
-        </view>
-        <view class="productCount">
-          <view>
-             <text>合计：￥{{item.payAmount}}</text>
+          <view slot="footer" class='footer'>
+            <van-button plain type="info" size='small' round="true" class='btn' bind:click="contactService">联系客服</van-button>
+            <van-button wx:if="{{item.orderStatus == '待支付'}}" plain type="info" size='small' round="true" data-orderid="{{item.orderId}}" class='btn' bind:click="cancelOrder">取消订单</van-button>
+            <van-button wx:if="{{item.orderStatus == '待支付'}}" plain type="info" size='small' round="true" data-orderid="{{item.orderId}}" class='btn' bind:click="continuePay">继续支付</van-button>
+            <van-button wx:if="{{item.orderStatus == '待收货'}}" plain type="info" size='small' round="true" class='btn' data-orderid="{{item.orderId}}" bind:click="confirmReceive">确认收货</van-button>
+             <van-button wx:if="{{item.orderStatus == '待评价'}}" plain type="info" size='small' round="true" data-orderid="{{item.orderId}}" class='btn' bind:click="orderDetail">申请退款</van-button>
+            <van-button wx:if="{{item.orderStatus == '待评价'}}" plain type="info" size='small' round="true" data-orderid="{{item.orderId}}" class='btn' bind:click="comment">评价</van-button>
           </view>
-        </view>
+          <view class="productCount">
+            <view>
+              <text>合计：￥{{item.payAmount}}</text>
+            </view>
+          </view>
       </view>
     </scroll-view>
   </swiper-item>

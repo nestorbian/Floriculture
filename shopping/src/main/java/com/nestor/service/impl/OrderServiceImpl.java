@@ -194,6 +194,12 @@ public class OrderServiceImpl implements OrderService {
 				throw new BizException("订单状态不正确");
 			}
 		}
+		
+		if (orderStatus.equals(OrderStatus.FINISH)) {
+			if (!orderInDB.getOrderStatus().equals(OrderStatus.PENDING_COMMENT.toString())) {
+				throw new BizException("订单状态不正确");
+			}
+		}
 
 		if (orderStatus.equals(OrderStatus.FINISH_REFUND)) {
 			if (!orderInDB.getOrderStatus().equals(OrderStatus.PENDING_REFUND.toString())) {

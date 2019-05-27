@@ -9,7 +9,7 @@ Page({
   data: {
     list:['aa','aa','aa','aa','aa','','','','','','','','','','',''],
     page : 0,
-    pageSize : 6,
+    pageSize : 15,
     hasMore : true,
     comList:[],
     srcHead:'https://www.ailejia.club'//图片网址
