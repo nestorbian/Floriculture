@@ -1,8 +1,8 @@
 {
   "pages": [
+    "pages/mine/mine",
     "pages/test2/test2",
     "pages/order/order-detail",
-    "pages/mine/mine",
     "pages/order/orderList",
     "pages/find/find",
     "pages/index/index",
@@ -17,7 +17,7 @@
     "pages/mindit_address",
     "pages/mine/address",
     "pages/category-detail/category-detail",
-    "pages/order/choose-address",
+    "pages/order/pay-success",
     "pages/comment/comments",
     "pages/comment/prodComment"
   ],
@@ -90,7 +90,8 @@
     "van-rate": "dist/rate/index",
     "van-checkbox": "dist/checkbox/index",
     "van-checkbox-group": "dist/checkbox-group/index",
-    "van-stepper": "dist/stepper/index"
+    "van-stepper": "dist/stepper/index",
+    "van-loading": "dist/loading/index"
   },
   "sitemapLocation": "sitemap.json"
 }

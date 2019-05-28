@@ -1,3 +1,4 @@
+import Notify from '../../dist/notify/notify';
 var app = getApp();
 
 Page({
@@ -104,7 +105,11 @@ Page({
     
   },
   buy: function() {
-    this.setData({ showChooseNumber: true });
+    if (this.data.product.productStock <= 0) {
+      Notify('该商品已售罄');
+    } else {
+      this.setData({ showChooseNumber: true });
+    }
   },
   onClose: function() {
     this.setData({ showChooseNumber: false });

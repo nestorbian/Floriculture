@@ -64,3 +64,6 @@ wechat:
   mchKey: 13685wyh13685wyh13685wyh13685wyh
   keyPath: D:/chrome_download/WXCertUtil/cert/apiclient_cert.p12
   notifyUrl: https://www.ailejia.club/nanyahuayi/pay/callback
+
+jwt:
+  key: 001100110011

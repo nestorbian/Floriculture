@@ -2,6 +2,7 @@
 //import 授权弹出框
 import Dialog from '../../dist/dialog/dialog'; 
 import Toast from '../../dist/toast/toast';
+import Notify from '../../dist/notify/notify';
 
 var app = getApp()
 Page({
@@ -61,7 +62,6 @@ Page({
         }
       });
       this.loginNy();
-      // this.getOrderStatusCount();
     }
   },
   /**

@@ -133,6 +133,9 @@ public class OrderServiceImpl implements OrderService {
 		orderInDB.setPayStatus(PayStatus.SUCCESS.toString());
 		orderInDB.setOrderStatus(OrderStatus.PENDING_DELIVERY.toString());
 		orderInDB.setPayTime(LocalDateTime.now());
+		orderRepository.save(orderInDB);
+		// 商品减库存 增加销量
+        productRepository.updateStockAndSaleVolume(orderInDB.getBuyAmount(), orderInDB.getProductId());
 	}
 
 	@Override

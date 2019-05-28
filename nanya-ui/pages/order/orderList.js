@@ -1,4 +1,5 @@
 import Notify from '../../dist/notify/notify';
+import Toast from '../../dist/toast/toast';
 var app = getApp();
 
 Page({
@@ -34,40 +35,33 @@ Page({
         name: '售后'
       }],
       pageNumber: 1,
-      pageSize: 10,
-      orderList: []
+      pageSize: 3,
+      totalPages: 1,
+      orderList: [],
+      isShowTip: false,
+      typeId: 0,
+      isShowLoading: false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.setData({ typeId: options.typeId });
     this.loadData(options.typeId);
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-    // 页面渲染完成
-    this.getDeviceInfo()
-  },
 
-  getDeviceInfo: function () {
-    let that = this
-    wx.getSystemInfo({
-      success: function (res) {
-        that.setData({
-          deviceW: res.windowWidth,
-          deviceH: res.windowHeight
-        })
-      }
-    })
   },
 
   /**
   * @Explain：选项卡点击切换
   */
   tabSwitch: function (e) {
+    this.setData({ typeId: e.target.dataset.current, pageNumber: 1});
     this.loadData(e.target.dataset.current);
   },
 
@@ -123,7 +117,10 @@ Page({
       success: (res) => {
         if (res.statusCode == 200) {
           console.log(res.data.data.content);
-          this.setData({ orderList: res.data.data.content });
+          this.setData({ orderList: res.data.data.content, pageNumber: res.data.data.number + 1, totalPages: res.data.data.totalPages});
+          if (this.data.orderList.length == 0) {
+            this.setData({ isShowTip: true });
+          }
         } else {
           Notify('网络错误');
         }
@@ -203,7 +200,7 @@ Page({
   // 加载数据
   loadData: function (typeId) {
     this.setData({
-      currtab: typeId
+      currtab: typeId, isShowTip: false
     });
     switch (parseInt(typeId)) {
       case 0: this.getOrderList('ALL'); break;
@@ -238,6 +235,52 @@ Page({
     wx.navigateTo({
       url: "../order/order-detail?orderId=" + e.currentTarget.dataset.orderid
     })
+  },
+  loadMoreData: function() {
+    if (!this.data.isShowLoading) {
+      if (this.data.pageNumber < this.data.totalPages) {
+        this.setData({ isShowLoading: true });
+        var orderStatus;
+        switch (parseInt(this.data.typeId)) {
+          case 0: orderStatus = 'ALL'; break;
+          case 1: orderStatus = 'PENDING_PAY'; break;
+          case 2: orderStatus = 'PENDING_DELIVERY'; break;
+          case 3: orderStatus = 'PENDING_RECEIVE'; break;
+          case 4: orderStatus = 'PENDING_COMMENT'; break;
+          case 5: orderStatus = 'PENDING_REFUND'; break;
+        }
+        wx.request({
+          url: app.globalData.baseRequestUrl + '/orders/' + orderStatus,
+          header: { "authorization": wx.getStorageSync("thirdSession") },
+          data: { pageNumber: this.data.pageNumber + 1, pageSize: this.data.pageSize },
+          dataType: 'json',
+          method: 'GET',
+          success: (res) => {
+            this.setData({ isShowLoading: false });
+            if (res.statusCode == 200) {
+              console.log(res.data.data);
+              var originList = this.data.orderList;
+              var appendList = res.data.data.content;
+              console.log(res.data.data.content);
+              if (appendList.length == 0) {
+                Toast('我是有底线的~');
+              } else {
+                appendList.forEach(item => originList.push(item));
+                this.setData({ orderList: originList, pageNumber: res.data.data.number + 1, totalPages: res.data.data.totalPages });
+              }
+            } else {
+              Notify('网络错误');
+            }
+          },
+          fail: (res) => {
+            this.setData({ isShowLoading: false });
+            console.log(res);
+          }
+        });
+      } else {
+        Toast('我是有底线的~');
+      }
+    }
   }
 })
 
