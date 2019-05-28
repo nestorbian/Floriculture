@@ -61,7 +61,7 @@ Page({
           that.setData({ userInfo: res.userInfo });
         }
       });
-      this.loginNy();
+      // this.loginNy();
     }
   },
   /**

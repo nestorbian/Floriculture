@@ -47,7 +47,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.setData({ typeId: options.typeId });
+    this.setData({ typeId: options.typeId, isShowTip: false });
     this.loadData(options.typeId);
   },
   /**
@@ -61,7 +61,7 @@ Page({
   * @Explain：选项卡点击切换
   */
   tabSwitch: function (e) {
-    this.setData({ typeId: e.target.dataset.current, pageNumber: 1});
+    this.setData({ typeId: e.target.dataset.current, pageNumber: 1, isShowTip: false});
     this.loadData(e.target.dataset.current);
   },
 
@@ -120,6 +120,8 @@ Page({
           this.setData({ orderList: res.data.data.content, pageNumber: res.data.data.number + 1, totalPages: res.data.data.totalPages});
           if (this.data.orderList.length == 0) {
             this.setData({ isShowTip: true });
+          } else {
+            this.setData({ isShowTip: false });
           }
         } else {
           Notify('网络错误');
@@ -200,7 +202,7 @@ Page({
   // 加载数据
   loadData: function (typeId) {
     this.setData({
-      currtab: typeId, isShowTip: false
+      currtab: typeId
     });
     switch (parseInt(typeId)) {
       case 0: this.getOrderList('ALL'); break;
