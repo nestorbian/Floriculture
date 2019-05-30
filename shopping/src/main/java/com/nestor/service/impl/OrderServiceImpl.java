@@ -285,7 +285,20 @@ public class OrderServiceImpl implements OrderService {
 		return order;
 	}
 
-	@Override
+    @Override
+    public WxOrder getOrderById(String orderId) {
+        Optional<WxOrder> orderOptional = orderRepository.findById(orderId);
+        if (!orderOptional.isPresent()) {
+            throw new BizException("该订单不存在");
+        }
+        WxOrder order = orderOptional.get();
+        order.setProductImageUrl(baseImageUrl.concat(order.getProductImageUrl()));
+        order.setOrderStatus(OrderStatus.parse(order.getOrderStatus()).getDesc());
+        order.setPayStatus(PayStatus.parse(order.getPayStatus()).getDesc());
+        return order;
+    }
+
+    @Override
 	public CountOrderView countOrder(String openid) {
 		CountOrderView countOrderView = new CountOrderView();
 		WxOrder query = new WxOrder();

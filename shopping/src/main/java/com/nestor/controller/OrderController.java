@@ -230,6 +230,12 @@ public class OrderController {
         return new Result<>(service.listOrderByOrderStatus(wxUser.getOpenid(), orderStatus, pageNumber, pageSize));
     }
 
+    /**
+     * 获取订单详情
+     * @param token
+     * @param id
+     * @return
+     */
     @GetMapping(path = "/orders/detail")
     @LogHttpInfo
     @ResponseBody
@@ -237,6 +243,19 @@ public class OrderController {
         WxUser wxUser = checkLogin(token);
 
         return new Result<>(service.getOrderById(wxUser.getOpenid(), id));
+    }
+
+    /**
+     * design for admin
+     * 获取订单详情
+     * @param id
+     * @return
+     */
+    @GetMapping(path = "/admin/orders/detail")
+    @LogHttpInfo
+    @ResponseBody
+    public Result<?> getOrderById(@RequestParam(name = "id") String id) {
+        return new Result<>(service.getOrderById(id));
     }
 
     /**

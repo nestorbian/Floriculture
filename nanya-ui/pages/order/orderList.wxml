@@ -1,4 +1,4 @@
-<!--pages/order/orderList.wxml-->
+<wxs module="filters" src="../../utils/filters.wxs"></wxs>
 <view class="swiper-tab">
   <block wx:for="{{swipertab}}" wx:key="sptab">
     <view class="swiper-tab-list {{currtab == item.typeId ? 'on' : ''}}" data-current="{{item.typeId}}" bindtap="tabSwitch">{{item.name}}</view>
@@ -19,7 +19,7 @@
         <view class="productInfo">
           <view class="productTitle">{{item.productName}}</view>
           <view class='price-num'>
-            <text class="productPrice">￥{{item.productPrice}}</text>
+            <text class="productPrice">￥{{filters.toFix(item.productPrice, 2)}}</text>
             <text class="productPrice">x {{item.buyAmount}}</text>
           </view>
         </view>
@@ -27,7 +27,7 @@
     </view>
       <view class="productCount">
         <view>
-          <text>合计：￥{{item.payAmount}}</text>
+          <text>合计：￥{{filters.toFix(item.payAmount, 2)}}</text>
         </view>
       </view>
       <view slot="footer" class='footer'>

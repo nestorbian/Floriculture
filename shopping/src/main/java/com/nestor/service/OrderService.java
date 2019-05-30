@@ -17,5 +17,6 @@ public interface OrderService {
 	Page<WxOrder> listOrderByOrderStatus(String openid, String orderStatus, int pageNumber, int pageSize);
 	Page<WxOrder> listOrderByOrderQuery(OrderQuery orderQuery);
 	WxOrder getOrderById(String openid, String orderId);
+	WxOrder getOrderById(String orderId);
 	CountOrderView countOrder(String openid);
 }
