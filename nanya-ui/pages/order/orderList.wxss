@@ -83,7 +83,7 @@
 .orderListDetails {
   display: flex;
   height: 200rpx;
-  border-bottom: 1rpx solid #f3f3f3;
+  border-bottom: 0rpx solid #f3f3f3;
 }
  
 .orderListDetails .productImg {

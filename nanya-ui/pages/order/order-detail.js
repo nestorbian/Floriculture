@@ -1,5 +1,7 @@
 // pages/order/order-detail.js
 import Notify from '../../dist/notify/notify';
+import Dialog from '../../dist/dialog/dialog';
+
 var app = getApp();
 Page({
   data: {
@@ -182,10 +184,17 @@ Page({
     app.callPhone()
   },
   //弹出callphone界面
-  setPopShow:function(){
-    this.setData({
-      show : true
-    })
+  setPopShow: function (event){
+    Dialog.confirm({
+      title: '申请退款',
+      message: '请联系客服安排退款'
+    }).then(() => {
+      this.callPhone();
+    }).then((res)=>{
+      this.refund(event)
+    }).catch(() => {
+      // on cancel
+    });
   },
   wuliu : function(){
     wx.navigateTo({

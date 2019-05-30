@@ -32,14 +32,14 @@ App({
   globalData: {
     userInfo: null,
      baseRequestUrl: 'http://localhost:80/nanyahuayi'
-    // baseRequestUrl: 'https://www.ailejia.club/nanyahuayi'
+     //baseRequestUrl: 'https://www.ailejia.club/nanyahuayi'
     ,phoneNum  : "18221456048"
   },
   // 拨打电话
   callPhone: function() {
     var myDate = new Date();
     var hours =myDate.getHours();
-    console.log(hours)
+    
     if (9 < hours < 18) {
       wx.makePhoneCall({
         phoneNumber: this.globalData.phoneNum // 仅为示例，并非真实的电话号码
@@ -49,6 +49,7 @@ App({
         title: '请在上午九点至晚上六点咨询客服！',
       })
     }
+    return "ok"
   },
   loginNy: function() {
     var that = this;

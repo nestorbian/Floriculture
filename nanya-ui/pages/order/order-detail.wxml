@@ -52,12 +52,12 @@
     
     <view class='label'>
       <van-icon name="label-o" class="icon" />
-      <text class='label-item'>备 注 ：{{orderData.remark!="null"?'未注明备注':orderData.remark}}</text>
+      <text class='label-item'>备 注 ：{{orderData.remark!=null?orderData.remark:"未注明备注"}}</text>
     </view>
     
     <view class='label'>
       <van-icon name="label-o" class="icon" />
-      <text class='label-item'>留 言 ：{{orderData.leaveMessage!="null"?'未注明留言':orderData.leaveMessage}}</text>
+      <text class='label-item'>留 言 ：{{orderData.leaveMessage!=null?orderData.leaveMessage:'未注明留言'}}</text>
     </view>
   </view>
   <view style="height :calc(50% - 2px)"></view>
@@ -68,10 +68,12 @@
     </view>
     <view class ="button" wx:elif="{{orderData.orderStatus=='待发货'}}">
       <van-button round plain hairline type="primary" class ="button-item" data-orderid="{{orderData.orderId}}" bindtap='onPrompt' >催促商家</van-button>
+      <van-button round plain hairline type="primary" class ="button-item" data-orderid="{{orderData.orderId}}" bindtap='setPopShow' >申请退款</van-button>
     </view>
     <view class ="button" wx:elif="{{orderData.orderStatus=='待收货'}}">
       <van-button round plain hairline type="primary" class ="button-item" data-orderid="{{orderData.orderId}}" bindtap='wuliu' >查看物流</van-button>
       <van-button round plain hairline type="primary" class ="button-item" data-orderid="{{orderData.orderId}}"bindtap='confirmReceive'  >确认收货</van-button>
+      <van-button round plain hairline type="primary" class ="button-item" data-orderid="{{orderData.orderId}}" bindtap='setPopShow' >申请退款</van-button>
     </view>
     <view class ="button" wx:elif="{{orderData.orderStatus=='待评价'}}">
       <van-button round plain hairline type="primary" class ="button-item" data-orderid="{{orderData.orderId}}" bindtap='comment' >评价</van-button>
@@ -91,3 +93,5 @@
   <van-icon name="phone-o"  size="4em"  style="background-color:#66cc99" bind:click="callPhone"/>
   
 </van-popup>
+
+<van-dialog id="van-dialog" />
