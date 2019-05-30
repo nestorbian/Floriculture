@@ -1,0 +1,128 @@
+@import "../wxSearchView/wxSearchView.wxss";
+page {
+  height: 100%;
+}
+
+view.main {
+  display: flex;
+}
+
+.left-view {
+  background-color: #f2f2f2;
+  width: 20%;
+  height: 100%;
+}
+
+.right-view {
+  background-color: #fff;
+  width: 80%;
+  height: 100%;
+  padding-right: 1px;
+}
+
+.category {
+  background-color: #f8f8f8;
+  color: #959595;
+  font-size: 12px;
+  padding: 15px 10px 15px 10px;
+  border-left: 3px solid #f8f8f8;
+}
+
+.category-active {
+  font-weight: bold;
+  color: black;
+  background-color: #ffffff;
+  border-left: 3px solid #ff4444;
+}
+
+.category-name {
+  font-size: 12px;
+  color: #9c9c9c;
+  padding: 10px 10px 10px 10px;
+}
+
+.product {
+  padding: 10px 10px 10px 10px;
+  height: 80px;
+  background-color: black;
+  display: flex;
+}
+
+.product-image {
+  width: 80px !important;
+  height: 80px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.product-content {
+  background-color: white;
+  padding: 0px 10px 0px 10px;
+  flex-grow: 1;
+}
+
+.product-name {
+  font-size: 13px;
+  font-weight: bold;
+}
+
+.product-description {
+  font-size: 10px;
+}
+
+.product-price {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.product-price .price {
+  font-size: 13px;
+  color: #ff6f6f;
+}
+
+.buy {
+  background-color: #ff4444;
+}
+
+scroll-view ::-webkit-scrollbar
+{
+width: 2px;
+background-color: transparent;
+color: #bebebe;
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+scroll-view ::-webkit-scrollbar-track
+{
+border-radius: 10px;
+background-color: transparent;
+}
+
+/*定义滑块 内阴影+圆角*/
+scroll-view ::-webkit-scrollbar-thumb
+{
+border-radius: 10px;
+background-color: #bebebe;
+}
+.navs {
+  display: flex;
+  width: 100%;
+  flex-wrap:wrap;
+}
+.deleteButton{
+  display: flex;
+  justify-content:center ;
+  width: 100%;
+  flex-wrap:wrap;
+}
+
+.line-limit-length {
+
+overflow: hidden;
+
+text-overflow: ellipsis;
+
+white-space: nowrap;/*  //文本不换行，这样超出一行的部分被截取，显示... */
+
+}

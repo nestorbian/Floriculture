@@ -1,0 +1,81 @@
+<wxs module="filters" src="../../utils/filters.wxs"></wxs>
+
+<view>
+  <swiper
+    indicator-dots="true"
+    autoplay="true"
+    interval="3000"
+    duration="1000"
+    circular="true"
+    indicator-active-color="#ff8547"
+  >
+    <block wx:for="{{imgUrls}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image"/>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class='navigation'>
+    <view class='right-border'>
+      <image src='../../images/nav_1.png'></image>
+      <text>品牌故事</text>
+    </view>
+    <view class='right-border'>
+      <image src='../../images/nav_1.png'></image>
+      <text>私人订制</text>
+    </view>
+    <view>
+      <image src='../../images/nav_1.png'></image>
+      <text>媒体报道</text>
+    </view>
+  </view>
+  <view class='body'>
+    <view class='item' wx:for="{{categories}}">
+      <view class='theme'>
+        <view style='text-align: center;'>
+          <text style='color: #bfbfbf;font-weight: 550;'>———</text>
+          <text style='padding: 0 20rpx 0 20rpx;font-size: 40rpx;'>{{item.categoryName}}</text>
+          <text style='color: #bfbfbf;font-weight: 550;'>———</text>
+        </view>
+        <view style='text-align: center;'>
+          <text style='color: #a3a3a3;font-size: 34rpx;'>{{item.categoryDescription}}</text>
+        </view>
+      </view>
+      <view class='content'>
+
+        <view class='category-view' style='background-image: url({{item.categoryImageUrl}});' id="{{item.categoryId}}"  bindtap='navigateToCategoryDetail'>
+          <!-- <image src='../../images/demo1.jpg'></image> -->
+          <!-- <view class='category-text-view'>
+            <text>红玫瑰臻选</text>
+            <text>————</text>
+            <text>查看更多</text>
+          </view> -->
+        </view>
+
+        <view class='products-view'>
+
+          <view class='product-view' bindtap='viewProductDetail' wx:for="{{item.products}}" wx:key="key"
+          wx:for-item="product" data-productid="{{product.productId}}">
+            <view class='product-image' style='background-image: url({{product.imageUrl}});'></view>
+            <view class='product-text-view'>
+              <text class='product-name'>{{product.productName}}</text>
+              <view class='product-desc van-multi-ellipsis--l2'>
+                {{product.productDescription}}
+              </view>
+              <view class='price-view' wx:if="{{product.productDiscountPrice == null}}">
+                <text class='product-price'>￥{{filters.toFix(product.productOriginalPrice, 2)}}</text>
+              </view>
+              <view class='price-view' wx:if="{{product.productDiscountPrice != null}}">
+                <text class='product-price'>￥{{filters.toFix(product.productDiscountPrice, 2)}}</text>
+                <text class='discount-price'>￥{{filters.toFix(product.productOriginalPrice, 2)}}</text>
+              </view>
+            </view>
+          </view>
+
+        </view>
+
+      </view>
+    </view>
+  </view>
+</view>
+<van-notify id="van-notify" />
