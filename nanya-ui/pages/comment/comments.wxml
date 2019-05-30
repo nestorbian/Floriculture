@@ -17,11 +17,11 @@
       内容
     </view>
     <view class='right'>
-      <text bindtap='label' id ='attitude' class="{{attitude===true ? 'labelColor':''}}" data-index="{{attitude}}">服务态度好</text>
-      <text bindtap='label'id ='time'  class="{{time===false? 'labelColor':''}}" data-index="{{time}}">物流时间短</text>
-      <text bindtap='label'id ='efficiency'  class="{{efficiency===false?'labelColor':''}}" data-index="{{efficiency}}">效率高</text>
-      <text bindtap='label'id ='environment'  class="{{environment===false?'labelColor':''}}" data-index="{{environment}}">门店环境好</text>
-      <text bindtap='label'id ='professional'  class="{{professional===false?'labelColor':''}}" data-index="{{professional}}">很专业</text> 
+      <text bindtap='label' id ='attitude' data-value="服务态度好" class="{{attitude===true ? 'labelColor':''}}" data-index="{{attitude}}">服务态度好</text>
+      <text bindtap='label'id ='time'  data-value="服务态度好"  class="{{time===false? 'labelColor':''}}" data-index="{{time}}">物流时间短</text>
+      <text bindtap='label'id ='efficiency'   data-value="服务态度好" class="{{efficiency===false?'labelColor':''}}" data-index="{{efficiency}}">效率高</text>
+      <text bindtap='label'id ='environment'  data-value="服务态度好"  class="{{environment===false?'labelColor':''}}" data-index="{{environment}}">门店环境好</text>
+      <text bindtap='label'id ='professional'  data-value="服务态度好"  class="{{professional===false?'labelColor':''}}" data-index="{{professional}}">很专业</text> 
     </view>
   </view>
   <!--图片-->
@@ -40,7 +40,7 @@
 </view>
 <!--textarea-->
 <view class="conts">
-    <textarea class="areas" placeholder='更多评价请写在这里（最多60字）' minlength="{{5}}" maxlength="{{60}}" bindinput="inputs"> 
+    <textarea class="areas" placeholder='更多评价请写在这里（最多60字）' minlength="{{5}}" maxlength="{{60}}" bindblur="inputs"> 
          <text class="currentWordNumber">{{currentWordNumber|0}}/60</text> 
     </textarea>
 </view>

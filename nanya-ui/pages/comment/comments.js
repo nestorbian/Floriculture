@@ -196,10 +196,12 @@ Page({
   // 标签
   label: function (e) {
     var that = this;
+    console.log(e.currentTarget)
     that.setData({
       [e.currentTarget.id]: !e.currentTarget.dataset.index,
-      text: this.data.text + e.currentTarget.id
+      text: that.data.text + e.currentTarget.dataset.value
     })
+    console.log(that.data.text)
   },
   // 删除图片
   deleteImg: function (e) {
@@ -235,6 +237,7 @@ Page({
     // 当输入框内容的长度大于最大长度限制（max)时，终止setData()的执行
     this.setData({
       currentWordNumber: len //当前字数  
+      ,text : value
     });
   }
 })

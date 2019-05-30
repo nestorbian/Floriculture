@@ -115,7 +115,7 @@ Page({
       Toast("请先点击头像登录");
     }else{
       wx.navigateTo({
-        url: '../test1/ny_personal?userInfo=' + model
+        url: '../mine/ny_personal?userInfo=' + model
       })
     }
   },

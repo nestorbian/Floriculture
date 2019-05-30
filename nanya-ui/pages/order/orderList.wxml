@@ -34,7 +34,7 @@
         <van-button plain type="info" size='small' round="true" class='btn' bind:click="contactService">联系客服</van-button>
         <van-button wx:if="{{item.orderStatus == '待支付'}}" plain type="info" size='small' round="true" data-orderid="{{item.orderId}}" class='btn' bind:click="cancelOrder">取消订单</van-button>
         <van-button wx:if="{{item.orderStatus == '待支付'}}" plain type="info" size='small' round="true" data-orderid="{{item.orderId}}" class='btn' bind:click="continuePay">继续支付</van-button>
-        <van-button wx:if="{{item.orderStatus == '待收货'}}" plain type="info" size='small' round="true" class='btn' data-orderid="{{item.orderId}}" bind:click="confirmReceive">确认收货</van-button>
+        <van-button wx:if="{{item.orderStatus == '待收货'}}" plain type="info" size='small' round="true" class='btn' data-orderid="{{item.orderId}}" bind:click="confirmReceive">确认收货</van-button> 
           <van-button wx:if="{{item.orderStatus == '待评价'}}" plain type="info" size='small' round="true" data-orderid="{{item.orderId}}" class='btn' bind:click="orderDetail">申请退款</van-button>
         <van-button wx:if="{{item.orderStatus == '待评价'}}" plain type="info" size='small' round="true" data-orderid="{{item.orderId}}" class='btn' bind:click="comment">评价</van-button>
       </view>

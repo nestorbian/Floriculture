@@ -73,7 +73,6 @@
     <view class ="button" wx:elif="{{orderData.orderStatus=='待收货'}}">
       <van-button round plain hairline type="primary" class ="button-item" data-orderid="{{orderData.orderId}}" bindtap='wuliu' >查看物流</van-button>
       <van-button round plain hairline type="primary" class ="button-item" data-orderid="{{orderData.orderId}}"bindtap='confirmReceive'  >确认收货</van-button>
-      <van-button round plain hairline type="primary" class ="button-item" data-orderid="{{orderData.orderId}}" bindtap='setPopShow' >申请退款</van-button>
     </view>
     <view class ="button" wx:elif="{{orderData.orderStatus=='待评价'}}">
       <van-button round plain hairline type="primary" class ="button-item" data-orderid="{{orderData.orderId}}" bindtap='comment' >评价</van-button>
