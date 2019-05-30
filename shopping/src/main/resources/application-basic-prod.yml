@@ -54,7 +54,7 @@ logging:
 #定义图片基础目录、基础访问路径
 image: 
   product: 
-    base-directory: /usr/share/nginx/html
+    base-directory: /usr/share/nginx/html/dist
     base-url: https://www.ailejia.club
 
 wechat: 
