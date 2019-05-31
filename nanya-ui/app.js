@@ -8,16 +8,16 @@ App({
     wx.setStorageSync('logs', logs)
     var that = this;
 
-    this.loginNy();
 
     wx.getSetting({
       success: res => {
         if (res.authSetting['scope.userInfo']) {
+          this.loginNy();
           // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
-              var userInfo = res.userInfo;
+              that.globalData.userInfo = res.userInfo;
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -73,7 +73,7 @@ App({
                 method: 'GET',
                 success(res) {
                   //return 3rd_session = res.data
-                  wx.setStorageSync('thirdSession', res.data)
+                  wx.setStorageSync('thirdSession', res.data);
                 },
                 fail(res) {
                   console.log(res)

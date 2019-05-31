@@ -1,20 +1,18 @@
 {
   "pages": [
     "pages/mine/mine",
-    "pages/test2/test2",
+    "pages/home/home",
     "pages/order/order-detail",
     "pages/order/orderList",
     "pages/find/find",
-    "pages/index/index",
+    "pages/category/category",
     "pages/wuliu/wuliu",
-    "pages/pay/pay",
     "pages/order/confirm-order",
     "pages/search/search",
     "pages/product-detail/product-detail",
     "pages/logs/logs",
     "pages/mine/ny_personal",
     "pages/mine/address",
-    "pages/category-detail/category-detail",
     "pages/order/pay-success",
     "pages/comment/comments",
     "pages/comment/prodComment"
@@ -35,13 +33,13 @@
         "iconPath": "images/5c0ce1d1f23da.png",
         "selectedIconPath": "images/5c0ce1d1f2427.png",
         "text": "首页",
-        "pagePath": "pages/test2/test2"
+        "pagePath": "pages/home/home"
       },
       {
         "iconPath": "images/5c0ce1d22d05d.png",
         "selectedIconPath": "images/5c0ce1d22d0a6.png",
         "text": "分类",
-        "pagePath": "pages/index/index"
+        "pagePath": "pages/category/category"
       },
       {
         "iconPath": "images/5c0ce1d25ba27.png",

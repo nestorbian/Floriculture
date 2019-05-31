@@ -53,22 +53,28 @@ Page({
   },
   //初始化时获取用户信息
   onLoad : function () {
-    if (wx.getStorageSync("thirdSession")) {
-      var that = this;
-      wx.getUserInfo({
-        success(res) {
-          console.log("getUserInfo")
-          that.setData({ userInfo: res.userInfo });
-        }
-      });
-      // this.loginNy();
+    var that = this;
+
+    if (app.globalData.userInfo) {
+      that.setData({
+        userInfo: app.globalData.userInfo
+      })
+    } else{
+      // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+      // 所以此处加入 callback 以防止这种情况
+      app.userInfoReadyCallback = res => {
+        that.setData({
+          userInfo: res.userInfo
+        })
+      }
     }
+    
   },
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (wx.getStorageSync("thirdSession")) {
+    if (wx.getStorageSync("thirdSession")!='') {
       this.getOrderStatusCount();
     }
   },
@@ -103,7 +109,6 @@ Page({
       userInfo : e.detail.userInfo
     })
     this.loginNy();
-    this.getOrderStatusCount();
   },
   callPhone: function(){
     app.callPhone()
@@ -111,7 +116,7 @@ Page({
   //跳转到个人中心
   toPerson:function(){
     var model = JSON.stringify(this.data.userInfo);
-    if (wx.getStorageSync('thirdSession')==null){
+    if (wx.getStorageSync('thirdSession') == ''){
       Toast("请先点击头像登录");
     }else{
       wx.navigateTo({
@@ -121,12 +126,17 @@ Page({
   },
   //跳转到收货地址
   toAddress: function () {
-    wx.navigateTo({
-      url: '/pages/mine/address'
-    })
+    if (wx.getStorageSync('thirdSession') == '') {
+      Toast("请先点击头像登录");
+    } else {
+      wx.navigateTo({
+        url: '/pages/mine/address'
+      })
+    }
   },
   //登录获取3rdsession
   loginNy: function () {
+    var that =this;
     wx.login({
       success(res) {
         if (res.code) {
@@ -139,7 +149,8 @@ Page({
             },
             success(res) {
               //return 3rd_session = res.data
-              wx.setStorageSync('thirdSession', res.data)            
+              wx.setStorageSync('thirdSession', res.data);
+              that.getOrderStatusCount();
           }
           })
         } else {
@@ -149,10 +160,15 @@ Page({
     })
   },
   onClickOrder : function(e){
-    var typeId =e.currentTarget.dataset.typeid
-    wx.navigateTo({
-      url: '../order/orderList?typeId=' + typeId
-    })
+    var typeId = e.currentTarget.dataset.typeid;
+    var thirdSession = wx.getStorageSync("thirdSession");
+    if (thirdSession != '') {
+      wx.navigateTo({
+        url: '../order/orderList?typeId=' + typeId
+      })
+    }else{
+      Toast("请先点击头像登录");
+    }
 
   },
   // 获取待支付、待发货订单状态下订单的数量，用于页面展示
@@ -174,6 +190,17 @@ Page({
         console.log(res);
       }
     });
+  },/**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
+    var thirdSession = wx.getStorageSync("thirdSession");
+    if (thirdSession != '') {
+      this.loginNy()
+    } else {
+      Toast("请先点击头像登录");
+    }
+    wx.stopPullDownRefresh();
   }
   
 })
