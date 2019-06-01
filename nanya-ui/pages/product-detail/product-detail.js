@@ -20,20 +20,18 @@ Page({
     this.setData({indexNumber: event.detail.current + 1});
   },
 
-  onClose() {
+  onCloseProd() {
     this.setData({ actionSheet: { show: false, actions: this.data.actionSheet.actions} });
   },
 
   popupActionSheet: function(event) {
     this.setData({ actionSheet: { show: true, actions: this.data.actionSheet.actions } });
-    console.log(event);
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options.productId);
     wx.request({
       url: app.globalData.baseRequestUrl + '/products/' + options.productId,
       method: 'GET',
@@ -45,7 +43,6 @@ Page({
             comments[index].imageUrls = this.removeEmptyArrayEle(comments[index].imageUrls.split(","));
           };
           this.setData({ product: res.data.data});
-          console.log(this.data.product)
         } else {
           Notify('网络错误');
         }

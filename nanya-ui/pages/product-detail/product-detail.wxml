@@ -137,7 +137,7 @@
 </view>
 </van-popup>
 
-<van-action-sheet show="{{ actionSheet.show }}" title="产品参数"  bind:close="onClose">
+<van-action-sheet show="{{ actionSheet.show }}" title="产品参数"  bind:close="onCloseProd">
   <view class='flower-material'>
     <view class='one'>花 材</view>
     <view class='_two'>{{product.flowerMaterial}}</view>

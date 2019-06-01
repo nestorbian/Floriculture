@@ -8,48 +8,8 @@ var app = getApp()
 Page({
   data: {
     userInfo: {},
-    motto: 'Hello World',
     show:false,
-    // orderItems
-    orderItems: [
-      {
-        typeId: 0,
-        name: '待付款',
-        url: 'bill',
-        imageurl: 'pending-payment'
-      },
-      {
-        typeId: 1,
-        name: '待发货',
-        url: 'bill',
-        imageurl: 'exchange'
-      },
-      {
-        typeId: 2,
-        name: '待收货',
-        url: 'bill',
-        imageurl: 'tosend'
-      },
-      {
-        typeId: 3,
-        name: '待评价',
-        url: 'bill',
-        imageurl: 'records'
-      },
-      {
-        typeId: 4,
-        name: '售后服务',
-        url: 'bill',
-        imageurl: 'chat-o'
-      }
-    ],
     orderCount: {}
-  },
-  //事件处理函数
-  toOrder: function () {
-    wx.navigateTo({
-      url: '../order/order?typeId='+typeId
-    })
   },
   //初始化时获取用户信息
   onLoad : function () {

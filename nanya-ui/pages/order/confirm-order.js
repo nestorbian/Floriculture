@@ -255,6 +255,9 @@ Page({
               'fail': (result) => {
                 // TODO 跳转到待支付页面
                 console.log("用户取消支付");
+                wx.redirectTo({
+                  url: '../order/orderList?typeId=1',
+                });
               }
             });
           } else {
