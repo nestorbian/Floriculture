@@ -88,7 +88,7 @@
 
 <view class="section remark-view">
   <van-icon name="comment-o" class="icon" />
-  <textarea
+  <textarea wx:if="{{isShowTextArea}}"
     placeholder="备注：请写下您的特殊需求，我们将竭诚为您服务!"
     placeholder-style="color:#c9c9cc;"
     class='remark'
@@ -101,9 +101,9 @@
 
 <view class="section leaveMessage-view">
   <van-icon name="point-gift-o" class="icon" />
-  <textarea
+  <textarea wx:if="{{isShowTextArea}}"
     placeholder="留言：填写卡片,为TA送出你的祝福吧!"
-    placeholder-style="color:#c9c9cc;"
+    placeholder-style="color:#c9c9cc;z-index:0 !important;"
     class='leaveMessage'
     maxlength="50"
     bindinput="countLeaveMessage"

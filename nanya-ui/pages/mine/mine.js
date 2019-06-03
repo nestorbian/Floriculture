@@ -34,7 +34,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    if (wx.getStorageSync("thirdSession")!='') {
+    if (wx.getStorageSync("thirdSession")) {
       this.getOrderStatusCount();
     }
   },
@@ -111,7 +111,7 @@ Page({
               //return 3rd_session = res.data
               wx.setStorageSync('thirdSession', res.data);
               that.getOrderStatusCount();
-          }
+           }
           })
         } else {
           console.log('登录失败！' + res.errMsg)
@@ -122,7 +122,7 @@ Page({
   onClickOrder : function(e){
     var typeId = e.currentTarget.dataset.typeid;
     var thirdSession = wx.getStorageSync("thirdSession");
-    if (thirdSession != '') {
+    if (thirdSession) {
       wx.navigateTo({
         url: '../order/orderList?typeId=' + typeId
       })
@@ -155,12 +155,34 @@ Page({
    */
   onPullDownRefresh: function () {
     var thirdSession = wx.getStorageSync("thirdSession");
-    if (thirdSession != '') {
-      this.loginNy()
+    if (thirdSession) {
+      var that = this;
+      wx.login({
+        success(res) {
+          if (res.code) {
+            console.log('code:' + res.code);
+            // 发起网络请求
+            wx.request({
+              url: app.globalData.baseRequestUrl + '/WxLoginController/loginUser',
+              data: {
+                code: res.code
+              },
+              success(res) {
+                //return 3rd_session = res.data
+                wx.setStorageSync('thirdSession', res.data);
+                that.getOrderStatusCount();
+                wx.stopPullDownRefresh();
+              }
+            })
+          } else {
+            console.log('登录失败！' + res.errMsg)
+          }
+        }
+      })
     } else {
+      wx.stopPullDownRefresh();
       Toast("请先点击头像登录");
     }
-    wx.stopPullDownRefresh();
   }
   
 })

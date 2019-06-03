@@ -1,4 +1,5 @@
 import Toast from '../../dist/toast/toast';
+import Notify from '../../dist/notify/notify';
 var app = getApp();
 
 Page({
@@ -24,7 +25,8 @@ Page({
     product: null,
     num: 1,
     remark: '',
-    leaveMessage: ''
+    leaveMessage: '',
+    isShowTextArea: true
   },
 
   /**
@@ -149,10 +151,16 @@ Page({
     this.setData({ leaveMessageNumber: event.detail.value.length, leaveMessage: event.detail.value});
   },
   onClose: function(event) {
-    this.setData({ isShowLabel: false });
+    this.setData({ isShowLabel: false});
+    setTimeout(() => {
+      this.setData({ isShowTextArea: true });
+    }, 100);
   },
   showLabel: function() {
-    this.setData({isShowLabel:true});
+    this.setData({ isShowLabel: true});
+    setTimeout(() => {
+      this.setData({ isShowTextArea: false });
+    }, 300);
   },
   closeLabel: function() {
     this.setData({ birthdayLabel: false, commemorationLabel: false, festivalLabel: false, greetLabel: false, congratulationLabel: false});
@@ -172,6 +180,9 @@ Page({
       this.setData({ congratulationLabel: true });
     }
     this.setData({ isShowLabel: false });
+    setTimeout(() => {
+      this.setData({ isShowTextArea: true });
+    }, 100);
   },
   setLabel: function(event) {
     var label = event.currentTarget.dataset.label;
@@ -201,6 +212,9 @@ Page({
       array.push("祝贺");
     }
     this.setData({ labelArray: array, isShowLabel: false});
+    setTimeout(() => {
+      this.setData({ isShowTextArea: true });
+    }, 100);
   },
   chooseAddress: function() {
     wx.navigateTo({

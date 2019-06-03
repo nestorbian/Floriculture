@@ -7,17 +7,17 @@ Page({
    * 页面的初始数据
    */
   data: {
-    userInfo :{}    ,
-    avatarUrl : null,
+    userInfo :{},
+    avatarUrl : '',
     nickName: "WUYH",
-    telnum: null,
+    telnum: '',
     gender: "男",
     location: "江苏省常州市",
     birthday: "20190113",
-    province: "上海市",
-    city: "上海市",
-    country: "静安区",
-    thirdSession:null,
+    province: '',
+    city: '',
+    country: '',
+    thirdSession: '',
     error: null, //用于手机号码校验 ，error为空时 不展示
     "birthPop" : false,   //弹出日期选择器    
     "currentDate": new Date().setFullYear("1985","01","18"),
@@ -3827,17 +3827,19 @@ Page({
       header: {
         'content-type': 'application/json' // 默认值
       },
+      dataType: "json",
       success(res) {
+        console.log(res)
         that.setData({
           avatarUrl: ops.avatarUrl,
           nickName: ops.nickName,
-          telnum: res.data.telnum,
+          telnum: res.data.telnum == null ? '' : res.data.telnum,
           gender: ops.gender,
-          location: res.data.location,
-          birthday: res.data.birthday,
-          province: res.data.province,
-          city: res.data.city,
-          country: res.data.country,
+          location: res.data.location == null ? '' : res.data.location,
+          birthday: res.data.birthday == null ? '' : res.data.birthday,
+          province: res.data.province == null ? '' : res.data.city,
+          city: res.data.city == null ? '' : res.data.city,
+          country: res.data.country == null ? '' : res.data.country,
           thirdSession: res.data.thirdSession
         })
       }
@@ -3911,7 +3913,7 @@ Page({
     this.setData({
       birthday: new Date(event.detail).toLocaleDateString()
     })
-    this.onClose();app
+    this.onClose();
   }, 
   onConfirmLocate(e) {
     var that = this ;

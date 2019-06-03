@@ -81,6 +81,7 @@ page {
   background-color: #eaeaea;
   padding: 8px 8px 22px 8px;
   font-size: 16px;
+  z-index: 0 !important;
 }
 
 .leaveMessage-view text {
