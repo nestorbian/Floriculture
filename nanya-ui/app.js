@@ -18,6 +18,7 @@ App({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
               that.globalData.userInfo = res.userInfo;
+              that.updateNick(res.userInfo,"old");
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
               // 所以此处加入 callback 以防止这种情况
               if (this.userInfoReadyCallback) {
@@ -31,8 +32,8 @@ App({
   },
   globalData: {
     userInfo: null,
-     baseRequestUrl: 'http://localhost:80/nanyahuayi'
-    //  baseRequestUrl: 'https://www.ailejia.club/nanyahuayi'
+    baseRequestUrl: 'http://localhost:80/nanyahuayi'
+    //baseRequestUrl: 'https://www.ailejia.club/nanyahuayi'
     ,phoneNum  : "18221456048"
   },
   // 拨打电话
@@ -87,6 +88,26 @@ App({
         })
       }
 
+    })
+  },
+  updateNick : function(res,sign){
+    var that = this;
+    var trdSession = wx.getStorageSync('thirdSession');
+    // 发起网络请求
+    wx.request({
+      url: that.globalData.baseRequestUrl + '/WxLoginController/updateNick',
+      data: {
+        nickname :  res.nickName, 
+        gender : res.gender,
+        language: res.language, 
+        city : res.city, 
+        province: res.province, 
+        country: res.country, 
+        avatarurl :res.avatarUrl,
+        thirdSession : trdSession,
+        sign : sign
+      },
+      method: 'GET'
     })
   }
 

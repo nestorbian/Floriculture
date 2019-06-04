@@ -111,6 +111,7 @@ Page({
               //return 3rd_session = res.data
               wx.setStorageSync('thirdSession', res.data);
               that.getOrderStatusCount();
+              app.updateNick(app.globalData.userInfo, "new");
            }
           })
         } else {

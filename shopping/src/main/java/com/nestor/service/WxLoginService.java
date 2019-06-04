@@ -12,5 +12,9 @@ public interface WxLoginService {
 	public WxUser getUInfo(String thirdSession) ;
 
 	public String setUInfo( WxUser wxUser);
+	
+	public String updateNick(WxUser wxUser);
+	
+	public String updateNickAva(String avatarurl,String nickname,String thirdSession);
 
 }

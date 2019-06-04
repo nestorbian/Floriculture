@@ -46,4 +46,20 @@ public class WxLoginController {
 	public String setUInfo( WxUser wxUser) {
 		return wxService.setUInfo(wxUser);
 	}
+	
+	/*
+	 * 登录时简略更新“昵称 头像“	 *
+	 */
+	@GetMapping(path = "/updateNick")
+	@LogHttpInfo
+	public String updateNick(WxUser wxUser,String sign) {
+		//新增用户为“0”，老用户为“1”
+		if(sign.equals("new")) {
+			return wxService.updateNick(wxUser);			
+		}else if(sign.equals("old")){
+			return wxService.updateNickAva(wxUser.getAvatarurl(), wxUser.getNickname(), wxUser.getThirdSession());
+		}else {
+			return "error";
+		}	
+	}
 }

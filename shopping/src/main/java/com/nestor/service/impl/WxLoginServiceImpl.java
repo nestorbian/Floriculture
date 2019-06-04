@@ -87,4 +87,21 @@ public class WxLoginServiceImpl implements WxLoginService {
                 wxUser.getThirdSession());
         return "ok";
     }
+
+	@Override
+	public String updateNick(WxUser wxUser) {
+        if (wxUser == null) {
+            return null;
+        }
+
+        wxLgn.updateNick(wxUser.getAvatarurl(), wxUser.getNickname(), wxUser.getGender(), wxUser.getProvince(),
+        		wxUser.getCity(), wxUser.getCountry(),wxUser.getLanguage(),wxUser.getThirdSession());
+        return "update sucess";
+	}
+
+	@Override
+	public String updateNickAva(String avatarurl, String nickname, String thirdSession) {		
+		wxLgn.updateNickAva(avatarurl, nickname, thirdSession);
+		return "ok";
+	}
 }
