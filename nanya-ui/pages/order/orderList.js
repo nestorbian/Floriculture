@@ -116,7 +116,6 @@ Page({
       method: 'GET',
       success: (res) => {
         if (res.statusCode == 200) {
-          console.log(res.data.data.content);
           this.setData({ orderList: res.data.data.content, pageNumber: res.data.data.number + 1, totalPages: res.data.data.totalPages});
           if (this.data.orderList.length == 0) {
             this.setData({ isShowTip: true });
@@ -260,10 +259,8 @@ Page({
           success: (res) => {
             this.setData({ isShowLoading: false });
             if (res.statusCode == 200) {
-              console.log(res.data.data);
               var originList = this.data.orderList;
               var appendList = res.data.data.content;
-              console.log(res.data.data.content);
               if (appendList.length == 0) {
                 Toast('我是有底线的~');
               } else {
