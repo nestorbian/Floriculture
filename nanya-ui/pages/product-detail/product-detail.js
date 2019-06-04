@@ -146,5 +146,15 @@ Page({
         url: '../comment/prodComment?productId=' + this.data.product.productId,
       })
     }
+  },
+  //客服
+  onClickIcon : function(){
+    app.callPhone()
+  },
+  //首页
+  onClickHome :function(){
+    wx.switchTab({
+      url: '../home/home',
+    })
   }
 })

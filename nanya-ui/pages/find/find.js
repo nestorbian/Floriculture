@@ -141,6 +141,7 @@ Page({
   previewImg: function (e) {
     //获取当前图片的下标
     var index = e.currentTarget.dataset.index;
+    console.log(e)
     var findex =e.currentTarget.dataset.findex;
     //所有图片
     var pics = this.data.comList[findex].imageUrls;
