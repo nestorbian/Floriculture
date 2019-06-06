@@ -19,4 +19,5 @@ public interface OrderService {
 	WxOrder getOrderById(String openid, String orderId);
 	WxOrder getOrderById(String orderId);
 	CountOrderView countOrder(String openid);
+	void updatePendingPayOrder();
 }

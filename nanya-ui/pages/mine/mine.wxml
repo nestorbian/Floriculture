@@ -36,67 +36,42 @@
   <view class="line"></view>
 
   <view class="navs">
-    <block wx:if="{{orderCount.pendingPay == 0}}">
+    <block>
       <view class="nav-item" data-type="待付款" data-typeid="1" bindtap='onClickOrder'>
         <van-icon name="pending-payment"/>
-        <text>待付款</text>
-      </view>
-    </block>
-    <block wx:if="{{orderCount.pendingPay != 0}}">
-      <view class="nav-item" data-type="待付款" data-typeid="1" bindtap='onClickOrder'>
-        <van-icon name="pending-payment" info="{{orderCount.pendingPay}}"/>
+        <view class='count-number' wx:if="{{orderCount.pendingPay != 0}}">{{orderCount.pendingPay}}</view>
         <text>待付款</text>
       </view>
     </block>
 
-    <block wx:if="{{orderCount.pendingDelivery == 0}}">
+    <block>
       <view class="nav-item" data-type="待发货" data-typeid="2" bindtap='onClickOrder'>
-        <van-icon name="exchange"/>
-        <text>待发货</text>
-      </view>
-    </block>
-    <block wx:if="{{orderCount.pendingDelivery != 0}}">
-      <view class="nav-item" data-type="待发货" data-typeid="2" bindtap='onClickOrder'>
-        <van-icon name="exchange" info="{{orderCount.pendingDelivery}}"/>
+        <van-icon name="exchange" />
+        <view class='count-number' wx:if="{{orderCount.pendingDelivery != 0}}">{{orderCount.pendingDelivery}}</view>
         <text>待发货</text>
       </view>
     </block>
 
-    <block wx:if="{{orderCount.pendingReceive == 0}}">
+    <block>
       <view class="nav-item" data-type="待收货" data-typeid="3" bindtap='onClickOrder'>
-        <van-icon name="tosend"/>
-        <text>待收货</text>
-      </view>
-    </block>
-    <block wx:if="{{orderCount.pendingReceive != 0}}">
-      <view class="nav-item" data-type="待收货" data-typeid="3" bindtap='onClickOrder'>
-        <van-icon name="tosend" info="{{orderCount.pendingReceive}}"/>
+        <van-icon name="tosend" />
+        <view class='count-number' wx:if="{{orderCount.pendingReceive != 0}}">{{orderCount.pendingReceive}}</view>
         <text>待收货</text>
       </view>
     </block>
 
-    <block wx:if="{{orderCount.pendingComment == 0}}">
+    <block>
       <view class="nav-item" data-type="待评价" data-typeid="4" bindtap='onClickOrder'>
         <van-icon name="records"/>
-        <text>待评价</text>
-      </view>
-    </block>
-    <block wx:if="{{orderCount.pendingComment != 0}}">
-      <view class="nav-item" data-type="待评价" data-typeid="4" bindtap='onClickOrder'>
-        <van-icon name="records" info="{{orderCount.pendingComment}}"/>
+        <view class='count-number' wx:if="{{orderCount.pendingComment != 0}}">{{orderCount.pendingComment}}</view>
         <text>待评价</text>
       </view>
     </block>
 
-    <block wx:if="{{orderCount.pendingRefund == 0}}">
+    <block>
       <view class="nav-item" data-type="售后服务" data-typeid="5" bindtap='onClickOrder'>
-        <van-icon name="chat-o"/>
-        <text>售后服务</text>
-      </view>
-    </block>
-    <block wx:if="{{orderCount.pendingRefund != 0}}">
-      <view class="nav-item" data-type="售后服务" data-typeid="5" bindtap='onClickOrder'>
-        <van-icon name="chat-o" info="{{orderCount.pendingRefund}}"/>
+        <van-icon name="chat-o" />
+        <view class='count-number' wx:if="{{orderCount.pendingRefund != 0}}">{{orderCount.pendingRefund}}</view>
         <text>售后服务</text>
       </view>
     </block>

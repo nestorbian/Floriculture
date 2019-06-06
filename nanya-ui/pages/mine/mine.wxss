@@ -58,6 +58,22 @@
   align-items: center;
   flex-direction: column;
   padding: 20rpx;
+  position: relative;
+}
+.nav-item .count-number {
+  background: red;
+  font-size: 11px;
+  color: white;
+  min-width: 13px;
+  min-height: 13px;
+  text-align: center;
+  border-radius: 13px;
+  position: absolute;
+  padding: 1px;
+  top: 5%;
+  right: 25%;
+  font-family:PingFang SC,Helvetica Neue,Arial,sans-serif;
+  line-height: 13px;
 }
 .nav-item .nav-image {
   width: 40rpx;

@@ -9,7 +9,7 @@ Page({
   data: {
     userInfo: {},
     show:false,
-    orderCount: {}
+    orderCount: { pendingPay: 0, pendingDelivery: 0, pendingReceive: 0, pendingComment: 0, pendingRefund: 0}
   },
   //初始化时获取用户信息
   onLoad : function () {

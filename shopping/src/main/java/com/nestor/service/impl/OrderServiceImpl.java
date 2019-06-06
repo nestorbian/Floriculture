@@ -259,7 +259,10 @@ public class OrderServiceImpl implements OrderService {
 		if (!StringUtils.isEmpty(orderQuery.getOrderStatus())) {
 			order.setOrderStatus(orderQuery.getOrderStatus());
 		}
-		Example<WxOrder> example = Example.of(order);
+		ExampleMatcher matcher = ExampleMatcher.matching().withMatcher("orderNumber",
+                ExampleMatcher.GenericPropertyMatcher.of(ExampleMatcher.StringMatcher.CONTAINING))
+                .withIgnoreNullValues();
+		Example<WxOrder> example = Example.of(order, matcher);
 		Page<WxOrder> page = orderRepository.findAll(example, pageable);
 		page.getContent().stream().forEach(item -> {
 			item.setProductImageUrl(baseImageUrl.concat(item.getProductImageUrl()));
@@ -331,7 +334,13 @@ public class OrderServiceImpl implements OrderService {
 		return countOrderView;
 	}
 
-	private PayResponse getPreOrderInfo(String orderId, String openid, BigDecimal payAmount, String productName) {
+    @Override
+    @Transactional
+    public void updatePendingPayOrder() {
+        orderRepository.updatePendingPayOrder(OrderStatus.CLOSE.toString());
+    }
+
+    private PayResponse getPreOrderInfo(String orderId, String openid, BigDecimal payAmount, String productName) {
 		PayRequest payRequest = new PayRequest();
 		log.info("orderId: [{}], openid: [{}]", orderId, openid);
 		payRequest.setOpenid(openid);
