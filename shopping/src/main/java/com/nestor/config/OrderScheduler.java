@@ -1,6 +1,5 @@
 package com.nestor.config;
 
-import com.nestor.repository.OrderRepository;
 import com.nestor.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

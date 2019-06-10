@@ -25,6 +25,8 @@ import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
+
 /**
  * <p>订单、支付</p>
  * @author bzy
@@ -42,35 +44,6 @@ public class OrderController {
 
     @Autowired
     private WxPayServiceImpl wxPayService;
-
-//    @GetMapping(path = "/order/test")
-//    @LogHttpInfo
-//    @ResponseBody
-//    public Result<PayResponse> test() {
-//        PayRequest payRequest = new PayRequest();
-//        String orderId = IdUtil.generateId();
-//        log.info("orderId: {}", orderId);
-//        payRequest.setOpenid("omKUZ49PArL_lKiXyHpS2O3v6LqM");
-//        payRequest.setOrderAmount(0.01);
-//        payRequest.setOrderId(orderId);
-//        payRequest.setOrderName("南雅花艺店订单");
-//        payRequest.setPayTypeEnum(BestPayTypeEnum.WXPAY_H5);
-//
-//        PayResponse payResponse = wxPayService.pay(payRequest);
-//        payResponse.setOrderId(orderId);
-//        return new Result<>(payResponse);
-//    }
-    
-//    @GetMapping(path = "/refund/test")
-//    @LogHttpInfo
-//    @ResponseBody
-//    public Result<RefundResponse> refund(@RequestParam(name = "orderId") String orderId) {
-//        RefundRequest refundRequest = new RefundRequest();
-//        refundRequest.setOrderId(orderId);
-//        refundRequest.setOrderAmount(0.01);
-//        refundRequest.setPayTypeEnum(BestPayTypeEnum.WXPAY_H5);
-//        return new Result<>(wxPayService.refund(refundRequest));
-//    }
 
     /**
      * 微信支付回调通知

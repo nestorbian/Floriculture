@@ -136,7 +136,7 @@ public class ProductController {
 		if (product.getProductDiscountPrice() != null) {
 			CheckUtil.notLessThanZero(product.getProductDiscountPrice(), "商品折扣价不能小于0");
 		}
-		CheckUtil.notLessThanEqualZero(product.getProductStock(), "商品库存不能小于等于0");
+		CheckUtil.notLessThanZero(product.getProductStock(), "商品库存不能小于0");
 		CheckUtil.notExceedMaxLength(product.getFlowerMaterial(), 100, "花材描述最大长度不能超过100");
 		CheckUtil.notExceedMaxLength(product.getProductPackage(), 100, "包装描述最大长度不能超过100");
 		CheckUtil.notExceedMaxLength(product.getProductScene(), 100, "场景描述最大长度不能超过100");

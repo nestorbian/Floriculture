@@ -3,6 +3,7 @@ package com.nestor.util;
 import java.math.BigDecimal;
 import java.util.List;
 
+import com.nestor.common.BizException;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -51,6 +52,12 @@ public class CheckUtil {
 			throw new ParameterException(msg);
 		}
 	}
+
+	public static void notLessThanZero(long value, String msg) {
+		if (value < 0) {
+			throw new ParameterException(msg);
+		}
+	}
 	
 	public static void notLessThanEqualZero(long value, String msg) {
 		if (value <= 0) {
@@ -90,4 +97,10 @@ public class CheckUtil {
 			throw new ParameterException(msg);
 		}
 	}
+
+	public static void sameWxAmount(BigDecimal value1, BigDecimal value2, String msg) {
+        if (Math.abs(value1.subtract(value2).doubleValue()) >= 0.01) {
+            throw new BizException(msg);
+        }
+    }
 }

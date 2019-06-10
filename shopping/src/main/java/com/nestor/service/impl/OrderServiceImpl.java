@@ -119,16 +119,15 @@ public class OrderServiceImpl implements OrderService {
 		PayResponse payResponse = wxPayService.asyncNotify(callBackBody);
 		log.info("order id is {}, callback payResponse is {}", payResponse.getOrderId(), JacksonUtil.object2JsonStr(payResponse));
 		// 验证金额
-		String orderAmount = payResponse.getOrderAmount().toString();
+		BigDecimal orderAmount = BigDecimal.valueOf(payResponse.getOrderAmount());
 		Optional<WxOrder> orderOptional = orderRepository.findById(payResponse.getOrderId());
 		if (!orderOptional.isPresent()) {
 			throw new BizException("微信支付回调时，发生订单不存在异常");
 		}
 		WxOrder orderInDB = orderOptional.get();
-		String payAmount = orderInDB.getPayAmount().toString();
-		if (!payAmount.equals(orderAmount)) {
-			throw new BizException("微信支付回调时，发生订单支付金额不一致异常");
-		}
+		BigDecimal payAmount = orderInDB.getPayAmount();
+        CheckUtil.sameWxAmount(payAmount, orderAmount, "微信支付回调时，发生订单支付金额不一致异常");
+
 		// 修改订单状态
 		orderInDB.setPayStatus(PayStatus.SUCCESS.toString());
 		orderInDB.setOrderStatus(OrderStatus.PENDING_DELIVERY.toString());
