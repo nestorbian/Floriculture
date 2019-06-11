@@ -33,8 +33,8 @@ App({
   globalData: {
     userInfo: null,
     //baseRequestUrl: 'http://localhost:80/nanyahuayi'
-    baseRequestUrl: 'https://www.ailejia.club/nanyahuayi'
-    ,phoneNum  : "18221456048"
+    baseRequestUrl: 'https://www.nanya.store/nanyahuayi'
+    ,phoneNum  : "13661500203"
   },
   // 拨打电话
   callPhone: function() {

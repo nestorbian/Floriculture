@@ -12,7 +12,7 @@
       </view>
       <view class="text">
         <text wx:if="{{userInfo.nickName}}">{{userInfo.nickName}}</text>
-        <text wx:else bindtap="toLogin">寻花觅柳无名氏</text>
+        <text wx:else bindtap="toLogin">点我登录</text>
       </view>
     </view>    
   
