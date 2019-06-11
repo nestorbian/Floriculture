@@ -19,7 +19,7 @@ Page({
     efficiency: true,
     environment: true,
     professional: true,
-    currentWordNumber:0
+    currentWordNumber: 0
   },
 
   /**
@@ -129,39 +129,40 @@ Page({
   uploadImage: function () {
     var that = this;
     return new Promise(function (resolve, reject) {
-      var len = that.data.tfps.length;
-      //图片路径的容器
-      var fUrls = new Array(len);
-      var successFlag = 0;
-      for (var i = 0; i < len; i++) {
-        wx.uploadFile({
-          url: app.globalData.baseRequestUrl + '/admin/images/one', // 仅为示例，非真实的接口地址
-          filePath: that.data.tfps[i],
-          name: "image",
-          formData: {
-            type: 'comment'
-          },
-          header: {
-            "Content-Type": "multipart/form-data"
-          },
-          success(res) {
-            // do something
-            //fUrls = fUrls + JSON.parse(res.data).data.imageUrl + ";";
-            fUrls.push(JSON.parse(res.data).data.imageUrl);
-
-            that.setData({
-              fileUrls: fUrls.toString()
-            })
-            successFlag++;
-            if (successFlag == len) {
-              console.log("success")
-              resolve(res)
+      if (that.data.tfps == null) {
+        resolve("ok");
+      } else {
+        var len = that.data.tfps.length;
+        //图片路径的容器
+        var fUrls = new Array(len);
+        var successFlag = 0;
+        for (var i = 0; i < len; i++) {
+          wx.uploadFile({
+            url: app.globalData.baseRequestUrl + '/admin/images/one',
+            filePath: that.data.tfps[i],
+            name: "image",
+            formData: {
+              type: 'comment'
+            },
+            header: {
+              "Content-Type": "multipart/form-data"
+            },
+            success(res) {
+              fUrls.push(JSON.parse(res.data).data.imageUrl);
+              that.setData({
+                fileUrls: fUrls.toString()
+              })
+              successFlag++;
+              if (successFlag == len) {
+                console.log("success")
+                resolve(res)
+              }
+            }, fail() {
+              reject();
+              console.log("fail")
             }
-          }, fail() {
-            reject();
-            console.log("fail")
-          }
-        })
+          })
+        }
       }
     })
   },
@@ -184,7 +185,6 @@ Page({
           thirdSession: thirdSession
         },
         success(res) {
-          console.log(res);
           resolve(res)
         }, fail() {
           reject();
@@ -229,7 +229,7 @@ Page({
   //字数限制  
   inputs: function (e) {
     // 获取输入框的内容
-    var value = e.detail.value + "[" + this.data.text+"]" ;
+    var value = e.detail.value + "[" + this.data.text + "]";
     // 获取输入框内容的长度
     var len = parseInt(value.length);
     //最多字数限制
@@ -237,7 +237,7 @@ Page({
     // 当输入框内容的长度大于最大长度限制（max)时，终止setData()的执行
     this.setData({
       currentWordNumber: len //当前字数  
-      ,text : value
+      , text: value
     });
   }
 })
