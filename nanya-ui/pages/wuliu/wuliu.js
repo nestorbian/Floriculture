@@ -16,11 +16,11 @@ Page({
    */
   onLoad: function (options) {
     var that = this;
-    //var num = options.trackingNumber;
-   // var phone = options.phoneNumber;
+    //物流单号
+    var num = options.trackingNumber;
+    //收件人手机号
+    var phone = options.phoneNumber;
 
-    var num = '046324413852';
-    var phone = '17612157621';
 
     var customer = '1D8BAC25EE2166D21E16A2885561D76B';
     var com = 'shunfeng';
@@ -42,10 +42,11 @@ Page({
       },
       success(res) {
         console.log(res.data.data);
-        that.setData({
-          wuLiu: res.data.data
-        })
-        // console.log(that.data.wuLiu)
+        if (typeof (res.data.data) != 'undefined') {
+          that.setData({
+            wuLiu: res.data.data[0].data
+          })
+        }
     }
     })
 
@@ -157,8 +158,7 @@ Page({
         'content-type': 'application/x-www-form-urlencoded'
       },
       success(res) {
-        console.log(res.data);
-        if (typeof (res.data.data[0]) != 'undefined') {
+        if (typeof (res.data.data[0].data) != undefined) {
           that.setData({
             wuLiu: res.data.data[0].data
           })
