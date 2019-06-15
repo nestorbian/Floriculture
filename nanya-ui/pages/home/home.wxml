@@ -21,11 +21,11 @@
       <text>品牌故事</text>
     </view>
     <view class='right-border'>
-      <image src='../../images/nav_1.png'></image>
+      <image src='../../images/nav_2.png'></image>
       <text>私人订制</text>
     </view>
     <view>
-      <image src='../../images/nav_1.png'></image>
+      <image src='../../images/nav_3.png'></image>
       <text>媒体报道</text>
     </view>
   </view>
