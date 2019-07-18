@@ -1,17 +1,16 @@
 package com.nestor.controller;
 
-import java.util.ArrayList;
-
+import com.nestor.common.LogHttpInfo;
+import com.nestor.entity.Result;
+import com.nestor.entity.WxAddress;
+import com.nestor.service.AddressService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.nestor.common.LogHttpInfo;
-import com.nestor.entity.Result;
-import com.nestor.entity.WxAddress;
-import com.nestor.service.AddressService;
+import java.util.ArrayList;
 
 @RestController
 @RequestMapping("/addressController")

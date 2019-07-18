@@ -50,6 +50,9 @@ spring:
 
 logging: 
   config: classpath:logback-spring.xml
+#  设置显示sql参数打印
+#  level:
+#    org.hibernate.type.descriptor.sql.BasicBinder: trace
 
 #定义图片基础目录、基础访问路径
 image: 
