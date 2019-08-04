@@ -2,8 +2,10 @@ server:
   port: 8000
   servlet:
     context-path: /nanyahuayi
+  tomcat:
+    basedir: /deploy/tomcat
 
-spring:  
+spring:
   servlet:
     multipart:
       max-file-size: 10Mb
