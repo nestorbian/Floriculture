@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.google.gson.Gson;
-import com.nestor.common.LogHttpInfo;
 import com.nestor.common.LoginExpiredException;
 import com.nestor.config.WechatAccountConfig;
 import com.nestor.entity.WxUser;

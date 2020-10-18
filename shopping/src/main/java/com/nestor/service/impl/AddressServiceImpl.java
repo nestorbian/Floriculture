@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nestor.common.BizException;
-import com.nestor.common.LogHttpInfo;
 import com.nestor.entity.WxAddress;
 import com.nestor.repository.AddressRepository;
 import com.nestor.repository.WxLoginRepository;
@@ -74,7 +73,6 @@ public class AddressServiceImpl implements AddressService  {
 	/*
 	 * 用来获取单个地址信息	 *
 	 */
-	@LogHttpInfo
 	public String delAddress(String id) {
 		if(id == null ) {return null ;}
 		addR.deleteById(id);
