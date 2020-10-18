@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8000
   servlet:
     context-path: /nanyahuayi
 
@@ -9,9 +9,9 @@ spring:
       max-file-size: 10Mb
       max-request-size: 100Mb
   datasource: 
-    url: jdbc:mysql://129.204.173.36:3306/nanya?useUnicode=true&characterEncoding=utf-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/nanya?useUnicode=true&characterEncoding=utf-8&useSSL=false
     username: root
-    password: NANyahuayi123,
+    password: 123456
     driver-class-name: com.mysql.jdbc.Driver
     # Druid连接池 提供统计监控信息
     type: com.alibaba.druid.pool.DruidDataSource
@@ -39,14 +39,17 @@ spring:
     connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
     # 合并多个DruidDataSource的监控数据
     #useGlobalDataSourceStat: true
-  jpa: 
+  jpa:
     properties: 
-      hibernate: 
-        hbm2ddl: 
-          auto: update
+      hibernate:
+#        hbm2ddl:
+#          auto: update
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
     format_sql: true
+    # 禁止自动DDL
+    hibernate:
+      ddl-auto: none
 
 logging: 
   config: classpath:logback-spring.xml

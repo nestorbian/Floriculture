@@ -35,7 +35,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public Result<?> handleBizExcption(BaseException e) {
-        log.error("运行时异常： {}", e.toString());
+        log.error("运行时异常：", e);
         return new Result<>(e.getCode(), e.getMessage());
     }
 
@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public Result<?> handleBizExcption(MaxUploadSizeExceededException e) {
-        log.error("上传文件异常： {}", e.toString());
+        log.error("上传文件异常：", e);
         return new Result<>(uploadSizeExceededExceptionCode, uploadSizeExceededExceptionMsg);
     }
 
@@ -63,9 +63,9 @@ public class GlobalExceptionHandler {
     @ResponseStatus(value = HttpStatus.INTERNAL_SERVER_ERROR)
     @ResponseBody
     public Result<?> handleRuntimeException(RuntimeException e) {
-        log.error("未知异常： {}", e.toString());
-        String stackTrace = ExceptionUtils.getStackTrace(e);
-        log.error("exception stack: {}", stackTrace);
+        log.error("未知异常：", e);
+        // String stackTrace = ExceptionUtils.getStackTrace(e);
+        // log.error("exception stack: {}", stackTrace);
         return new Result<>(UNKNOWN_EXCEPTION, e.toString());
     }
 }

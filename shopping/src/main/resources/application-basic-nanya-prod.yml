@@ -44,11 +44,13 @@ spring:
   jpa:
     properties:
       hibernate:
-        hbm2ddl:
-          auto: update
+#        hbm2ddl:
+#          auto: update
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
     format_sql: true
+    hibernate:
+      ddl-auto: none
 
 logging:
   config: classpath:logback-spring.xml
