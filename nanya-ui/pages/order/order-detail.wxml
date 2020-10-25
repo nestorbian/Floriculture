@@ -86,11 +86,11 @@
 
 </view>
 <van-notify id="van-notify" />
-<van-popup  show="{{ show }}"  overlay=true
+<!-- <van-popup  show="{{ show }}"  overlay=true
   data-orderid="{{orderData.orderId}}"
   bind:close="refund" >
   <van-icon name="phone-o"  size="4em"  style="background-color:#66cc99" bind:click="callPhone"/>
   
-</van-popup>
+</van-popup> -->
 
 <van-dialog id="van-dialog" />
