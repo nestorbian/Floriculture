@@ -16,7 +16,17 @@ public class OrderScheduler {
     @Autowired
     private OrderService orderService;
 
-    @Scheduled(cron = "0 0 1 * * ?")
+    
+    /**
+     * 每一分钟处理一次
+     *
+     * @param 
+     * @return void
+     * @date : 2020/10/24 22:16
+     * @author : Nestor.Bian
+     * @since : 1.0
+     */
+    @Scheduled(cron = "* 0/1 * * * ?")
     public void closePendingPayOrder() {
         log.warn("开始处理过期的待支付订单..");
         orderService.updatePendingPayOrder();
