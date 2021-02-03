@@ -17,6 +17,15 @@ public class CorsConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
+        /*
+            在OPTIONS请求响应里加上
+            Access-Control-Allow-Origin: '*'
+            Access-Control-Allow-Credentials: true
+            Access-Control-Allow-Headers: '*'
+            Access-Control-Allow-Methods: "GET", "POST", "DELETE", "PUT", "PATCH"
+            标志服务器允许所有域名访问、支持通过cookies传递信息、支持的所有请求头、支持GET、POST、DELETE、PUT、PATCH请求类型
+            让浏览器客户端有权限跨域访问
+         */
         registry.addMapping("/**").allowedOrigins("*").allowCredentials(true)
                 .allowedMethods("GET", "POST", "DELETE", "PUT", "PATCH").maxAge(3600).allowedHeaders("*");
     }
