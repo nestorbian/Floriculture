@@ -26,7 +26,7 @@ public class OrderScheduler {
      * @author : Nestor.Bian
      * @since : 1.0
      */
-    @Scheduled(cron = "* 0/1 * * * ?")
+    @Scheduled(cron = "0 0/1 * * * ?")
     public void closePendingPayOrder() {
         log.warn("开始处理过期的待支付订单..");
         orderService.updatePendingPayOrder();
